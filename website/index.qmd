@@ -1,7 +1,25 @@
 ---
-title: "PyCon 2025 Labs"
+title: "Posit, PBC @ PyCon 2025"
+toc: false
 ---
 
-This is a Quarto website.
+[![](img/pycon-expo-hall-marked.png)](https://us.pycon.org/2025/attend/expo-hall/){target="_blank"}
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+## We’re excited to be in Pittsburgh for PyCon 2025!
+
+You can find the Posit team in the Community Booths at [**Booth #523**](https://us.pycon.org/2025/attend/expo-hall/){target="_blank"},
+and we’d love for you to stop by, say hi, and catch up on the exciting things we’ve been building.
+
+
+
+## Giveaway!
+
+**Speaking of exciting:**
+We’re giving away 10 signed copies of
+[Python Polars: The Definitive Guide](https://polarsguide.com/){target="_blank"},
+co-authored by our very own
+[Jeroen Janssens](https://jeroenjanssens.com/){target="_blank"} and
+[Thijs Nieuwdorp](https://www.linkedin.com/in/thijsnieuwdorp/){target="_blank"}
+— swing by our booth and enter for a chance to win!
+
+Whether you want to talk Python, check out a quick demo, or just grab some great swag, we hope you’ll come see us.
