@@ -1,0 +1,1 @@
+Shiny makes it easy to create rich, **interactive** experiences in **pure Python** with a fully **reactive** framework. **No JavaScript** required!
