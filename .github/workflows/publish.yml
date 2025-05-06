@@ -19,6 +19,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      PATH: .venv/bin:$PATH  # Make sure .venv is on PATH
 
     steps:
       - name: Check out repository
@@ -29,12 +30,24 @@ jobs:
         with:
           tinytex: false
 
-      - name: Install Python and Dependencies
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: 'pip'
-      - run: pip install -r requirements.txt
+
+      - name: Cache uv packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: uv-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            uv-${{ runner.os }}-
+
+      - name: Install uv and dependencies
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          uv venv .venv
+          .venv/bin/uv pip install -r requirements.txt
 
       - name: 📰 Render and Publish to GitHub Pages
         uses: gadenbuie/quarto-actions/publish@quarto-render-working-dir
