@@ -14,3 +14,6 @@ preview:
 
 serve:
 	make preview
+
+publish:
+	cd website && quarto render

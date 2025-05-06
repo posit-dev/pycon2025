@@ -1,0 +1,43 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "website/**"
+      - ".github/workflows/publish.yml"
+
+name: Render and Publish
+
+permissions:
+    contents: write
+    pages: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: 📘 Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install requirements
+        run: uv pip install -r requirements.txt
+        env:
+          UV_SYSTEM_PYTHON: 1
+
+      - name: 📰 Render and Publish to GitHub Pages
+        uses: gadenbuie/quarto-actions/publish@quarto-render-working-dir
+        with:
+          target: gh-pages
+          working-directory: website
