@@ -1,0 +1,10 @@
+---
+title: Shiny + GenAI
+---
+
+{{< include shiny-include.qmd >}}
+
+
+## Learn more
+
+- [Shiny for AI Docs](https://shiny.posit.co/py/docs/genai-inspiration.html)

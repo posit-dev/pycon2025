@@ -1,0 +1,56 @@
+---
+title: Plotnine
+---
+
+## Import and prototype
+
+We'll be using `palmerpenguins` for the dataset,
+and `plotnine` to visualize the palmer penguin's `bill_length_mm` column as a histogram.
+
+```{python}
+from palmerpenguins import load_penguins
+
+penguins = load_penguins()
+penguins.head()
+```
+
+We'll be creating a base histogram using `plotnine` as follows:
+
+```{python}
+from plotnine import aes, geom_histogram, ggplot, theme_minimal
+
+g = ggplot(penguins, aes(x="bill_length_mm")) + geom_histogram()
+g
+```
+
+### Add some layers
+
+Now we want to highlight part of the histogram.
+We do this by adding another data and aesthetic layer to our plotnine figure.
+
+```{python}
+species = "Adelie" # selected species
+selected = penguins.loc[penguins.species == species] # selected data
+selected
+```
+
+Now that we have the new data, we can add the new selected dataframe to our original figure, `g`
+
+```{python}
+g + geom_histogram(data=selected, fill="#447099")
+```
+
+### Fix up the histogram
+
+The 2 different `bill_length_mm` are plotted as independent histograms,
+so the auto binning is causing the bars to not line up.
+Let's re-create our plot and also set a uniform bin width by setting `binwidth=1`.
+
+
+```{python}
+(
+    ggplot(aes(x="bill_length_mm"))
+    + geom_histogram(penguins, fill="#C2C2C4", binwidth=1)
+    + geom_histogram(selected, fill="#447099", binwidth=1)
+)
+```

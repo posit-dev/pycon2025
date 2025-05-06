@@ -1,0 +1,88 @@
+project:
+  type: website
+  preview:
+    port: 5432
+  render:
+    - "./*.qmd"
+    - "tutorials/*/*.qmd"
+    - "*.qmd"
+
+website:
+  title: "PyCon Labs"
+  description: "Come check out the tools Posit, PBC has to offer at PyCon 2025."
+  site-url: https://posit-dev.github.io/pycon2025-labs
+
+  page-footer: |
+    <a href="https://posit-dev.github.io/pycon2025-labs">Posit@PyCon2025</a>
+
+
+  repo-url: https://github.com/posit-dev/pycon2025-labs
+  repo-subdir: website
+  repo-actions: [edit, issue]
+
+  navbar:
+    left:
+      - text: Shiny Dashboards
+        href: tutorials/shiny/shiny-express.qmd
+
+      - text: Quarto Publishing
+        href: tutorials/quarto/index.qmd
+
+      - text: Positron IDE
+        href: tutorials/positron/index.qmd
+
+      - text: OSS Packages
+        href: tutorials/oss/index.qmd
+
+      - text: Connect Cloud Deployment
+        href: tutorials/connect/index.qmd
+
+    right:
+      - about.qmd
+
+  sidebar:
+    - id: shiny
+      style: docked
+      type: light
+      background: light
+      foreground: dark
+      contents:
+        - tutorials/shiny/shiny-express.qmd
+        - tutorials/shiny/shiny-core.qmd
+        - tutorials/shiny/shiny-ai.qmd
+        - tutorials/shiny/deploy.qmd
+
+    - id: oss
+      style: docked
+      type: light
+      background: light
+      foreground: dark
+      contents:
+        - tutorials/oss/index.qmd
+
+        - tutorials/oss/plotnine.qmd
+        - tutorials/oss/pointblank.qmd
+
+        - tutorials/oss/greattables.qmd
+
+        - tutorials/oss/vetiver.qmd
+        - tutorials/oss/pins.qmd
+
+        - tutorials/oss/chatlas.qmd
+format:
+  html:
+    theme:
+      - zephyr
+      - brand
+    css: styles.css
+    toc: true
+
+filters:
+  - shinylive
+  - line-highlight
+
+editor:
+  render-on-save: true
+
+execute:
+  warning: false
