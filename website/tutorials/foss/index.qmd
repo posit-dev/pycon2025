@@ -1,0 +1,5 @@
+---
+title: Free/Open Source @ Posit
+---
+
+![](/img/foss-projects.png)

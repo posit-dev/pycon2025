@@ -31,8 +31,8 @@ website:
       - text: Positron IDE
         href: tutorials/positron/index.qmd
 
-      - text: OSS Packages
-        href: tutorials/oss/index.qmd
+      - text: F/OSS Tools
+        href: tutorials/foss/index.qmd
 
       - text: Connect Cloud Deployment
         href: tutorials/connect/index.qmd
@@ -55,8 +55,8 @@ website:
       background: light
       foreground: dark
       contents:
-        - tutorials/oss/index.qmd
-        - auto: tutorials/oss/*
+        - tutorials/foss/index.qmd
+        - auto: tutorials/foss/*
 format:
   html:
     theme:
