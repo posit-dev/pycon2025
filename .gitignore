@@ -176,3 +176,4 @@ cython_debug/
 /.quarto/
 *.quarto_ipynb
 website/_site
+.DS_Store

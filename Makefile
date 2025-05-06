@@ -16,4 +16,4 @@ serve:
 	make preview
 
 publish:
-	cd website && quarto render
+	cd website && quarto render && quarto publish gh-pages
