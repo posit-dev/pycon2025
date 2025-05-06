@@ -377,4 +377,5 @@ or copy + paste the code and run it in your IDE.
 
 - [Shiny get started guide](https://shiny.posit.co/py/get-started/)
 - ShinyConf 2025 Presentation by Isabella Velásquez: [Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny](https://ivelasq-shinyconf2025.share.connect.posit.cloud/)
+- ShinyConf 2025 Presentation by Daniel Chen: [Creating and Sharing Scalable Applications with Shiny](https://github.com/chendaniely/shinyconf2025-scalable_apps)
 <!-- TODO: more links -->
