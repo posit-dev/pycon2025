@@ -56,7 +56,7 @@ website:
       foreground: dark
       contents:
         - tutorials/foss/index.qmd
-        - auto: tutorials/foss/*
+        - auto: tutorials/foss/*.qmd
 format:
   html:
     theme:
