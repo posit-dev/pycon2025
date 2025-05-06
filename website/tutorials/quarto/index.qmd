@@ -1,0 +1,7 @@
+---
+title: Quarto
+subtitle: An open-source scientific and technical publishing system
+---
+
+
+You're looking at a Quarto project right now!
