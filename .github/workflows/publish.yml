@@ -48,9 +48,7 @@ jobs:
           uv pip install --system -r requirements.txt
 
       - name: 📰 Render and Publish to GitHub Pages
-        uses: quarto-dev/quarto-actions/render@v2
+        uses: gadenbuie/quarto-actions/publish@quarto-render-working-dir
         with:
           target: gh-pages
-          path: website
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: website
