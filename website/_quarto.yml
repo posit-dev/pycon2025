@@ -55,6 +55,7 @@ website:
       background: light
       foreground: dark
       contents:
+        - tutorials/quarto/index.qmd
         - auto: tutorials/quarto/*.qmd
 
     - id: positron
