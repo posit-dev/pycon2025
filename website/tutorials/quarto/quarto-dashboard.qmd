@@ -1,0 +1,11 @@
+---
+title: Quarto dashboards
+order: 20
+---
+
+## Learn more
+
+
+
+- ShinyConf 2025 Presentation by Isabella Velásquez: [Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny](https://ivelasq-shinyconf2025.share.connect.posit.cloud/)
+- R-Ladies-Rome 2024 presentation by Isabella Velásquez: [Quarto Dashboards](https://0190c2c9-dd44-d440-0f97-f3b3bf073d0f.share.connect.posit.cloud/)
