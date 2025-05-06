@@ -1,7 +1,0 @@
-shiny
-ipykernel
-palmerpenguins
-plotnine[all]
-shinylive
-PyYAML
-jupyter

@@ -1,0 +1,1 @@
+Sitemap: https://posit-dev.github.io/pycon2025-labs/sitemap.xml
