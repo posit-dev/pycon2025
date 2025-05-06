@@ -47,7 +47,14 @@ website:
       background: light
       foreground: dark
       contents:
-        - auto: tutorials/shiny/*
+
+    - id: positron
+      style: docked
+      type: light
+      background: light
+      foreground: dark
+      contents:
+        - auto: tutorials/positron/*.qmd
 
     - id: oss
       style: docked
