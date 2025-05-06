@@ -42,10 +42,10 @@ import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
 # recode variable
-penguins['is_gentoo'] = (penguins['species'] == 'Gentoo').astype(int)
+penguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)
 
 # logistic regression
-model = smf.logit("is_gentoo ~  bill_depth_mm + body_mass_g + flipper_length_mm", data=penguins).fit()
+model = smf.logit("is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm", data=penguins).fit()
 print(model.summary())
 ```
 
@@ -79,7 +79,7 @@ from plotnine import *
 ```{python}
 from sklearn.metrics import roc_curve, auc
 
-fpr, tpr, _ = roc_curve(penguins['is_gentoo'], penguins['pred_prob'])
+fpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])
 roc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})
 
 (
@@ -116,9 +116,9 @@ coef_df = pd.DataFrame({
 
 ```{python}
 (
-    ggplot(penguins, aes(x='pred_prob', fill='factor(is_gentoo)')) +
+    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +
     geom_density(alpha=0.6) +
-    scale_fill_manual(values=['#E69F00', '#56B4E9'], name="Is Gentoo") +
+    scale_fill_manual(values=['#E69F00', '#56B4E9'], name="Is Adelie") +
     labs(title="Predicted Probability Distribution", x="Predicted Probability") +
     theme_minimal()
 )
