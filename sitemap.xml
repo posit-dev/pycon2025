@@ -2,58 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/shiny/includes/shiny-include.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <lastmod>2025-05-06T17:28:43.257Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/shiny/shiny-core.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <lastmod>2025-05-06T17:28:43.257Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/shiny/deploy.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <lastmod>2025-05-06T17:28:43.256Z</lastmod>
   </url>
   <url>
-    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/oss/pointblank.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/foss/pointblank.html</loc>
+    <lastmod>2025-05-06T17:28:43.256Z</lastmod>
   </url>
   <url>
-    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/oss/pins.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/foss/pins.html</loc>
+    <lastmod>2025-05-06T17:28:43.256Z</lastmod>
   </url>
   <url>
-    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/oss/greattables.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/foss/greattables.html</loc>
+    <lastmod>2025-05-06T17:28:43.256Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/pycon2025-labs/about.html</loc>
-    <lastmod>2025-05-06T17:12:06.998Z</lastmod>
+    <lastmod>2025-05-06T17:28:43.248Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/pycon2025-labs/index.html</loc>
-    <lastmod>2025-05-06T17:12:07.004Z</lastmod>
+    <lastmod>2025-05-06T17:28:43.255Z</lastmod>
   </url>
   <url>
-    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/oss/chatlas.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/foss/chatlas.html</loc>
+    <lastmod>2025-05-06T17:28:43.256Z</lastmod>
   </url>
   <url>
-    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/oss/plotnine.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/foss/index.html</loc>
+    <lastmod>2025-05-06T17:28:43.256Z</lastmod>
   </url>
   <url>
-    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/oss/vetiver.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/foss/plotnine.html</loc>
+    <lastmod>2025-05-06T17:28:43.256Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/foss/vetiver.html</loc>
+    <lastmod>2025-05-06T17:28:43.256Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/quarto/index.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <lastmod>2025-05-06T17:28:43.256Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/shiny/shiny-ai.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <lastmod>2025-05-06T17:28:43.257Z</lastmod>
   </url>
   <url>
     <loc>https://posit-dev.github.io/pycon2025-labs/tutorials/shiny/shiny-express.html</loc>
-    <lastmod>2025-05-06T17:12:07.005Z</lastmod>
+    <lastmod>2025-05-06T17:28:43.257Z</lastmod>
   </url>
 </urlset>
