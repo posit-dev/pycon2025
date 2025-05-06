@@ -2,4 +2,8 @@
 title: "About"
 ---
 
-About this site
+Who's at the booth
+
+<!-- TODO add photos to people -->
+
+Jason Milnes, Joe Cheng, Carson Sievert, Daniel Chen, Alex Chisholm
