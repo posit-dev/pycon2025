@@ -47,6 +47,8 @@ website:
       background: light
       foreground: dark
       contents:
+        - auto: tutorials/shiny/*.qmd
+
 
     - id: positron
       style: docked
