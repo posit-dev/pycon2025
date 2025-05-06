@@ -1,0 +1,123 @@
+---
+title: Reference analysis code
+order: 90
+---
+
+Example script and output before putting it into a Quarto report.
+
+```{python}
+import pandas as pd
+from plotnine import ggplot, aes, geom_point
+from palmerpenguins import load_penguins
+
+penguins = load_penguins()
+penguins.shape
+```
+
+```{python}
+penguins = penguins.dropna()
+penguins.shape
+```
+
+### Identify predictors
+
+```{python}
+ggplot(penguins, aes(x="bill_depth_mm", y="body_mass_g", color='species')) + geom_point()
+```
+
+```{python}
+ggplot(penguins, aes(x="bill_depth_mm", y="flipper_length_mm", color='species')) + geom_point()
+```
+
+```{python}
+ggplot(penguins, aes(x="body_mass_g", y="flipper_length_mm", color='species')) + geom_point()
+```
+
+### Model
+
+```{python}
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+penguins['is_gentoo'] = (penguins['species'] == 'Gentoo').astype(int)
+
+model = smf.logit("is_gentoo ~  bill_depth_mm + body_mass_g + flipper_length_mm", data=penguins).fit()
+print(model.summary())
+```
+
+
+### Model results
+
+```{python}
+model.params.to_frame("Estimate")
+```
+
+```{python}
+# Predicted probabilities for first few rows
+penguins["predicted"] = model.predict()
+penguins[["species", "predicted"]].head()
+```
+
+```{python}
+penguins['pred_prob'] = model.predict()
+```
+
+```{python}
+from plotnine import *
+
+(
+    ggplot(penguins, aes(x='species', y='pred_prob')) +
+    geom_boxplot(fill='#56B4E9') +
+    labs(title="Predicted Probability of Gentoo by Species",
+         y="Predicted Probability", x="Species") +
+    theme_minimal()
+)
+```
+
+```{python}
+from sklearn.metrics import roc_curve, auc
+
+fpr, tpr, _ = roc_curve(penguins['is_gentoo'], penguins['pred_prob'])
+roc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})
+
+(
+    ggplot(roc_df, aes(x='fpr', y='tpr')) +
+    geom_line(color='blue') +
+    geom_abline(slope=1, intercept=0, linetype='dashed') +
+    labs(title="ROC Curve", x="False Positive Rate", y="True Positive Rate") +
+    theme_minimal()
+)
+```
+
+```{python}
+import numpy as np
+
+coefs = model.params.drop("Intercept")
+errors = model.bse.drop("Intercept")
+coef_df = pd.DataFrame({
+    'term': coefs.index,
+    'estimate': coefs.values,
+    'lower': coefs - 1.96 * errors,
+    'upper': coefs + 1.96 * errors
+})
+
+(
+    ggplot(coef_df, aes(x='term', y='estimate')) +
+    geom_point() +
+    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +
+    geom_hline(yintercept=0, linetype='dashed', color='gray') +
+    labs(title="Model Coefficients (95% CI)", y="Estimate", x="Term") +
+    theme_minimal() +
+    theme(axis_text_x=element_text(rotation=45, hjust=1))
+)
+```
+
+```{python}
+(
+    ggplot(penguins, aes(x='pred_prob', fill='factor(is_gentoo)')) +
+    geom_density(alpha=0.6) +
+    scale_fill_manual(values=['#E69F00', '#56B4E9'], name="Is Gentoo") +
+    labs(title="Predicted Probability Distribution", x="Predicted Probability") +
+    theme_minimal()
+)
+```

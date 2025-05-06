@@ -49,6 +49,13 @@ website:
       contents:
         - auto: tutorials/shiny/*.qmd
 
+    - id: quarto
+      style: docked
+      type: light
+      background: light
+      foreground: dark
+      contents:
+        - auto: tutorials/quarto/*.qmd
 
     - id: positron
       style: docked

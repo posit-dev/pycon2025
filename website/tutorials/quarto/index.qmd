@@ -1,7 +1,27 @@
 ---
-title: Quarto
+title: Try Quarto
 subtitle: An open-source scientific and technical publishing system
+order: 10
 ---
 
 
 You're looking at a Quarto project right now!
+
+## Scenario
+
+You are a data scientist working on code for an analysis **identifying Gentoo Penguins**.
+and now need to share the results as a report.
+
+This is a high-level meeting with leadership,
+and you are going to present your findings.
+
+## The analysis
+
+
+## Quarto report
+
+
+## Learn more
+
+- [Quarto get started](https://quarto.org/docs/get-started/)
+- [Quarto guides](https://quarto.org/docs/guide/)

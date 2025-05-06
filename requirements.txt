@@ -5,3 +5,7 @@ plotnine[all]
 shinylive
 PyYAML
 jupyter
+statsmodels
+pandas
+seaborn
+matplotlib
