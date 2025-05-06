@@ -1,8 +1,9 @@
 ---
 title: Shiny + GenAI
+order: 30
 ---
 
-{{< include shiny-include.qmd >}}
+{{< include includes/shiny-include.qmd >}}
 
 
 ## Learn more

@@ -1,10 +1,14 @@
 ---
 title: Try Shiny Express
+order: 10
 execute:
-  warning: false
+    warning: false
+
+filters:
+    - line-highlight
 ---
 
-{{< include shiny-include.qmd >}}
+{{< include includes/shiny-include.qmd >}}
 
 ## Shiny Express
 
@@ -16,7 +20,7 @@ Give it a try! See how the different penguin distributions compare to one anothe
 #| components: [viewer]
 #| viewerHeight: 500
 
-{{< include app-express.py >}}
+{{< include includes/app-express.py >}}
 
 ```
 
@@ -308,8 +312,8 @@ Here we have to add round parenthesis to the value,
 because we're trying to get the actual value stored in the `species` input.
 
 :::{.callout-important}
-## Don't forget the parenthesis `()`!
-Don't forget to add a set of round parentesis, `()` when you are trying to get the value of a component.
+## Don't forget the round parenthesis `()`!
+Don't forget to add a set of round parenthesis, `()` when you are trying to get the value of a component.
 You need to "call" it for Shiny to compute its value.
 This is how we work with
 [reactivity in shiny](https://shiny.posit.co/py/docs/reactive-foundations.html),
@@ -365,7 +369,7 @@ or copy + paste the code and run it in your IDE.
 #| layout: vertical
 #| viewerHeight: 500
 
-{{< include app-express.py >}}
+{{< include includes/app-express.py >}}
 ```
 
 

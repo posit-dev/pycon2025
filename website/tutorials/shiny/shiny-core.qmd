@@ -1,8 +1,9 @@
 ---
 title: Try Shiny Core
+order: 20
 ---
 
-{{< include shiny-include.qmd >}}
+{{< include includes/shiny-include.qmd >}}
 
 ## Shiny Core
 
