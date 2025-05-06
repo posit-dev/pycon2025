@@ -40,25 +40,59 @@
     ]
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "tutorials/quarto/index.html",
+    "href": "tutorials/quarto/index.html",
+    "title": "Try Quarto",
     "section": "",
-    "text": "About this site"
+    "text": "You’re looking at a Quarto project right now!",
+    "crumbs": [
+      "Quarto Publishing",
+      "Try Quarto"
+    ]
   },
   {
-    "objectID": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
-    "href": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
-    "title": "Posit, PBC @ PyCon 2025",
-    "section": "We’re excited to be in Pittsburgh for PyCon 2025!",
-    "text": "We’re excited to be in Pittsburgh for PyCon 2025!\nYou can find the Posit team in the Community Booths at Booth #523, and we’d love for you to stop by, say hi, and catch up on the exciting things we’ve been building."
+    "objectID": "tutorials/quarto/index.html#scenario",
+    "href": "tutorials/quarto/index.html#scenario",
+    "title": "Try Quarto",
+    "section": "Scenario",
+    "text": "Scenario\nYou are a data scientist working on code for an analysis identifying Gentoo Penguins. and now need to share the results as a report.\nThis is a high-level meeting with leadership, and you are going to present your findings.",
+    "crumbs": [
+      "Quarto Publishing",
+      "Try Quarto"
+    ]
   },
   {
-    "objectID": "index.html#giveaway",
-    "href": "index.html#giveaway",
-    "title": "Posit, PBC @ PyCon 2025",
-    "section": "Giveaway!",
-    "text": "Giveaway!\nSpeaking of exciting: We’re giving away 10 signed copies of Python Polars: The Definitive Guide, co-authored by our very own Jeroen Janssens and Thijs Nieuwdorp — swing by our booth and enter for a chance to win!\nWhether you want to talk Python, check out a quick demo, or just grab some great swag, we hope you’ll come see us."
+    "objectID": "tutorials/quarto/index.html#the-analysis",
+    "href": "tutorials/quarto/index.html#the-analysis",
+    "title": "Try Quarto",
+    "section": "The analysis",
+    "text": "The analysis",
+    "crumbs": [
+      "Quarto Publishing",
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html#quarto-report",
+    "href": "tutorials/quarto/index.html#quarto-report",
+    "title": "Try Quarto",
+    "section": "Quarto report",
+    "text": "Quarto report",
+    "crumbs": [
+      "Quarto Publishing",
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html#learn-more",
+    "href": "tutorials/quarto/index.html#learn-more",
+    "title": "Try Quarto",
+    "section": "Learn more",
+    "text": "Learn more\n\nQuarto get started\nQuarto guides",
+    "crumbs": [
+      "Quarto Publishing",
+      "Try Quarto"
+    ]
   },
   {
     "objectID": "tutorials/foss/plotnine.html",
@@ -83,11 +117,58 @@
     ]
   },
   {
-    "objectID": "tutorials/quarto/index.html",
-    "href": "tutorials/quarto/index.html",
-    "title": "Quarto",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "You’re looking at a Quarto project right now!"
+    "text": "Who’s at the booth\n\nJason Milnes, Joe Cheng, Carson Sievert, Daniel Chen, Alex Chisholm"
+  },
+  {
+    "objectID": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
+    "href": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
+    "title": "Posit, PBC @ PyCon 2025",
+    "section": "We’re excited to be in Pittsburgh for PyCon 2025!",
+    "text": "We’re excited to be in Pittsburgh for PyCon 2025!\nYou can find the Posit team in the Community Booths at Booth #523, and we’d love for you to stop by, say hi, and catch up on the exciting things we’ve been building."
+  },
+  {
+    "objectID": "index.html#giveaway",
+    "href": "index.html#giveaway",
+    "title": "Posit, PBC @ PyCon 2025",
+    "section": "Giveaway!",
+    "text": "Giveaway!\nSpeaking of exciting: We’re giving away 10 signed copies of Python Polars: The Definitive Guide, co-authored by our very own Jeroen Janssens and Thijs Nieuwdorp — swing by our booth and enter for a chance to win!\nWhether you want to talk Python, check out a quick demo, or just grab some great swag, we hope you’ll come see us."
+  },
+  {
+    "objectID": "tutorials/quarto/quarto-dashboard.html",
+    "href": "tutorials/quarto/quarto-dashboard.html",
+    "title": "Quarto dashboards",
+    "section": "",
+    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
+    "crumbs": [
+      "Quarto Publishing",
+      "Quarto dashboards"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/quarto-dashboard.html#learn-more",
+    "href": "tutorials/quarto/quarto-dashboard.html#learn-more",
+    "title": "Quarto dashboards",
+    "section": "",
+    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
+    "crumbs": [
+      "Quarto Publishing",
+      "Quarto dashboards"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/reference_analysis_code.html",
+    "href": "tutorials/quarto/reference_analysis_code.html",
+    "title": "Reference analysis code",
+    "section": "",
+    "text": "Example script and output before putting it into a Quarto report.\n\nimport pandas as pd\nfrom plotnine import ggplot, aes, geom_point\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.shape\n\n(344, 8)\n\n\n\n# drop rows with missing values\npenguins = penguins.dropna()\npenguins.shape\n\n(333, 8)\n\n\n\n# eda to find variables to separate gentoo\n# bill_depth_mm and body_mass_g are good separators\nggplot(penguins, aes(x=\"bill_depth_mm\", y=\"body_mass_g\", color='species')) + geom_point()\n\n\n\n\n\n\n\n\n\n# bill_depth_mm and flipper_length_mm are good separators\nggplot(penguins, aes(x=\"bill_depth_mm\", y=\"flipper_length_mm\", color='species')) + geom_point()\n\n\n\n\n\n\n\n\n\n# body_mass_g and flipper_length_mm are NOT good separators\nggplot(penguins, aes(x=\"body_mass_g\", y=\"flipper_length_mm\", color='species')) + geom_point()\n\n\n\n\n\n\n\n\n\n# fit logistic regression model\nimport statsmodels.api as sm\nimport statsmodels.formula.api as smf\n\n# recode variable\npenguins['is_gentoo'] = (penguins['species'] == 'Gentoo').astype(int)\n\n# logistic regression\nmodel = smf.logit(\"is_gentoo ~  bill_depth_mm + body_mass_g + flipper_length_mm\", data=penguins).fit()\nprint(model.summary())\n\nWarning: Maximum number of iterations has been exceeded.\n         Current function value: 0.000000\n         Iterations: 35\n                           Logit Regression Results                           \n==============================================================================\nDep. Variable:              is_gentoo   No. Observations:                  333\nModel:                          Logit   Df Residuals:                      329\nMethod:                           MLE   Df Model:                            3\nDate:                Tue, 06 May 2025   Pseudo R-squ.:                   1.000\nTime:                        21:05:13   Log-Likelihood:            -6.8231e-07\nconverged:                      False   LL-Null:                       -217.08\nCovariance Type:            nonrobust   LLR p-value:                 8.840e-94\n=====================================================================================\n                        coef    std err          z      P&gt;|z|      [0.025      0.975]\n-------------------------------------------------------------------------------------\nIntercept           -80.2570   2.33e+05     -0.000      1.000   -4.56e+05    4.56e+05\nbill_depth_mm       -11.0411   1.15e+04     -0.001      0.999   -2.25e+04    2.25e+04\nbody_mass_g           0.0244     39.558      0.001      1.000     -77.507      77.556\nflipper_length_mm     0.7298   1097.389      0.001      0.999   -2150.113    2151.572\n=====================================================================================\n\nComplete Separation: The results show that there iscomplete separation or perfect prediction.\nIn this case the Maximum Likelihood Estimator does not exist and the parameters\nare not identified.\n\n\n\n# model results\nmodel.params.to_frame(\"Estimate\")\n\n\n\n\n\n\n\n\nEstimate\n\n\n\n\nIntercept\n-80.257043\n\n\nbill_depth_mm\n-11.041101\n\n\nbody_mass_g\n0.024444\n\n\nflipper_length_mm\n0.729776\n\n\n\n\n\n\n\n\n# Predicted probabilities for first few rows\npenguins[\"predicted\"] = model.predict()\npenguins[[\"species\", \"predicted\"]].head()\n\n\n\n\n\n\n\n\nspecies\npredicted\n\n\n\n\n0\nAdelie\n4.489815e-28\n\n\n1\nAdelie\n1.003070e-19\n\n\n2\nAdelie\n1.373861e-25\n\n\n4\nAdelie\n2.475382e-30\n\n\n5\nAdelie\n2.149829e-35\n\n\n\n\n\n\n\n\npenguins['pred_prob'] = model.predict()\n\n\nfrom plotnine import *\n\n(\n    ggplot(penguins, aes(x='species', y='pred_prob')) +\n    geom_boxplot(fill='#56B4E9') +\n    labs(title=\"Predicted Probability of Gentoo by Species\",\n         y=\"Predicted Probability\", x=\"Species\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\nfpr, tpr, _ = roc_curve(penguins['is_gentoo'], penguins['pred_prob'])\nroc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})\n\n(\n    ggplot(roc_df, aes(x='fpr', y='tpr')) +\n    geom_line(color='blue') +\n    geom_abline(slope=1, intercept=0, linetype='dashed') +\n    labs(title=\"ROC Curve\", x=\"False Positive Rate\", y=\"True Positive Rate\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nimport numpy as np\n\ncoefs = model.params.drop(\"Intercept\")\nerrors = model.bse.drop(\"Intercept\")\ncoef_df = pd.DataFrame({\n    'term': coefs.index,\n    'estimate': coefs.values,\n    'lower': coefs - 1.96 * errors,\n    'upper': coefs + 1.96 * errors\n})\n\n(\n    ggplot(coef_df, aes(x='term', y='estimate')) +\n    geom_point() +\n    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +\n    geom_hline(yintercept=0, linetype='dashed', color='gray') +\n    labs(title=\"Model Coefficients (95% CI)\", y=\"Estimate\", x=\"Term\") +\n    theme_minimal() +\n    theme(axis_text_x=element_text(rotation=45, hjust=1))\n)\n\n\n\n\n\n\n\n\n\n(\n    ggplot(penguins, aes(x='pred_prob', fill='factor(is_gentoo)')) +\n    geom_density(alpha=0.6) +\n    scale_fill_manual(values=['#E69F00', '#56B4E9'], name=\"Is Gentoo\") +\n    labs(title=\"Predicted Probability Distribution\", x=\"Predicted Probability\") +\n    theme_minimal()\n)",
+    "crumbs": [
+      "Quarto Publishing",
+      "Reference analysis code"
+    ]
   },
   {
     "objectID": "tutorials/shiny/shiny-ai.html",
@@ -182,7 +263,7 @@
     "href": "tutorials/shiny/shiny-express.html#learn-more",
     "title": "Try Shiny Express",
     "section": "Learn more",
-    "text": "Learn more\n\nShiny get started guide",
+    "text": "Learn more\n\nShiny get started guide\nShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nShinyConf 2025 Presentation by Daniel Chen: Creating and Sharing Scalable Applications with Shiny",
     "crumbs": [
       "Shiny Dashboards",
       "Try Shiny Express"

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Plotnine – PyCon 2025</title>
+<title>Reference analysis code – PyCon 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -137,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Shiny Dashboards</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tutorials/quarto/index.html"> 
+    <a class="nav-link active" href="../../tutorials/quarto/index.html" aria-current="page"> 
 <span class="menu-text">Quarto Publishing</span></a>
   </li>  
   <li class="nav-item">
@@ -145,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Positron IDE</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../tutorials/foss/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../tutorials/foss/index.html"> 
 <span class="menu-text">F/OSS Tools</span></a>
   </li>  
   <li class="nav-item">
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/foss/plotnine.html">Plotnine</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/quarto/reference_analysis_code.html">Reference analysis code</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -188,50 +188,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/foss/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Free/Open Source @ Posit</span></a>
+  <a href="../../tutorials/quarto/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Try Quarto</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/foss/chatlas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chatlas</span></a>
+  <a href="../../tutorials/quarto/quarto-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto dashboards</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/foss/greattables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Great Tables</span></a>
+  <a href="../../tutorials/quarto/quarto-shinylive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto + shinylive</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/foss/orbital.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Orbital</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/foss/pins.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Pins</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/foss/plotnine.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Plotnine</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/foss/pointblank.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Pointblank</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/foss/vetiver.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vetiver</span></a>
+  <a href="../../tutorials/quarto/reference_analysis_code.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Reference analysis code</span></a>
   </div>
 </li>
     </ul>
@@ -239,25 +215,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#import-and-prototype" id="toc-import-and-prototype" class="nav-link active" data-scroll-target="#import-and-prototype">Import and prototype</a>
-  <ul class="collapse">
-  <li><a href="#add-some-layers" id="toc-add-some-layers" class="nav-link" data-scroll-target="#add-some-layers">Add some layers</a></li>
-  <li><a href="#fix-up-the-histogram" id="toc-fix-up-the-histogram" class="nav-link" data-scroll-target="#fix-up-the-histogram">Fix up the histogram</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/pycon2025-labs/edit/main/website/tutorials/foss/plotnine.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-dev/pycon2025-labs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Plotnine</h1>
+<h1 class="title">Reference analysis code</h1>
 </div>
 
 
@@ -274,15 +240,140 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="import-and-prototype" class="level2">
-<h2 class="anchored" data-anchor-id="import-and-prototype">Import and prototype</h2>
-<p>We’ll be using <code>palmerpenguins</code> for the dataset, and <code>plotnine</code> to visualize the palmer penguin’s <code>bill_length_mm</code> column as a histogram.</p>
-<div id="3659c490" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Example script and output before putting it into a Quarto report.</p>
+<div id="3501791e" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>penguins.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
+<pre data-code-line-numbers=""><code>(344, 8)</code></pre>
+</div>
+</div>
+<div id="7291fb67" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows with missing values</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins.dropna()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>penguins.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre data-code-line-numbers=""><code>(333, 8)</code></pre>
+</div>
+</div>
+<div id="ec493467" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eda to find variables to separate gentoo</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># bill_depth_mm and body_mass_g are good separators</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ggplot(penguins, aes(x<span class="op">=</span><span class="st">"bill_depth_mm"</span>, y<span class="op">=</span><span class="st">"body_mass_g"</span>, color<span class="op">=</span><span class="st">'species'</span>)) <span class="op">+</span> geom_point()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reference_analysis_code_files/figure-html/cell-4-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="1ea2b3f1" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bill_depth_mm and flipper_length_mm are good separators</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ggplot(penguins, aes(x<span class="op">=</span><span class="st">"bill_depth_mm"</span>, y<span class="op">=</span><span class="st">"flipper_length_mm"</span>, color<span class="op">=</span><span class="st">'species'</span>)) <span class="op">+</span> geom_point()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reference_analysis_code_files/figure-html/cell-5-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="5952af8b" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># body_mass_g and flipper_length_mm are NOT good separators</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ggplot(penguins, aes(x<span class="op">=</span><span class="st">"body_mass_g"</span>, y<span class="op">=</span><span class="st">"flipper_length_mm"</span>, color<span class="op">=</span><span class="st">'species'</span>)) <span class="op">+</span> geom_point()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reference_analysis_code_files/figure-html/cell-6-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="980fdf50" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit logistic regression model</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># recode variable</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'is_gentoo'</span>] <span class="op">=</span> (penguins[<span class="st">'species'</span>] <span class="op">==</span> <span class="st">'Gentoo'</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic regression</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.logit(<span class="st">"is_gentoo ~  bill_depth_mm + body_mass_g + flipper_length_mm"</span>, data<span class="op">=</span>penguins).fit()</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre data-code-line-numbers=""><code>Warning: Maximum number of iterations has been exceeded.
+         Current function value: 0.000000
+         Iterations: 35
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:              is_gentoo   No. Observations:                  333
+Model:                          Logit   Df Residuals:                      329
+Method:                           MLE   Df Model:                            3
+Date:                Tue, 06 May 2025   Pseudo R-squ.:                   1.000
+Time:                        21:05:13   Log-Likelihood:            -6.8231e-07
+converged:                      False   LL-Null:                       -217.08
+Covariance Type:            nonrobust   LLR p-value:                 8.840e-94
+=====================================================================================
+                        coef    std err          z      P&gt;|z|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+Intercept           -80.2570   2.33e+05     -0.000      1.000   -4.56e+05    4.56e+05
+bill_depth_mm       -11.0411   1.15e+04     -0.001      0.999   -2.25e+04    2.25e+04
+body_mass_g           0.0244     39.558      0.001      1.000     -77.507      77.556
+flipper_length_mm     0.7298   1097.389      0.001      0.999   -2150.113    2151.572
+=====================================================================================
+
+Complete Separation: The results show that there iscomplete separation or perfect prediction.
+In this case the Maximum Likelihood Estimator does not exist and the parameters
+are not identified.</code></pre>
+</div>
+</div>
+<div id="f0f644ac" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model results</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>model.params.to_frame(<span class="st">"Estimate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Intercept</td>
+<td>-80.257043</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">bill_depth_mm</td>
+<td>-11.041101</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">body_mass_g</td>
+<td>0.024444</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">flipper_length_mm</td>
+<td>0.729776</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="eed9af87" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted probabilities for first few rows</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">"predicted"</span>] <span class="op">=</span> model.predict()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>penguins[[<span class="st">"species"</span>, <span class="st">"predicted"</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -291,70 +382,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">species</th>
-<th data-quarto-table-cell-role="th">island</th>
-<th data-quarto-table-cell-role="th">bill_length_mm</th>
-<th data-quarto-table-cell-role="th">bill_depth_mm</th>
-<th data-quarto-table-cell-role="th">flipper_length_mm</th>
-<th data-quarto-table-cell-role="th">body_mass_g</th>
-<th data-quarto-table-cell-role="th">sex</th>
-<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">predicted</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>Adelie</td>
-<td>Torgersen</td>
-<td>39.1</td>
-<td>18.7</td>
-<td>181.0</td>
-<td>3750.0</td>
-<td>male</td>
-<td>2007</td>
+<td>4.489815e-28</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>Adelie</td>
-<td>Torgersen</td>
-<td>39.5</td>
-<td>17.4</td>
-<td>186.0</td>
-<td>3800.0</td>
-<td>female</td>
-<td>2007</td>
+<td>1.003070e-19</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>Adelie</td>
-<td>Torgersen</td>
-<td>40.3</td>
-<td>18.0</td>
-<td>195.0</td>
-<td>3250.0</td>
-<td>female</td>
-<td>2007</td>
+<td>1.373861e-25</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>Adelie</td>
-<td>Torgersen</td>
-<td>36.7</td>
-<td>19.3</td>
-<td>193.0</td>
-<td>3450.0</td>
-<td>female</td>
-<td>2007</td>
+<td>2.475382e-30</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Adelie</td>
+<td>2.149829e-35</td>
 </tr>
 </tbody>
 </table>
@@ -362,207 +417,95 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We’ll be creating a base histogram using <code>plotnine</code> as follows:</p>
-<div id="36f07d00" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> aes, geom_histogram, ggplot, theme_minimal</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> ggplot(penguins, aes(x<span class="op">=</span><span class="st">"bill_length_mm"</span>)) <span class="op">+</span> geom_histogram()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="367cbafa" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'pred_prob'</span>] <span class="op">=</span> model.predict()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d7dcd2fc" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    ggplot(penguins, aes(x<span class="op">=</span><span class="st">'species'</span>, y<span class="op">=</span><span class="st">'pred_prob'</span>)) <span class="op">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    geom_boxplot(fill<span class="op">=</span><span class="st">'#56B4E9'</span>) <span class="op">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Predicted Probability of Gentoo by Species"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Predicted Probability"</span>, x<span class="op">=</span><span class="st">"Species"</span>) <span class="op">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    theme_minimal()</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="plotnine_files/figure-html/cell-3-output-1.png" width="672" height="480" class="figure-img"></p>
+<p><img src="reference_analysis_code_files/figure-html/cell-11-output-1.png" width="672" height="480" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="add-some-layers" class="level3">
-<h3 class="anchored" data-anchor-id="add-some-layers">Add some layers</h3>
-<p>Now we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.</p>
-<div id="03903a8e" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="st">"Adelie"</span> <span class="co"># selected species</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>selected <span class="op">=</span> penguins.loc[penguins.species <span class="op">==</span> species] <span class="co"># selected data</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>selected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">species</th>
-<th data-quarto-table-cell-role="th">island</th>
-<th data-quarto-table-cell-role="th">bill_length_mm</th>
-<th data-quarto-table-cell-role="th">bill_depth_mm</th>
-<th data-quarto-table-cell-role="th">flipper_length_mm</th>
-<th data-quarto-table-cell-role="th">body_mass_g</th>
-<th data-quarto-table-cell-role="th">sex</th>
-<th data-quarto-table-cell-role="th">year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.1</td>
-<td>18.7</td>
-<td>181.0</td>
-<td>3750.0</td>
-<td>male</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.5</td>
-<td>17.4</td>
-<td>186.0</td>
-<td>3800.0</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>40.3</td>
-<td>18.0</td>
-<td>195.0</td>
-<td>3250.0</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>36.7</td>
-<td>19.3</td>
-<td>193.0</td>
-<td>3450.0</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">147</td>
-<td>Adelie</td>
-<td>Dream</td>
-<td>36.6</td>
-<td>18.4</td>
-<td>184.0</td>
-<td>3475.0</td>
-<td>female</td>
-<td>2009</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">148</td>
-<td>Adelie</td>
-<td>Dream</td>
-<td>36.0</td>
-<td>17.8</td>
-<td>195.0</td>
-<td>3450.0</td>
-<td>female</td>
-<td>2009</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">149</td>
-<td>Adelie</td>
-<td>Dream</td>
-<td>37.8</td>
-<td>18.1</td>
-<td>193.0</td>
-<td>3750.0</td>
-<td>male</td>
-<td>2009</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">150</td>
-<td>Adelie</td>
-<td>Dream</td>
-<td>36.0</td>
-<td>17.1</td>
-<td>187.0</td>
-<td>3700.0</td>
-<td>female</td>
-<td>2009</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">151</td>
-<td>Adelie</td>
-<td>Dream</td>
-<td>41.5</td>
-<td>18.5</td>
-<td>201.0</td>
-<td>4000.0</td>
-<td>male</td>
-<td>2009</td>
-</tr>
-</tbody>
-</table>
-
-<p>152 rows × 8 columns</p>
-</div>
-</div>
-</div>
-<p>Now that we have the new data, we can add the new selected dataframe to our original figure, <code>g</code></p>
-<div id="2e3d91c9" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">+</span> geom_histogram(data<span class="op">=</span>selected, fill<span class="op">=</span><span class="st">"#447099"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4fdf5736" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>fpr, tpr, _ <span class="op">=</span> roc_curve(penguins[<span class="st">'is_gentoo'</span>], penguins[<span class="st">'pred_prob'</span>])</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>roc_df <span class="op">=</span> pd.DataFrame({<span class="st">'fpr'</span>: fpr, <span class="st">'tpr'</span>: tpr})</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    ggplot(roc_df, aes(x<span class="op">=</span><span class="st">'fpr'</span>, y<span class="op">=</span><span class="st">'tpr'</span>)) <span class="op">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    geom_line(color<span class="op">=</span><span class="st">'blue'</span>) <span class="op">+</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>) <span class="op">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"ROC Curve"</span>, x<span class="op">=</span><span class="st">"False Positive Rate"</span>, y<span class="op">=</span><span class="st">"True Positive Rate"</span>) <span class="op">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    theme_minimal()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="plotnine_files/figure-html/cell-5-output-1.png" width="672" height="480" class="figure-img"></p>
+<p><img src="reference_analysis_code_files/figure-html/cell-12-output-1.png" width="672" height="480" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="fix-up-the-histogram" class="level3">
-<h3 class="anchored" data-anchor-id="fix-up-the-histogram">Fix up the histogram</h3>
-<p>The 2 different <code>bill_length_mm</code> are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting <code>binwidth=1</code>.</p>
-<div id="2c2e22db" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    ggplot(aes(x<span class="op">=</span><span class="st">"bill_length_mm"</span>))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_histogram(penguins, fill<span class="op">=</span><span class="st">"#C2C2C4"</span>, binwidth<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_histogram(selected, fill<span class="op">=</span><span class="st">"#447099"</span>, binwidth<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="70e8180c" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> model.params.drop(<span class="st">"Intercept"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> model.bse.drop(<span class="st">"Intercept"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>coef_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'term'</span>: coefs.index,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'estimate'</span>: coefs.values,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'lower'</span>: coefs <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> errors,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'upper'</span>: coefs <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> errors</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    ggplot(coef_df, aes(x<span class="op">=</span><span class="st">'term'</span>, y<span class="op">=</span><span class="st">'estimate'</span>)) <span class="op">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    geom_point() <span class="op">+</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    geom_errorbar(aes(ymin<span class="op">=</span><span class="st">'lower'</span>, ymax<span class="op">=</span><span class="st">'upper'</span>), width<span class="op">=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    geom_hline(yintercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'gray'</span>) <span class="op">+</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Model Coefficients (95% CI)"</span>, y<span class="op">=</span><span class="st">"Estimate"</span>, x<span class="op">=</span><span class="st">"Term"</span>) <span class="op">+</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(rotation<span class="op">=</span><span class="dv">45</span>, hjust<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="plotnine_files/figure-html/cell-6-output-1.png" width="672" height="480" class="figure-img"></p>
+<p><img src="reference_analysis_code_files/figure-html/cell-13-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="a9c7a773" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    ggplot(penguins, aes(x<span class="op">=</span><span class="st">'pred_prob'</span>, fill<span class="op">=</span><span class="st">'factor(is_gentoo)'</span>)) <span class="op">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    geom_density(alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="op">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    scale_fill_manual(values<span class="op">=</span>[<span class="st">'#E69F00'</span>, <span class="st">'#56B4E9'</span>], name<span class="op">=</span><span class="st">"Is Gentoo"</span>) <span class="op">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Predicted Probability Distribution"</span>, x<span class="op">=</span><span class="st">"Predicted Probability"</span>) <span class="op">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    theme_minimal()</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reference_analysis_code_files/figure-html/cell-14-output-1.png" width="672" height="480" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -972,7 +915,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>   
     <div class="nav-footer-center">
 <p><a href="https://posit-dev.github.io/pycon2025-labs">Posit@PyCon2025</a></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/posit-dev/pycon2025-labs/edit/main/website/tutorials/foss/plotnine.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-dev/pycon2025-labs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/pycon2025-labs/edit/main/website/tutorials/quarto/reference_analysis_code.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-dev/pycon2025-labs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
