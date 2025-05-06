@@ -15,40 +15,42 @@ penguins.shape
 ```
 
 ```{python}
+# drop rows with missing values
 penguins = penguins.dropna()
 penguins.shape
 ```
 
-### Identify predictors
-
 ```{python}
+# eda to find variables to separate gentoo
+# bill_depth_mm and body_mass_g are good separators
 ggplot(penguins, aes(x="bill_depth_mm", y="body_mass_g", color='species')) + geom_point()
 ```
 
 ```{python}
+# bill_depth_mm and flipper_length_mm are good separators
 ggplot(penguins, aes(x="bill_depth_mm", y="flipper_length_mm", color='species')) + geom_point()
 ```
 
 ```{python}
+# body_mass_g and flipper_length_mm are NOT good separators
 ggplot(penguins, aes(x="body_mass_g", y="flipper_length_mm", color='species')) + geom_point()
 ```
 
-### Model
-
 ```{python}
+# fit logistic regression model
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
+# recode variable
 penguins['is_gentoo'] = (penguins['species'] == 'Gentoo').astype(int)
 
+# logistic regression
 model = smf.logit("is_gentoo ~  bill_depth_mm + body_mass_g + flipper_length_mm", data=penguins).fit()
 print(model.summary())
 ```
 
-
-### Model results
-
 ```{python}
+# model results
 model.params.to_frame("Estimate")
 ```
 
