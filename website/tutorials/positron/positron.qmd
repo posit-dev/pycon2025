@@ -1,0 +1,11 @@
+---
+title: "Try Positron IDE"
+---
+
+What is Positron?
+
+- A next-generation data science IDE built by Posit PBC
+- An extensible, polyglot tool for writing code and exploring data
+- A familiar environment for reproducible authoring and publishing
+
+![](img/positron.png)
