@@ -5,6 +5,132 @@ order: 30
 
 {{< include includes/shiny-include.qmd >}}
 
+Here we will use the Python
+[`chatlas`](https://posit-dev.github.io/chatlas/)
+package to interface with a large language model (LLM),
+and the Python
+[`querychat`](https://github.com/posit-dev/querychat/blob/main/python-package/README.md)
+package to have the LLM work with filtering our dataframe via
+(tool calling)[https://shiny.posit.co/py/docs/genai-tools.html].
+
+Before you get started, make sure you have a Python IDE open.
+You can give [positron](https://positron.posit.co/) a try!
+
+Here's the application we'll be building.
+It uses the Anthropic (Claude) model, and in this lab,
+we'll use an Ollama local model.
+
+::: {.column-screen-inset-right}
+<iframe src="https://posit-ai-querychat.share.connect.posit.cloud/" width="100%" height="800px"></iframe>
+:::
+
+## Chatlas
+
+[`chatlas`](https://posit-dev.github.io/chatlas/)
+provides a simple and unified interface across large language model (llm) providers in Python
+
+It helps you prototype faster by abstracting away complexity from common tasks like streaming chat interfaces, tool calling, structured output, and much more.
+
+Switching providers is also as easy as changing one line of code.
+We'll be using the `ChatOllama()` model in this tutorial.
+
+::: {.grid}
+
+::: {.g-col-6}
+Here is the list of supported models you can use:
+
+- Anthropic (Claude): `ChatAnthropic()`
+- GitHub model marketplace: `ChatGithub()`
+- Google (Gemini): `ChatGoogle()`
+- Groq: `ChatGroq()`
+- Ollama local models: `ChatOllama()`
+- OpenAI: `ChatOpenAI()`
+- perplexity.ai: `ChatPerplexity()`
+:::
+
+::: {.g-col-6}
+Models from enterprise cloud providers:
+
+- AWS Bedrock: `ChatBedrockAnthropic()`
+- Azure OpenAI: `ChatAzureOpenAI()`
+- Databricks: `ChatDatabricks()`
+- Snowflake Cortex: `ChatSnowflake()`
+- Vertex AI: `ChatVertex()`
+:::
+
+:::
+
+
+## querychat
+
+[`querychat`](https://github.com/posit-dev/querychat/blob/main/python-package/README.md)
+is a
+[Shiny module](https://shiny.posit.co/py/docs/modules.html)
+that allows us to chat with your Shiny Python apps using natural language.
+
+This can give the user a lot of flexibility on how they want to view the data,
+without having to put in many user input components.
+
+## Shiny + GenAI
+
+Below is the code that provides the `querychat` UI and the filtered dataframe.
+
+### Step 1: Create the application
+
+Save the following code to an `app.py` file.
+
+```{.python}
+{{< include includes/app-querychat-express.py >}}
+```
+
+You can expand on the welcome message by adding this text to the `greetings` parameter.
+
+```markdown
+Below are some examples of tasks I can do.
+
+Filter and visualize the data:
+- Show passengers who survived, sorted by age.
+- Filter to show only first class female passengers.
+- Display passengers who paid above average fare.
+
+Answer questions about the data:
+- What percentage of men survived versus women?
+- What was the average age of survivors by class?
+- Which embarkation point had the highest survival rate?
+```
+
+### Step 2: Run the application
+
+Run your application by either clicking the Play button from the
+[VS Code Shiny Extension](https://marketplace.visualstudio.com/items?itemName=Posit.shiny){target="_blank"}.
+
+![](img/positron-run.png)
+
+Or in the terminal with `shiny run`.
+
+```bash
+shiny run --reload --launch-browser app.py
+```
+
+You can learn more about running Shiny applications
+on the [Shiny Get Started Page](https://shiny.posit.co/py/get-started/create-run.html){target="_blank"}
+
+## Anthropic (Claude)
+
+If you want to recreate the actual app shown at the top of this lab,
+by switching the model to using Antrhopic (Claude),
+`chatlas` makes this very easy to do by changing the call from `ChatOllama()` to `ChatAnthropic()`.
+
+```{.python}
+def create_chat_callback(system_prompt):
+    return ChatAnthropic(system_prompt=system_prompt)
+```
+
+You will then need to create an `.env` file with the line containing your Anthropic API key.
+
+```bash
+ANTHROPIC_API_KEY=<Your Anthropic API key>
+```
 
 ## Learn more
 
