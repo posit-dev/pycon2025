@@ -9,7 +9,7 @@ titanic = load_dataset("titanic")
 # chatbot setup -----
 def create_chat_callback(system_prompt):
     return ChatOllama(
-        model="llama3.3",
+        model="llama3.2",
         system_prompt=system_prompt,
     )
 
