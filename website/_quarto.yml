@@ -22,58 +22,42 @@ website:
 
   navbar:
     left:
-      - text: Shiny Dashboards
+      - text: Labs
         href: tutorials/shiny/shiny-express.qmd
-
-      - text: Quarto Publishing
-        href: tutorials/quarto/index.qmd
-
-      - text: Positron IDE
-        href: tutorials/positron/index.qmd
-
-      - text: F/OSS Tools
-        href: tutorials/foss/index.qmd
-
-      - text: Connect Cloud Deployment
-        href: tutorials/connect/index.qmd
 
     right:
       - about.qmd
 
   sidebar:
-    - id: shiny
+    - id: labs
       style: docked
       type: light
       background: light
       foreground: dark
       contents:
-        - auto: tutorials/shiny/*.qmd
 
-    - id: quarto
-      style: docked
-      type: light
-      background: light
-      foreground: dark
-      contents:
-        - tutorials/quarto/index.qmd
-        - auto: tutorials/quarto/*.qmd
+        - section: "Shiny Dashboards"
+          contents:
+            - auto: tutorials/shiny/*.qmd
 
-    - id: positron
-      style: docked
-      type: light
-      background: light
-      foreground: dark
-      contents:
-        - auto: tutorials/positron/*.qmd
+        - section: "Quarto Documents"
+          contents:
+            - tutorials/quarto/index.qmd
+            - auto: tutorials/quarto/*.qmd
 
-    - id: oss
-      style: docked
-      type: light
-      background: light
-      foreground: dark
-      contents:
-        - tutorials/foss/index.qmd
-        - auto: tutorials/foss/*.qmd
+        - section: "Connect Cloud"
+          contents:
+            - auto: tutorials/connect/*.qmd
+
+        - section: "Positron IDE"
+          contents:
+            - auto: tutorials/positron/*.qmd
+
+        # - section: "Our F/OSS Tools"
+        #   contents:
+        #     - tutorials/foss/index.qmd
+        #     - auto: tutorials/foss/*.qmd
+
 format:
   html:
     theme:
