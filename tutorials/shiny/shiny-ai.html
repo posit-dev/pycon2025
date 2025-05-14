@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -37,10 +72,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-96bd41036a82b70f7743c798f1c088b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-cb85a931dc2d6ac0264d34ab5528f107.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2a85476110c572faeccda6e1d1481702.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-32011eba37f13ad466086b9038085dc3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/line-highlight-1.0.0/line-highlight.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -96,23 +131,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link active" href="../../tutorials/shiny/shiny-express.html" aria-current="page"> 
-<span class="menu-text">Shiny Dashboards</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../tutorials/quarto/index.html"> 
-<span class="menu-text">Quarto Publishing</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../tutorials/positron/index.html"> 
-<span class="menu-text">Positron IDE</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../tutorials/foss/index.html"> 
-<span class="menu-text">F/OSS Tools</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../tutorials/connect/index.html"> 
-<span class="menu-text">Connect Cloud Deployment</span></a>
+<span class="menu-text">Labs</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -131,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/shiny/shiny-ai.html">Shiny + GenAI</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/shiny/shiny-express.html">Shiny Dashboards</a></li><li class="breadcrumb-item"><a href="../../tutorials/shiny/shiny-ai.html">Shiny + GenAI</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -148,30 +167,122 @@ ul.task-list li input[type="checkbox"] {
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Shiny Dashboards</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/shiny/shiny-express.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Try Shiny Express</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/shiny/shiny-core.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Try Shiny Core</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/shiny/shiny-ai.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Shiny + GenAI</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/shiny/deploy.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Deploy your App</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Quarto Documents</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/quarto/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Try Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/quarto/quarto-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto dashboards</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/quarto/quarto-shinylive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quarto + shinylive</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/quarto/reference_analysis_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference analysis code</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Connect Cloud</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/connect/deploy-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deploy Shiny</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/connect/deploy-streamlit-dash.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deploy Streamlit or Dash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/connect/deploy-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deploy Quarto</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Positron IDE</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/positron/positron.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Try Positron IDE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -182,14 +293,22 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learn-more" id="toc-learn-more" class="nav-link active" data-scroll-target="#learn-more">Learn more</a></li>
+  <li><a href="#chatlas" id="toc-chatlas" class="nav-link active" data-scroll-target="#chatlas">Chatlas</a></li>
+  <li><a href="#querychat" id="toc-querychat" class="nav-link" data-scroll-target="#querychat">querychat</a></li>
+  <li><a href="#shiny-genai" id="toc-shiny-genai" class="nav-link" data-scroll-target="#shiny-genai">Shiny + GenAI</a>
+  <ul class="collapse">
+  <li><a href="#step-1-create-the-application" id="toc-step-1-create-the-application" class="nav-link" data-scroll-target="#step-1-create-the-application">Step 1: Create the application</a></li>
+  <li><a href="#step-2-run-the-application" id="toc-step-2-run-the-application" class="nav-link" data-scroll-target="#step-2-run-the-application">Step 2: Run the application</a></li>
+  </ul></li>
+  <li><a href="#anthropic-claude" id="toc-anthropic-claude" class="nav-link" data-scroll-target="#anthropic-claude">Anthropic (Claude)</a></li>
+  <li><a href="#learn-more" id="toc-learn-more" class="nav-link" data-scroll-target="#learn-more">Learn more</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/pycon2025-labs/edit/main/website/tutorials/shiny/shiny-ai.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-dev/pycon2025-labs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/shiny/shiny-express.html">Shiny Dashboards</a></li><li class="breadcrumb-item"><a href="../../tutorials/shiny/shiny-ai.html">Shiny + GenAI</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Shiny + GenAI</h1>
 </div>
@@ -209,6 +328,118 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Shiny makes it easy to create rich, <strong>interactive</strong> experiences in <strong>pure Python</strong> with a fully <strong>reactive</strong> framework. <strong>No JavaScript</strong> required!</p>
+<p>Here we will use the Python <a href="https://posit-dev.github.io/chatlas/"><code>chatlas</code></a> package to interface with a large language model (LLM), and the Python <a href="https://github.com/posit-dev/querychat/blob/main/python-package/README.md"><code>querychat</code></a> package to have the LLM work with filtering our dataframe via (tool calling)[https://shiny.posit.co/py/docs/genai-tools.html].</p>
+<p>Before you get started, make sure you have a Python IDE open. You can give <a href="https://positron.posit.co/">positron</a> a try!</p>
+<p>Here’s the application we’ll be building. It uses the Anthropic (Claude) model, and in this lab, we’ll use an Ollama local model.</p>
+<div class="column-screen-inset-right">
+<iframe src="https://posit-ai-querychat.share.connect.posit.cloud/" width="100%" height="800px">
+</iframe>
+</div>
+<section id="chatlas" class="level2">
+<h2 class="anchored" data-anchor-id="chatlas">Chatlas</h2>
+<p><a href="https://posit-dev.github.io/chatlas/"><code>chatlas</code></a> provides a simple and unified interface across large language model (llm) providers in Python</p>
+<p>It helps you prototype faster by abstracting away complexity from common tasks like streaming chat interfaces, tool calling, structured output, and much more.</p>
+<p>Switching providers is also as easy as changing one line of code. We’ll be using the <code>ChatOllama()</code> model in this tutorial.</p>
+<div class="grid">
+<div class="g-col-6">
+<p>Here is the list of supported models you can use:</p>
+<ul>
+<li>Anthropic (Claude): <code>ChatAnthropic()</code></li>
+<li>GitHub model marketplace: <code>ChatGithub()</code></li>
+<li>Google (Gemini): <code>ChatGoogle()</code></li>
+<li>Groq: <code>ChatGroq()</code></li>
+<li>Ollama local models: <code>ChatOllama()</code></li>
+<li>OpenAI: <code>ChatOpenAI()</code></li>
+<li>perplexity.ai: <code>ChatPerplexity()</code></li>
+</ul>
+</div>
+<div class="g-col-6">
+<p>Models from enterprise cloud providers:</p>
+<ul>
+<li>AWS Bedrock: <code>ChatBedrockAnthropic()</code></li>
+<li>Azure OpenAI: <code>ChatAzureOpenAI()</code></li>
+<li>Databricks: <code>ChatDatabricks()</code></li>
+<li>Snowflake Cortex: <code>ChatSnowflake()</code></li>
+<li>Vertex AI: <code>ChatVertex()</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="querychat" class="level2">
+<h2 class="anchored" data-anchor-id="querychat">querychat</h2>
+<p><a href="https://github.com/posit-dev/querychat/blob/main/python-package/README.md"><code>querychat</code></a> is a <a href="https://shiny.posit.co/py/docs/modules.html">Shiny module</a> that allows us to chat with your Shiny Python apps using natural language.</p>
+<p>This can give the user a lot of flexibility on how they want to view the data, without having to put in many user input components.</p>
+</section>
+<section id="shiny-genai" class="level2">
+<h2 class="anchored" data-anchor-id="shiny-genai">Shiny + GenAI</h2>
+<p>Below is the code that provides the <code>querychat</code> UI and the filtered dataframe.</p>
+<section id="step-1-create-the-application" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-create-the-application">Step 1: Create the application</h3>
+<p>Save the following code to an <code>app.py</code> file.</p>
+<div class="sourceCode" id="cb1" data-code-line-numbers=""><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> querychat</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chatlas <span class="im">import</span> ChatOllama</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> seaborn <span class="im">import</span> load_dataset</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shiny.express <span class="im">import</span> render</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># data -----</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>titanic <span class="op">=</span> load_dataset(<span class="st">"titanic"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># chatbot setup -----</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_chat_callback(system_prompt):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ChatOllama(</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span><span class="st">"llama3.3"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        system_prompt<span class="op">=</span>system_prompt,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>querychat_config <span class="op">=</span> querychat.init(</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    titanic,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"titanic"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    greeting<span class="op">=</span><span class="st">"""Hello! I'm here to help you explore the Titanic dataset."""</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    create_chat_callback<span class="op">=</span>create_chat_callback,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>chat <span class="op">=</span> querychat.server(<span class="st">"chat"</span>, querychat_config)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># shiny application -----</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># querychat UI</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>querychat.sidebar(<span class="st">"chat"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># querychat filtered dataframe</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="at">@render.data_frame</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> data_table():</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> chat[<span class="st">"df"</span>]()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can expand on the welcome message by adding this text to the <code>greetings</code> parameter.</p>
+<div class="sourceCode" id="cb2" data-code-line-numbers=""><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Below are some examples of tasks I can do.</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Filter and visualize the data:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Show passengers who survived, sorted by age.</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Filter to show only first class female passengers.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Display passengers who paid above average fare.</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Answer questions about the data:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>What percentage of men survived versus women?</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>What was the average age of survivors by class?</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Which embarkation point had the highest survival rate?</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-2-run-the-application" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-run-the-application">Step 2: Run the application</h3>
+<p>Run your application by either clicking the Play button from the <a href="https://marketplace.visualstudio.com/items?itemName=Posit.shiny" target="_blank">VS Code Shiny Extension</a>.</p>
+<p><img src="img/positron-run.png" class="img-fluid"></p>
+<p>Or in the terminal with <code>shiny run</code>.</p>
+<div class="sourceCode" id="cb3" data-code-line-numbers=""><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">shiny</span> run <span class="at">--reload</span> <span class="at">--launch-browser</span> app.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can learn more about running Shiny applications on the <a href="https://shiny.posit.co/py/get-started/create-run.html" target="_blank">Shiny Get Started Page</a></p>
+</section>
+</section>
+<section id="anthropic-claude" class="level2">
+<h2 class="anchored" data-anchor-id="anthropic-claude">Anthropic (Claude)</h2>
+<p>If you want to recreate the actual app shown at the top of this lab, by switching the model to using Antrhopic (Claude), <code>chatlas</code> makes this very easy to do by changing the call from <code>ChatOllama()</code> to <code>ChatAnthropic()</code>.</p>
+<div class="sourceCode" id="cb4" data-code-line-numbers=""><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_chat_callback(system_prompt):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ChatAnthropic(system_prompt<span class="op">=</span>system_prompt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You will then need to create an <code>.env</code> file with the line containing your Anthropic API key.</p>
+<div class="sourceCode" id="cb5" data-code-line-numbers=""><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">ANTHROPIC_API_KEY</span><span class="op">=&lt;</span>Your <span class="ex">Anthropic</span> API key<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="learn-more" class="level2">
 <h2 class="anchored" data-anchor-id="learn-more">Learn more</h2>
 <ul>
