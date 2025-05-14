@@ -4,6 +4,86 @@ title: "About"
 
 Who's at the booth
 
-<!-- TODO add photos to people -->
+```{=html}
+<style>
+.profiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+}
 
-Jason Milnes, Joe Cheng, Carson Sievert, Daniel Chen, Alex Chisholm
+.profile {
+  text-align: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 220px;
+}
+
+.profile img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.profile h3 {
+  margin: 0 0 10px;
+  font-size: 1.25em;
+  text-align: center;
+}
+
+.social-links {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.social-links a {
+  color: #0077cc;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
+</style>
+
+
+<div class="profiles">
+  <div class="profile">
+    <img src="img/people-jason.jpeg" alt="Jason Milnes">
+    <h3>Jason Milnes</h3>
+    <div class="social-links">
+      <a href="#"></a> | <a href="#"></a>
+    </div>
+  </div>
+  <div class="profile">
+    <img src="img/people-carson.png" alt="Carson Sievert">
+    <h3>Carson Sievert</h3>
+    <div class="social-links">
+      <a href="#"></a> | <a href="#"></a>
+    </div>
+  </div>
+  <div class="profile">
+    <img src="img/people-daniel.jpeg" alt="Daniel Chen">
+    <h3>Daniel Chen</h3>
+    <div class="social-links">
+      <a href="#"></a> | <a href="#"></a>
+    </div>
+  </div>
+  <div class="profile">
+    <img src="img/people-alex.jpeg" alt="Alex Chisholm">
+    <h3>Alex Chisholm</h3>
+    <div class="social-links">
+      <a href="#"></a> | <a href="#"></a>
+    </div>
+  </div>
+</div>
+```
