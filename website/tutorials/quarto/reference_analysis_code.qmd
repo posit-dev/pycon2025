@@ -9,6 +9,7 @@ Example script and output before putting it into a Quarto report.
 import pandas as pd
 from plotnine import ggplot, aes, geom_point
 from palmerpenguins import load_penguins
+import seaborn as sns
 
 penguins = load_penguins()
 penguins.shape
@@ -19,21 +20,14 @@ penguins.shape
 penguins = penguins.dropna()
 penguins.shape
 ```
-
 ```{python}
-# eda to find variables to separate gentoo
+# gentoo is easier to separate
+# eda to find variables to separate Adelie
 # bill_depth_mm and body_mass_g are good separators
-ggplot(penguins, aes(x="bill_depth_mm", y="body_mass_g", color='species')) + geom_point()
-```
-
-```{python}
 # bill_depth_mm and flipper_length_mm are good separators
-ggplot(penguins, aes(x="bill_depth_mm", y="flipper_length_mm", color='species')) + geom_point()
-```
-
-```{python}
 # body_mass_g and flipper_length_mm are NOT good separators
-ggplot(penguins, aes(x="body_mass_g", y="flipper_length_mm", color='species')) + geom_point()
+
+sns.pairplot(penguins, hue="species")
 ```
 
 ```{python}
@@ -55,7 +49,7 @@ model.params.to_frame("Estimate")
 ```
 
 ```{python}
-# Predicted probabilities for first few rows
+# predicted probabilities for first few rows
 penguins["predicted"] = model.predict()
 penguins[["species", "predicted"]].head()
 ```
