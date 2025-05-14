@@ -71,7 +71,7 @@ sel = dat.loc[dat.species == species] # selected data
 ## Learn more about plotting in plotnine
 
 To learn more about how the plotting code works in `plotnine`,
-take a look at our [`plotnine` lab](../oss/plotnine.qmd).
+take a look at our [`plotnine` lab](../foss/plotnine.qmd).
 :::
 
 Wouldn't it be nice if we could have something to toggle between one of the 3 penguin species instead
@@ -109,10 +109,11 @@ We will pass `input_radio_buttons()` 3 arguments:
 2. `label`: the text the user will see by the component.
 3. `choices`: the options our radio button component will display to the user and value it will use in code.
 
+::: {.column-page-right}
 ```{shinylive-python}
 # | standalone: true
 # | components: [editor, viewer]
-# | layout: vertical
+# | layout: horizontal
 from shiny.express import ui
 
 ui.input_radio_buttons(
@@ -122,6 +123,7 @@ ui.input_radio_buttons(
 )
 
 ```
+:::
 
 ### Run your shiny application
 
@@ -145,10 +147,11 @@ See our Shiny documentation to
 Let's have the buttons run horizontally to take up less space.
 We can use the `inline=True` to change the orientation of the radio buttons.
 
+::: {.column-page-right}
 ```{shinylive-python}
 # | standalone: true
 # | components: [editor, viewer]
-# | layout: vertical
+# | layout: horizontal
 from shiny.express import ui
 
 ui.input_radio_buttons(
@@ -159,6 +162,7 @@ ui.input_radio_buttons(
 )
 
 ```
+:::
 
 ### Output component
 
@@ -167,10 +171,7 @@ Now let's add all that data and plotting code from earlier into our application.
 If we just dump in our code,
 the application errors because it does not know what to do with the figure that's trying to be printed.
 
-```{shinylive-python}
-# | standalone: true
-# | components: [editor, viewer]
-# | layout: vertical
+```{.python}
 from shiny.express import ui
 
 from palmerpenguins import load_penguins
@@ -187,6 +188,7 @@ dat = load_penguins()
 species = "Adelie"
 sel = dat.loc[dat.species == species]
 
+# this will cause a TypeError: Invalid tag item type
 (
     ggplot(aes(x="bill_length_mm"))
     + geom_histogram(dat, fill="#C2C2C4", binwidth=1)
@@ -209,10 +211,11 @@ specifically, one that can render a `plotnine` figure (which is based on `matplo
 For example, we want to return a plot, so we will need to wrap our plotnine code,
 and decorate it with the `@render.plot` decorator.
 
+::: {.column-page-right}
 ```{shinylive-python}
 # | standalone: true
 # | components: [editor, viewer]
-# | layout: vertical
+# | layout: horizontal
 from shiny.express import ui, render
 
 from palmerpenguins import load_penguins
@@ -239,6 +242,7 @@ def plot(): #<<
     )
 
 ```
+:::
 
 :::{.callout-caution}
 ## Return your values
@@ -268,10 +272,11 @@ You can
 [learn more about reactivity in our documentation](https://shiny.posit.co/py/docs/reactive-foundations.html).
 :::
 
+::: {.column-page-right}
 ```{shinylive-python}
 # | standalone: true
 # | components: [editor, viewer]
-# | layout: vertical
+# | layout: horizontal
 from shiny.express import ui, render
 
 from palmerpenguins import load_penguins
@@ -299,6 +304,7 @@ def plot():
     )
 
 ```
+:::
 
 Now we're ready to link the input and output components together.
 We now need to import the `input` object from `shiny`.
@@ -323,10 +329,11 @@ and this prevents us from writing callbacks in our application.
 Instead of hard-coding `species = "Adelie"`, we can replace it with `species = input.species()`,
 and it will return the value from our radio button input component.
 
+::: {.column-page-right}
 ```{shinylive-python}
 # | standalone: true
 # | components: [editor, viewer]
-# | layout: vertical
+# | layout: horizontal
 from shiny.express import ui, render, input #<<
 
 from palmerpenguins import load_penguins
@@ -354,6 +361,7 @@ def plot():
     )
 
 ```
+:::
 
 ## Our final application
 
@@ -363,15 +371,16 @@ here's our final Shiny application!
 If you want you can tinker with the code and run the application right in the browser,
 or copy + paste the code and run it in your IDE.
 
+::: {.column-page-right}
 ```{shinylive-python}
 #| standalone: true
 #| components: [editor, viewer]
-#| layout: vertical
+#| layout: horizontal
 #| viewerHeight: 500
 
 {{< include includes/app-express.py >}}
 ```
-
+:::
 
 ## Learn more
 
