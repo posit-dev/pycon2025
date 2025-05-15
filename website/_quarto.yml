@@ -26,6 +26,7 @@ website:
         href: tutorials/shiny/shiny-express.qmd
 
     right:
+      - setup.qmd
       - about.qmd
 
   sidebar:

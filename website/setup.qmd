@@ -1,0 +1,43 @@
+---
+title: Setup
+---
+
+Want to try these labs on your own computer?
+Here are the software install instructions to get everything ready.
+
+## Python
+
+Here's the content for the `requirements.txt` to install all the python packages.
+
+```bash
+{{< include ../requirements.txt >}}
+```
+
+You can then install the packages using `pip install`
+
+```bash
+pip install -r requirements.text
+```
+
+## Quarto
+
+Download and install Quarto: <https://quarto.org/docs/get-started/>
+
+## Positron IDE
+
+Download and install the Positron IDE: <https://positron.posit.co/download.html>
+
+## GenAI + LLMs
+
+1. Download Ollama: <https://ollama.com/download>
+2. Download the `llama3.2` model: <https://ollama.com/library/llama3.2>
+
+```bash
+ollama run llama3.2
+```
+(optional): You can also create an Anthropic account and pay for a Claude API key: <https://www.anthropic.com/>
+
+## Posit Connect Cloud
+
+Create a free Posit Connect Cloud account for our dashboard and document
+deployments: <https://connect.posit.cloud/>
