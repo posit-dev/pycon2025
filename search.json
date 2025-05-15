@@ -131,7 +131,7 @@
     "href": "tutorials/shiny/shiny-ai.html#shiny-genai",
     "title": "Shiny + GenAI",
     "section": "Shiny + GenAI",
-    "text": "Shiny + GenAI\nBelow is the code that provides the querychat UI and the filtered dataframe.\n\nStep 1: Create the application\nSave the following code to an app.py file.\nimport querychat\nfrom chatlas import ChatOllama\nfrom seaborn import load_dataset\nfrom shiny.express import render\n\n# data -----\ntitanic = load_dataset(\"titanic\")\n\n# chatbot setup -----\ndef create_chat_callback(system_prompt):\n    return ChatOllama(\n        model=\"llama3.2\",\n        system_prompt=system_prompt,\n    )\n\n\nquerychat_config = querychat.init(\n    titanic,\n    \"titanic\",\n    greeting=\"\"\"Hello! I'm here to help you explore the Titanic dataset.\"\"\",\n    create_chat_callback=create_chat_callback,\n)\n\nchat = querychat.server(\"chat\", querychat_config)\n\n# shiny application -----\n\n# querychat UI\nquerychat.sidebar(\"chat\")\n\n# querychat filtered dataframe\n@render.data_frame\ndef data_table():\n    return chat[\"df\"]()\nYou can expand on the welcome message by adding this text to the greetings parameter.\nBelow are some examples of tasks I can do.\n\nFilter and visualize the data:\n- Show passengers who survived, sorted by age.\n- Filter to show only first class female passengers.\n- Display passengers who paid above average fare.\n\nAnswer questions about the data:\n- What percentage of men survived versus women?\n- What was the average age of survivors by class?\n- Which embarkation point had the highest survival rate?\n\n\nStep 2: Run the application\nRun your application by either clicking the Play button from the VS Code Shiny Extension.\n\nOr in the terminal with shiny run.\nshiny run --reload --launch-browser app.py\nYou can learn more about running Shiny applications on the Shiny Get Started Page",
+    "text": "Shiny + GenAI\nWe will now build a small app that uses the querychat UI and displays the reactive filtered dataframe.\n\nStep 0: LLM setup\nThe code below uses the llama3.2 model from Ollama. You will need to have this installed before running the code. Or make sure you change the code for the model you plan to use.\nFor more about LLM setup see the LLM Setup Page.\n\n\nStep 1: Create the application\nSave the following code to an app.py file.\nimport querychat\nfrom chatlas import ChatOllama\nfrom seaborn import load_dataset\nfrom shiny.express import render\n\n# data -----\ntitanic = load_dataset(\"titanic\")\n\n# chatbot setup -----\ndef create_chat_callback(system_prompt):\n    return ChatOllama(\n        model=\"llama3.2\",\n        system_prompt=system_prompt,\n    )\n\n\nquerychat_config = querychat.init(\n    titanic,\n    \"titanic\",\n    greeting=\"\"\"Hello! I'm here to help you explore the Titanic dataset.\"\"\",\n    create_chat_callback=create_chat_callback,\n)\n\nchat = querychat.server(\"chat\", querychat_config)\n\n# shiny application -----\n\n# querychat UI\nquerychat.sidebar(\"chat\")\n\n# querychat filtered dataframe\n@render.data_frame\ndef data_table():\n    return chat[\"df\"]()\nYou can expand on the welcome message by adding this text to the greetings parameter.\nBelow are some examples of tasks I can do.\n\nFilter and visualize the data:\n- Show passengers who survived, sorted by age.\n- Filter to show only first class female passengers.\n- Display passengers who paid above average fare.\n\nAnswer questions about the data:\n- What percentage of men survived versus women?\n- What was the average age of survivors by class?\n- Which embarkation point had the highest survival rate?\n\n\nStep 2: Run the application\nRun your application by either clicking the Play button from the VS Code Shiny Extension.\n\nOr in the terminal with shiny run.\nshiny run --reload --launch-browser app.py\nYou can learn more about running Shiny applications on the Shiny Get Started Page",
     "crumbs": [
       "Labs",
       "Shiny Dashboards",
@@ -163,63 +163,63 @@
     ]
   },
   {
-    "objectID": "tutorials/quarto/index.html",
-    "href": "tutorials/quarto/index.html",
-    "title": "Try Quarto",
+    "objectID": "tutorials/quarto/reference_analysis_code.html",
+    "href": "tutorials/quarto/reference_analysis_code.html",
+    "title": "Reference analysis code",
     "section": "",
-    "text": "You’re looking at a Quarto project right now!",
+    "text": "Example script and output before putting it into a Quarto report.\n\nimport pandas as pd\nfrom plotnine import ggplot, aes, geom_point\nfrom palmerpenguins import load_penguins\nimport seaborn as sns\n\npenguins = load_penguins()\npenguins.shape\n\n(344, 8)\n\n\n\n# drop rows with missing values\npenguins = penguins.dropna()\npenguins.shape\n\n(333, 8)\n\n\n\n# gentoo is easier to separate\n# eda to find variables to separate Adelie\n# bill_depth_mm and body_mass_g are good separators\n# bill_depth_mm and flipper_length_mm are good separators\n# body_mass_g and flipper_length_mm are NOT good separators\n\nsns.pairplot(penguins, hue=\"species\")\n\n\n\n\n\n\n\n\n\n# fit logistic regression model\nimport statsmodels.api as sm\nimport statsmodels.formula.api as smf\n\n# recode variable\npenguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)\n\n# logistic regression\nmodel = smf.logit(\"is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm\", data=penguins).fit()\nprint(model.summary())\n\nOptimization terminated successfully.\n         Current function value: 0.352072\n         Iterations 8\n                           Logit Regression Results                           \n==============================================================================\nDep. Variable:              is_adelie   No. Observations:                  333\nModel:                          Logit   Df Residuals:                      329\nMethod:                           MLE   Df Model:                            3\nDate:                Thu, 15 May 2025   Pseudo R-squ.:                  0.4864\nTime:                        18:45:50   Log-Likelihood:                -117.24\nconverged:                       True   LL-Null:                       -228.29\nCovariance Type:            nonrobust   LLR p-value:                 7.076e-48\n=====================================================================================\n                        coef    std err          z      P&gt;|z|      [0.025      0.975]\n-------------------------------------------------------------------------------------\nIntercept            30.1600      5.603      5.383      0.000      19.178      41.142\nbill_depth_mm         0.3953      0.121      3.255      0.001       0.157       0.633\nbody_mass_g           0.0006      0.000      1.271      0.204      -0.000       0.001\nflipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -0.140\n=====================================================================================\n\n\n\n# model results\nmodel.params.to_frame(\"Estimate\")\n\n\n\n\n\n\n\n\nEstimate\n\n\n\n\nIntercept\n30.160015\n\n\nbill_depth_mm\n0.395328\n\n\nbody_mass_g\n0.000554\n\n\nflipper_length_mm\n-0.200743\n\n\n\n\n\n\n\n\n# predicted probabilities for first few rows\npenguins[\"predicted\"] = model.predict()\npenguins[[\"species\", \"predicted\"]].head()\n\n\n\n\n\n\n\n\nspecies\npredicted\n\n\n\n\n0\nAdelie\n0.964279\n\n\n1\nAdelie\n0.858842\n\n\n2\nAdelie\n0.482890\n\n\n4\nAdelie\n0.722669\n\n\n5\nAdelie\n0.898866\n\n\n\n\n\n\n\n\npenguins['pred_prob'] = model.predict()\n\n\nfrom plotnine import *\n\n(\n    ggplot(penguins, aes(x='species', y='pred_prob')) +\n    geom_boxplot(fill='#56B4E9') +\n    labs(title=\"Predicted Probability of Gentoo by Species\",\n         y=\"Predicted Probability\", x=\"Species\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\nfpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])\nroc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})\n\n(\n    ggplot(roc_df, aes(x='fpr', y='tpr')) +\n    geom_line(color='blue') +\n    geom_abline(slope=1, intercept=0, linetype='dashed') +\n    labs(title=\"ROC Curve\", x=\"False Positive Rate\", y=\"True Positive Rate\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nimport numpy as np\n\ncoefs = model.params.drop(\"Intercept\")\nerrors = model.bse.drop(\"Intercept\")\ncoef_df = pd.DataFrame({\n    'term': coefs.index,\n    'estimate': coefs.values,\n    'lower': coefs - 1.96 * errors,\n    'upper': coefs + 1.96 * errors\n})\n\n(\n    ggplot(coef_df, aes(x='term', y='estimate')) +\n    geom_point() +\n    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +\n    geom_hline(yintercept=0, linetype='dashed', color='gray') +\n    labs(title=\"Model Coefficients (95% CI)\", y=\"Estimate\", x=\"Term\") +\n    theme_minimal() +\n    theme(axis_text_x=element_text(rotation=45, hjust=1))\n)\n\n\n\n\n\n\n\n\n\n(\n    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +\n    geom_density(alpha=0.6) +\n    scale_fill_manual(values=['#E69F00', '#56B4E9'], name=\"Is Adelie\") +\n    labs(title=\"Predicted Probability Distribution\", x=\"Predicted Probability\") +\n    theme_minimal()\n)",
     "crumbs": [
       "Labs",
       "Quarto Documents",
-      "Try Quarto"
+      "Reference analysis code"
     ]
   },
   {
-    "objectID": "tutorials/quarto/index.html#scenario",
-    "href": "tutorials/quarto/index.html#scenario",
-    "title": "Try Quarto",
-    "section": "Scenario",
-    "text": "Scenario\nYou are a data scientist working on code for an analysis identifying Gentoo Penguins. and now need to share the results as a report.\nThis is a high-level meeting with leadership, and you are going to present your findings.",
+    "objectID": "tutorials/positron/positron.html",
+    "href": "tutorials/positron/positron.html",
+    "title": "Try Positron IDE",
+    "section": "",
+    "text": "What is Positron?",
     "crumbs": [
       "Labs",
-      "Quarto Documents",
-      "Try Quarto"
+      "Positron IDE",
+      "Try Positron IDE"
     ]
   },
   {
-    "objectID": "tutorials/quarto/index.html#the-analysis",
-    "href": "tutorials/quarto/index.html#the-analysis",
-    "title": "Try Quarto",
-    "section": "The analysis",
-    "text": "The analysis",
+    "objectID": "tutorials/positron/positron.html#install-and-try-positron",
+    "href": "tutorials/positron/positron.html#install-and-try-positron",
+    "title": "Try Positron IDE",
+    "section": "Install and try Positron",
+    "text": "Install and try Positron\nIf you don’t have Positron already, you can download the IDE here: https://positron.posit.co/download.html\n\n\n\n\n\n\nPositron is still in beta testing\n\n\n\nPositron might be a good fit for you today if… - you use VS Code for data science (Python or R) but wish it included more affordances for data-specific work like a dedicated console, variables pane, data explorer, and ways to interact with your plots. - you use Jupyterlab for data science (Python or R) and are ready for a more powerful, fully-featured IDE. - you use RStudio and want more ability to customize or extend your IDE. - you use additional languages beyond only Python or R in your day-to-day data science or package development work, like Rust, C++, JavaScript, or Lua.\n\n\n\nExtensions\nSince Positron is built on Code OSS, you can use VS Code extensions in Positron. Your extensions installed for Positron are separate from the extensions you have installed for VS Code, and they won’t interfere with each other. Positron bundles several extensions, including those for Quarto, Jupyter notebooks, and Pyright. These extensions are installed for you the first time you start Positron.\nYou can install the Shiny Extension from OpenVSX.",
     "crumbs": [
       "Labs",
-      "Quarto Documents",
-      "Try Quarto"
+      "Positron IDE",
+      "Try Positron IDE"
     ]
   },
   {
-    "objectID": "tutorials/quarto/index.html#quarto-report",
-    "href": "tutorials/quarto/index.html#quarto-report",
-    "title": "Try Quarto",
-    "section": "Quarto report",
-    "text": "Quarto report",
+    "objectID": "tutorials/positron/positron.html#dashboard",
+    "href": "tutorials/positron/positron.html#dashboard",
+    "title": "Try Positron IDE",
+    "section": "Dashboard",
+    "text": "Dashboard\nHere’s the Shiny Express Dashboard we’ve used in this lab\nCopy the code below into a file called app.py\n\n\n\n\n\n\napp.py\n\n\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nfrom shiny.express import input, render, ui\n\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\nui.input_radio_buttons(\"species\", \"Species\", species, inline=True)\n\n\n@render.plot\ndef plot():\n    sel = dat[dat[\"species\"] == input.species()]\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )\n\n\nIf you have the Shiny Extension installed, you can click the play button to run the Shiny application.\n\nOr you can use the Positron Terminal to run your Shiny application\nshiny run --reload app.py\nThis will start the app and open it in your default web browser.\n\nThe --reload flag enables automatic reloading. When you save changes to your source files, the app will automatically restart and update in the browser.\nThe --launch-browser flag opens the app in a browser as soon as it starts.\n\nLearn more about Shiny in our Shiny Express Lab, and the Shiny Get Started page",
     "crumbs": [
       "Labs",
-      "Quarto Documents",
-      "Try Quarto"
+      "Positron IDE",
+      "Try Positron IDE"
     ]
   },
   {
-    "objectID": "tutorials/quarto/index.html#learn-more",
-    "href": "tutorials/quarto/index.html#learn-more",
-    "title": "Try Quarto",
-    "section": "Learn more",
-    "text": "Learn more\n\nQuarto get started\nQuarto guides",
+    "objectID": "tutorials/positron/positron.html#reproducible-documents",
+    "href": "tutorials/positron/positron.html#reproducible-documents",
+    "title": "Try Positron IDE",
+    "section": "Reproducible documents",
+    "text": "Reproducible documents\nDownload one of our example Quarto document or Jupyter notebook files. and give them a try in positron!",
     "crumbs": [
       "Labs",
-      "Quarto Documents",
-      "Try Quarto"
+      "Positron IDE",
+      "Try Positron IDE"
     ]
   },
   {
@@ -269,7 +269,7 @@
     "href": "setup.html#python",
     "title": "Setup",
     "section": "Python",
-    "text": "Python\nHere’s the content for the requirements.txt to install all the python packages.\nshiny\nipykernel\npalmerpenguins\nplotnine\nshinylive\njupyter\nstatsmodels\nscikit-learn\npandas\nseaborn\nmatplotlib\nchatlas\nquerychat @ git+https://github.com/posit-dev/querychat#subdirectory=python-package\ngreat_tables\norbitalml\npins\npointblank\nvetiver\nYou can then install the packages using pip install\npip install -r requirements.text"
+    "text": "Python\nHere’s the content for the requirements.txt to install all the python packages.\nshiny\nipykernel\npalmerpenguins\nplotnine\nshinylive\njupyter\nstatsmodels\nscikit-learn\npandas\nseaborn\nmatplotlib\nchatlas\nquerychat @ git+https://github.com/posit-dev/querychat#subdirectory=python-package\ngreat_tables\norbitalml\npins\npointblank\nvetiver\nstreamlit\ndash\ndash-mantine-components\nplotly\nYou can then install the packages using pip install\npip install -r requirements.text"
   },
   {
     "objectID": "setup.html#quarto",
@@ -328,7 +328,7 @@
     "href": "tutorials/connect/deploy-shiny.html#step-1-application-requirements.txt",
     "title": "Deploy Shiny App",
     "section": "Step 1: Application requirements.txt",
-    "text": "Step 1: Application requirements.txt\nWhen we deploy our application, we need to make sure the packages we use are installed. Save the below into a requirements.txt file.\nshiny\npalmerpenguins\nplotnine",
+    "text": "Step 1: Application requirements.txt\nWhen we deploy our application, we need to make sure the packages we use are installed. Save the below into a requirements.txt file.\nshiny\npalmerpenguins\nplotnine\nand then install them with\npip install -r requirements.txt\nYou will need to have the requirements.txt file in the repository so Connect Cloud can create the Python environment.",
     "crumbs": [
       "Labs",
       "Shiny Dashboards",
@@ -384,87 +384,75 @@
     ]
   },
   {
-    "objectID": "tutorials/positron/positron.html",
-    "href": "tutorials/positron/positron.html",
-    "title": "Try Positron IDE",
+    "objectID": "tutorials/quarto/index.html",
+    "href": "tutorials/quarto/index.html",
+    "title": "Try Quarto",
     "section": "",
-    "text": "What is Positron?",
-    "crumbs": [
-      "Labs",
-      "Positron IDE",
-      "Try Positron IDE"
-    ]
-  },
-  {
-    "objectID": "tutorials/positron/positron.html#install-and-try-positron",
-    "href": "tutorials/positron/positron.html#install-and-try-positron",
-    "title": "Try Positron IDE",
-    "section": "Install and try Positron",
-    "text": "Install and try Positron\nIf you don’t have Positron already, you can download the IDE here: https://positron.posit.co/download.html\n\nExtensions\nSince Positron is built on Code OSS, you can use VS Code extensions in Positron. Your extensions installed for Positron are separate from the extensions you have installed for VS Code, and they won’t interfere with each other. Positron bundles several extensions, including those for Quarto, Jupyter notebooks, and Pyright. These extensions are installed for you the first time you start Positron.\nYou can install the Shiny Extension from OpenVSX.",
-    "crumbs": [
-      "Labs",
-      "Positron IDE",
-      "Try Positron IDE"
-    ]
-  },
-  {
-    "objectID": "tutorials/positron/positron.html#dashboard",
-    "href": "tutorials/positron/positron.html#dashboard",
-    "title": "Try Positron IDE",
-    "section": "Dashboard",
-    "text": "Dashboard\nHere’s the Shiny Express Dashboard we’ve used in this lab\nCopy the code below into a file called app.py\n\n\n\n\n\n\napp.py\n\n\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nfrom shiny.express import input, render, ui\n\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\nui.input_radio_buttons(\"species\", \"Species\", species, inline=True)\n\n\n@render.plot\ndef plot():\n    sel = dat[dat[\"species\"] == input.species()]\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )\n\n\nIf you have the Shiny Extension installed, you can click the play button to run the Shiny application.\n\nOr you can use the Positron Terminal to run your Shiny application\nshiny run --reload app.py\nThis will start the app and open it in your default web browser.\n\nThe --reload flag enables automatic reloading. When you save changes to your source files, the app will automatically restart and update in the browser.\nThe --launch-browser flag opens the app in a browser as soon as it starts.\n\nLearn more about Shiny in our Shiny Express Lab, and the Shiny Get Started page",
-    "crumbs": [
-      "Labs",
-      "Positron IDE",
-      "Try Positron IDE"
-    ]
-  },
-  {
-    "objectID": "tutorials/positron/positron.html#reproducible-documents",
-    "href": "tutorials/positron/positron.html#reproducible-documents",
-    "title": "Try Positron IDE",
-    "section": "Reproducible documents",
-    "text": "Reproducible documents\nDownload one of our example Quarto or Jupyter Notebook files. and give them a try in positron!",
-    "crumbs": [
-      "Labs",
-      "Positron IDE",
-      "Try Positron IDE"
-    ]
-  },
-  {
-    "objectID": "tutorials/quarto/quarto-dashboard.html",
-    "href": "tutorials/quarto/quarto-dashboard.html",
-    "title": "Quarto dashboards",
-    "section": "",
-    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
+    "text": "You’re looking at a Quarto project right now!",
     "crumbs": [
       "Labs",
       "Quarto Documents",
-      "Quarto dashboards"
+      "Try Quarto"
     ]
   },
   {
-    "objectID": "tutorials/quarto/quarto-dashboard.html#learn-more",
-    "href": "tutorials/quarto/quarto-dashboard.html#learn-more",
-    "title": "Quarto dashboards",
-    "section": "",
-    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
+    "objectID": "tutorials/quarto/index.html#scenario",
+    "href": "tutorials/quarto/index.html#scenario",
+    "title": "Try Quarto",
+    "section": "Scenario",
+    "text": "Scenario\nYou are a data scientist working on code for an analysis identifying Gentoo Penguins. and now need to share the results as a report.\nThis is a high-level meeting with leadership, and you are going to present your findings.",
     "crumbs": [
       "Labs",
       "Quarto Documents",
-      "Quarto dashboards"
+      "Try Quarto"
     ]
   },
   {
-    "objectID": "tutorials/quarto/reference_analysis_code.html",
-    "href": "tutorials/quarto/reference_analysis_code.html",
-    "title": "Reference analysis code",
-    "section": "",
-    "text": "Example script and output before putting it into a Quarto report.\n\nimport pandas as pd\nfrom plotnine import ggplot, aes, geom_point\nfrom palmerpenguins import load_penguins\nimport seaborn as sns\n\npenguins = load_penguins()\npenguins.shape\n\n(344, 8)\n\n\n\n# drop rows with missing values\npenguins = penguins.dropna()\npenguins.shape\n\n(333, 8)\n\n\n\n# gentoo is easier to separate\n# eda to find variables to separate Adelie\n# bill_depth_mm and body_mass_g are good separators\n# bill_depth_mm and flipper_length_mm are good separators\n# body_mass_g and flipper_length_mm are NOT good separators\n\nsns.pairplot(penguins, hue=\"species\")\n\n\n\n\n\n\n\n\n\n# fit logistic regression model\nimport statsmodels.api as sm\nimport statsmodels.formula.api as smf\n\n# recode variable\npenguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)\n\n# logistic regression\nmodel = smf.logit(\"is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm\", data=penguins).fit()\nprint(model.summary())\n\nOptimization terminated successfully.\n         Current function value: 0.352072\n         Iterations 8\n                           Logit Regression Results                           \n==============================================================================\nDep. Variable:              is_adelie   No. Observations:                  333\nModel:                          Logit   Df Residuals:                      329\nMethod:                           MLE   Df Model:                            3\nDate:                Thu, 15 May 2025   Pseudo R-squ.:                  0.4864\nTime:                        15:31:48   Log-Likelihood:                -117.24\nconverged:                       True   LL-Null:                       -228.29\nCovariance Type:            nonrobust   LLR p-value:                 7.076e-48\n=====================================================================================\n                        coef    std err          z      P&gt;|z|      [0.025      0.975]\n-------------------------------------------------------------------------------------\nIntercept            30.1600      5.603      5.383      0.000      19.178      41.142\nbill_depth_mm         0.3953      0.121      3.255      0.001       0.157       0.633\nbody_mass_g           0.0006      0.000      1.271      0.204      -0.000       0.001\nflipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -0.140\n=====================================================================================\n\n\n\n# model results\nmodel.params.to_frame(\"Estimate\")\n\n\n\n\n\n\n\n\nEstimate\n\n\n\n\nIntercept\n30.160015\n\n\nbill_depth_mm\n0.395328\n\n\nbody_mass_g\n0.000554\n\n\nflipper_length_mm\n-0.200743\n\n\n\n\n\n\n\n\n# predicted probabilities for first few rows\npenguins[\"predicted\"] = model.predict()\npenguins[[\"species\", \"predicted\"]].head()\n\n\n\n\n\n\n\n\nspecies\npredicted\n\n\n\n\n0\nAdelie\n0.964279\n\n\n1\nAdelie\n0.858842\n\n\n2\nAdelie\n0.482890\n\n\n4\nAdelie\n0.722669\n\n\n5\nAdelie\n0.898866\n\n\n\n\n\n\n\n\npenguins['pred_prob'] = model.predict()\n\n\nfrom plotnine import *\n\n(\n    ggplot(penguins, aes(x='species', y='pred_prob')) +\n    geom_boxplot(fill='#56B4E9') +\n    labs(title=\"Predicted Probability of Gentoo by Species\",\n         y=\"Predicted Probability\", x=\"Species\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\nfpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])\nroc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})\n\n(\n    ggplot(roc_df, aes(x='fpr', y='tpr')) +\n    geom_line(color='blue') +\n    geom_abline(slope=1, intercept=0, linetype='dashed') +\n    labs(title=\"ROC Curve\", x=\"False Positive Rate\", y=\"True Positive Rate\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nimport numpy as np\n\ncoefs = model.params.drop(\"Intercept\")\nerrors = model.bse.drop(\"Intercept\")\ncoef_df = pd.DataFrame({\n    'term': coefs.index,\n    'estimate': coefs.values,\n    'lower': coefs - 1.96 * errors,\n    'upper': coefs + 1.96 * errors\n})\n\n(\n    ggplot(coef_df, aes(x='term', y='estimate')) +\n    geom_point() +\n    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +\n    geom_hline(yintercept=0, linetype='dashed', color='gray') +\n    labs(title=\"Model Coefficients (95% CI)\", y=\"Estimate\", x=\"Term\") +\n    theme_minimal() +\n    theme(axis_text_x=element_text(rotation=45, hjust=1))\n)\n\n\n\n\n\n\n\n\n\n(\n    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +\n    geom_density(alpha=0.6) +\n    scale_fill_manual(values=['#E69F00', '#56B4E9'], name=\"Is Adelie\") +\n    labs(title=\"Predicted Probability Distribution\", x=\"Predicted Probability\") +\n    theme_minimal()\n)",
+    "objectID": "tutorials/quarto/index.html#the-analysis",
+    "href": "tutorials/quarto/index.html#the-analysis",
+    "title": "Try Quarto",
+    "section": "The analysis",
+    "text": "The analysis\nHead over to the reference analysis code To see the base report.",
     "crumbs": [
       "Labs",
       "Quarto Documents",
-      "Reference analysis code"
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html#quarto-report",
+    "href": "tutorials/quarto/index.html#quarto-report",
+    "title": "Try Quarto",
+    "section": "Quarto report",
+    "text": "Quarto report\nWe’ll convert our reference analysis code to make it a reproducible report.\n\nCode chunks\nA code chunk begins with 3 backticks and a set of { } with the language you want to use.\nFor example here’s an example piece of python code inside a code chunk\n```{python}\n# some python code\n3 + 3\n```\n\n\nChunk options\nChunk options can help control how the final rendered output. You add them with a #| comment on the first line of a code chunk.\nFor example, you can use include: false to hide all the code and output, but still have the code render in the background. This is great when you need to load and process data but do not want it displayed in the final document.\n```{python}\n#| include: false\na = 3 + 3\n```\n```{python}\nprint(a)\n```\nSee more chunk options on the Quarto Documentation\n\n\nRendering the document\nYou can render the document with:\nquarto render my_document.qmd\nIf you want the results to update every time you save, you can use\nquarto preview my_document.qmd",
+    "crumbs": [
+      "Labs",
+      "Quarto Documents",
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html#now-you-try",
+    "href": "tutorials/quarto/index.html#now-you-try",
+    "title": "Try Quarto",
+    "section": "Now you try",
+    "text": "Now you try\nTake the reference analysis code code, turn the code into separate code chunks, and add some prose text to explain what is happening.",
+    "crumbs": [
+      "Labs",
+      "Quarto Documents",
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html#learn-more",
+    "href": "tutorials/quarto/index.html#learn-more",
+    "title": "Try Quarto",
+    "section": "Learn more",
+    "text": "Learn more\n\nQuarto get started\nQuarto guides",
+    "crumbs": [
+      "Labs",
+      "Quarto Documents",
+      "Try Quarto"
     ]
   },
   {

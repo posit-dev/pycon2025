@@ -217,18 +217,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/quarto/quarto-dashboard.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quarto dashboards</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/quarto/quarto-shinylive.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quarto + shinylive</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../tutorials/quarto/reference_analysis_code.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reference analysis code</span></a>
   </div>
@@ -248,18 +236,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/connect/deploy-shiny.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Deploy Shiny App</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/connect/deploy-streamlit-dash.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deploy Streamlit or Dash</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/connect/deploy-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deploy Quarto</span></a>
   </div>
 </li>
       </ul>
@@ -295,6 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#querychat" id="toc-querychat" class="nav-link" data-scroll-target="#querychat">querychat</a></li>
   <li><a href="#shiny-genai" id="toc-shiny-genai" class="nav-link" data-scroll-target="#shiny-genai">Shiny + GenAI</a>
   <ul class="collapse">
+  <li><a href="#step-0-llm-setup" id="toc-step-0-llm-setup" class="nav-link" data-scroll-target="#step-0-llm-setup">Step 0: LLM setup</a></li>
   <li><a href="#step-1-create-the-application" id="toc-step-1-create-the-application" class="nav-link" data-scroll-target="#step-1-create-the-application">Step 1: Create the application</a></li>
   <li><a href="#step-2-run-the-application" id="toc-step-2-run-the-application" class="nav-link" data-scroll-target="#step-2-run-the-application">Step 2: Run the application</a></li>
   </ul></li>
@@ -370,7 +347,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="shiny-genai" class="level2">
 <h2 class="anchored" data-anchor-id="shiny-genai">Shiny + GenAI</h2>
-<p>Below is the code that provides the <code>querychat</code> UI and the filtered dataframe.</p>
+<p>We will now build a small app that uses the <code>querychat</code> UI and displays the reactive filtered dataframe.</p>
+<section id="step-0-llm-setup" class="level3">
+<h3 class="anchored" data-anchor-id="step-0-llm-setup">Step 0: LLM setup</h3>
+<p>The code below uses the <code>llama3.2</code> model from Ollama. You will need to have this installed before running the code. Or make sure you change the code for the model you plan to use.</p>
+<p>For more about LLM setup see the <a href="../../setup.html#genai-llms">LLM Setup Page</a>.</p>
+</section>
 <section id="step-1-create-the-application" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-create-the-application">Step 1: Create the application</h3>
 <p>Save the following code to an <code>app.py</code> file.</p>

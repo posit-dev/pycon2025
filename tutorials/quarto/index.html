@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -182,18 +217,6 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/quarto/quarto-dashboard.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quarto dashboards</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/quarto/quarto-shinylive.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quarto + shinylive</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../tutorials/quarto/reference_analysis_code.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reference analysis code</span></a>
   </div>
@@ -213,18 +236,6 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/connect/deploy-shiny.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Deploy Shiny App</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/connect/deploy-streamlit-dash.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deploy Streamlit or Dash</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/connect/deploy-quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deploy Quarto</span></a>
   </div>
 </li>
       </ul>
@@ -258,7 +269,13 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#scenario" id="toc-scenario" class="nav-link active" data-scroll-target="#scenario">Scenario</a></li>
   <li><a href="#the-analysis" id="toc-the-analysis" class="nav-link" data-scroll-target="#the-analysis">The analysis</a></li>
-  <li><a href="#quarto-report" id="toc-quarto-report" class="nav-link" data-scroll-target="#quarto-report">Quarto report</a></li>
+  <li><a href="#quarto-report" id="toc-quarto-report" class="nav-link" data-scroll-target="#quarto-report">Quarto report</a>
+  <ul class="collapse">
+  <li><a href="#code-chunks" id="toc-code-chunks" class="nav-link" data-scroll-target="#code-chunks">Code chunks</a></li>
+  <li><a href="#chunk-options" id="toc-chunk-options" class="nav-link" data-scroll-target="#chunk-options">Chunk options</a></li>
+  <li><a href="#rendering-the-document" id="toc-rendering-the-document" class="nav-link" data-scroll-target="#rendering-the-document">Rendering the document</a></li>
+  </ul></li>
+  <li><a href="#now-you-try" id="toc-now-you-try" class="nav-link" data-scroll-target="#now-you-try">Now you try</a></li>
   <li><a href="#learn-more" id="toc-learn-more" class="nav-link" data-scroll-target="#learn-more">Learn more</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/pycon2025-labs/edit/main/website/tutorials/quarto/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-dev/pycon2025-labs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -294,9 +311,44 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="the-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="the-analysis">The analysis</h2>
+<p>Head over to the <a href="../../tutorials/quarto/reference_analysis_code.html">reference analysis code</a> To see the base report.</p>
 </section>
 <section id="quarto-report" class="level2">
 <h2 class="anchored" data-anchor-id="quarto-report">Quarto report</h2>
+<p>We’ll convert our <a href="../../tutorials/quarto/reference_analysis_code.html">reference analysis code</a> to make it a reproducible report.</p>
+<section id="code-chunks" class="level3">
+<h3 class="anchored" data-anchor-id="code-chunks">Code chunks</h3>
+<p>A code chunk begins with 3 backticks and a set of <code>{ }</code> with the language you want to use.</p>
+<p>For example here’s an example piece of python code inside a code chunk</p>
+<div class="sourceCode" id="cb1" data-code-line-numbers=""><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># some python code</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="chunk-options" class="level3">
+<h3 class="anchored" data-anchor-id="chunk-options">Chunk options</h3>
+<p>Chunk options can help control how the final rendered output. You add them with a <code>#|</code> comment on the first line of a code chunk.</p>
+<p>For example, you can use <code>include: false</code> to hide all the code and output, but still have the code render in the background. This is great when you need to load and process data but do not want it displayed in the final document.</p>
+<div class="sourceCode" id="cb2" data-code-line-numbers=""><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3" data-code-line-numbers=""><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><a href="https://quarto.org/docs/computations/execution-options.html" target="_blank">See more chunk options on the Quarto Documentation</a></p>
+</section>
+<section id="rendering-the-document" class="level3">
+<h3 class="anchored" data-anchor-id="rendering-the-document">Rendering the document</h3>
+<p>You can render the document with:</p>
+<div class="sourceCode" id="cb4" data-code-line-numbers=""><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render my_document.qmd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you want the results to update every time you save, you can use</p>
+<div class="sourceCode" id="cb5" data-code-line-numbers=""><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview my_document.qmd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="now-you-try" class="level2">
+<h2 class="anchored" data-anchor-id="now-you-try">Now you try</h2>
+<p>Take the <a href="../../tutorials/quarto/reference_analysis_code.html">reference analysis code</a> code, turn the code into separate code chunks, and add some prose text to explain what is happening.</p>
 </section>
 <section id="learn-more" class="level2">
 <h2 class="anchored" data-anchor-id="learn-more">Learn more</h2>

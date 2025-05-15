@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Try Shiny Core – PyCon 2025</title>
+<title>Reference analysis Report – PyCon 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,10 +20,45 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -69,6 +104,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <meta name="quarto:status" content="draft">
 
 
@@ -120,7 +158,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/shiny/shiny-express.html">Shiny Dashboards</a></li><li class="breadcrumb-item"><a href="../../tutorials/shiny/shiny-core.html">Try Shiny Core</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/quarto/index.html">Quarto Documents</a></li><li class="breadcrumb-item"><a href="../../tutorials/quarto/reference_analysis_report.html">Reference analysis Report</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -228,22 +266,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#shiny-core" id="toc-shiny-core" class="nav-link active" data-scroll-target="#shiny-core">Shiny Core</a></li>
-  <li><a href="#learn-more" id="toc-learn-more" class="nav-link" data-scroll-target="#learn-more">Learn more</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/pycon2025-labs/edit/main/website/tutorials/shiny/shiny-core.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-dev/pycon2025-labs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/shiny/shiny-express.html">Shiny Dashboards</a></li><li class="breadcrumb-item"><a href="../../tutorials/shiny/shiny-core.html">Try Shiny Core</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/quarto/index.html">Quarto Documents</a></li><li class="breadcrumb-item"><a href="../../tutorials/quarto/reference_analysis_report.html">Reference analysis Report</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Try Shiny Core</h1>
+<h1 class="title">Reference analysis Report</h1>
 </div>
 
 
@@ -260,18 +291,250 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Shiny makes it easy to create rich, <strong>interactive</strong> experiences in <strong>pure Python</strong> with a fully <strong>reactive</strong> framework. <strong>No JavaScript</strong> required!</p>
-<section id="shiny-core" class="level2">
-<h2 class="anchored" data-anchor-id="shiny-core">Shiny Core</h2>
-</section>
-<section id="learn-more" class="level2">
-<h2 class="anchored" data-anchor-id="learn-more">Learn more</h2>
-<ul>
-<li><a href="https://shiny.posit.co/py/docs/express-vs-core.html">Express vs Core</a></li>
-</ul>
+<div id="d1e946f9" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>penguins.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre data-code-line-numbers=""><code>(344, 8)</code></pre>
+</div>
+</div>
+<div id="d021ab1e" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows with missing values</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins.dropna()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>penguins.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre data-code-line-numbers=""><code>(333, 8)</code></pre>
+</div>
+</div>
+<div id="dca74b40" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gentoo is easier to separate</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># eda to find variables to separate Adelie</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># bill_depth_mm and body_mass_g are good separators</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># bill_depth_mm and flipper_length_mm are good separators</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># body_mass_g and flipper_length_mm are NOT good separators</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>sns.pairplot(penguins, hue<span class="op">=</span><span class="st">"species"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reference_analysis_report_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="56f03b38" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit logistic regression model</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># recode variable</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'is_adelie'</span>] <span class="op">=</span> (penguins[<span class="st">'species'</span>] <span class="op">==</span> <span class="st">'Adelie'</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic regression</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.logit(<span class="st">"is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm"</span>, data<span class="op">=</span>penguins).fit()</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre data-code-line-numbers=""><code>Optimization terminated successfully.
+         Current function value: 0.352072
+         Iterations 8
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:              is_adelie   No. Observations:                  333
+Model:                          Logit   Df Residuals:                      329
+Method:                           MLE   Df Model:                            3
+Date:                Thu, 15 May 2025   Pseudo R-squ.:                  0.4864
+Time:                        18:45:59   Log-Likelihood:                -117.24
+converged:                       True   LL-Null:                       -228.29
+Covariance Type:            nonrobust   LLR p-value:                 7.076e-48
+=====================================================================================
+                        coef    std err          z      P&gt;|z|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+Intercept            30.1600      5.603      5.383      0.000      19.178      41.142
+bill_depth_mm         0.3953      0.121      3.255      0.001       0.157       0.633
+body_mass_g           0.0006      0.000      1.271      0.204      -0.000       0.001
+flipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -0.140
+=====================================================================================</code></pre>
+</div>
+</div>
+<div id="ed8de6bc" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model results</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>model.params.to_frame(<span class="st">"Estimate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
 
 
-</section>
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Intercept</td>
+<td>30.160015</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">bill_depth_mm</td>
+<td>0.395328</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">body_mass_g</td>
+<td>0.000554</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">flipper_length_mm</td>
+<td>-0.200743</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="78924145" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predicted probabilities for first few rows</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">"predicted"</span>] <span class="op">=</span> model.predict()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>penguins[[<span class="st">"species"</span>, <span class="st">"predicted"</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">predicted</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Adelie</td>
+<td>0.964279</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Adelie</td>
+<td>0.858842</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Adelie</td>
+<td>0.482890</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Adelie</td>
+<td>0.722669</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Adelie</td>
+<td>0.898866</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="be238f1f" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'pred_prob'</span>] <span class="op">=</span> model.predict()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ca671a25" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    ggplot(penguins, aes(x<span class="op">=</span><span class="st">'species'</span>, y<span class="op">=</span><span class="st">'pred_prob'</span>)) <span class="op">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    geom_boxplot(fill<span class="op">=</span><span class="st">'#56B4E9'</span>) <span class="op">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Predicted Probability of Gentoo by Species"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Predicted Probability"</span>, x<span class="op">=</span><span class="st">"Species"</span>) <span class="op">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    theme_minimal()</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reference_analysis_report_files/figure-html/cell-9-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="c6f28cb4" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fpr, tpr, _ <span class="op">=</span> roc_curve(penguins[<span class="st">'is_adelie'</span>], penguins[<span class="st">'pred_prob'</span>])</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>roc_df <span class="op">=</span> pd.DataFrame({<span class="st">'fpr'</span>: fpr, <span class="st">'tpr'</span>: tpr})</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    ggplot(roc_df, aes(x<span class="op">=</span><span class="st">'fpr'</span>, y<span class="op">=</span><span class="st">'tpr'</span>)) <span class="op">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    geom_line(color<span class="op">=</span><span class="st">'blue'</span>) <span class="op">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>) <span class="op">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"ROC Curve"</span>, x<span class="op">=</span><span class="st">"False Positive Rate"</span>, y<span class="op">=</span><span class="st">"True Positive Rate"</span>) <span class="op">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    theme_minimal()</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reference_analysis_report_files/figure-html/cell-10-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="185e6eb7" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> model.params.drop(<span class="st">"Intercept"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> model.bse.drop(<span class="st">"Intercept"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>coef_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'term'</span>: coefs.index,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'estimate'</span>: coefs.values,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'lower'</span>: coefs <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> errors,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'upper'</span>: coefs <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> errors</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    ggplot(coef_df, aes(x<span class="op">=</span><span class="st">'term'</span>, y<span class="op">=</span><span class="st">'estimate'</span>)) <span class="op">+</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    geom_point() <span class="op">+</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    geom_errorbar(aes(ymin<span class="op">=</span><span class="st">'lower'</span>, ymax<span class="op">=</span><span class="st">'upper'</span>), width<span class="op">=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    geom_hline(yintercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'gray'</span>) <span class="op">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Model Coefficients (95% CI)"</span>, y<span class="op">=</span><span class="st">"Estimate"</span>, x<span class="op">=</span><span class="st">"Term"</span>) <span class="op">+</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(rotation<span class="op">=</span><span class="dv">45</span>, hjust<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reference_analysis_report_files/figure-html/cell-11-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="6c442218" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    ggplot(penguins, aes(x<span class="op">=</span><span class="st">'pred_prob'</span>, fill<span class="op">=</span><span class="st">'factor(is_adelie)'</span>)) <span class="op">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    geom_density(alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="op">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    scale_fill_manual(values<span class="op">=</span>[<span class="st">'#E69F00'</span>, <span class="st">'#56B4E9'</span>], name<span class="op">=</span><span class="st">"Is Adelie"</span>) <span class="op">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Predicted Probability Distribution"</span>, x<span class="op">=</span><span class="st">"Predicted Probability"</span>) <span class="op">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    theme_minimal()</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="reference_analysis_report_files/figure-html/cell-12-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -681,7 +944,7 @@ ul.task-list li input[type="checkbox"] {
     </div>   
     <div class="nav-footer-center">
 <p><a href="https://posit-dev.github.io/pycon2025-labs">Posit@PyCon2025</a></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/posit-dev/pycon2025-labs/edit/main/website/tutorials/shiny/shiny-core.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-dev/pycon2025-labs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/posit-dev/pycon2025-labs/edit/main/website/tutorials/quarto/reference_analysis_report.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/posit-dev/pycon2025-labs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
