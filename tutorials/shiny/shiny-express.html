@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-cb85a931dc2d6ac0264d34ab5528f107.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-32011eba37f13ad466086b9038085dc3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-edd2aea1bc74eb0d189074bab77a46af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/line-highlight-1.0.0/line-highlight.css" rel="stylesheet">
 <meta name="shinylive:serviceworker_dir" content="../..">
 <script src="../../site_libs/quarto-contrib/shinylive-0.10.4/shinylive/load-shinylive-sw.js" type="module"></script>
@@ -144,6 +144,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
+    <a class="nav-link" href="../../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
@@ -192,20 +196,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/shiny/shiny-core.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Try Shiny Core</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../tutorials/shiny/shiny-ai.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Shiny + GenAI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/shiny/deploy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deploy your App</span></a>
+  <a href="../../tutorials/connect/deploy-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deploy Shiny App</span></a>
   </div>
 </li>
       </ul>
@@ -257,7 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/connect/deploy-shiny.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deploy Shiny</span></a>
+ <span class="menu-text">Deploy Shiny App</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -380,7 +378,7 @@ def plot():
 <section id="prototype" class="level2">
 <h2 class="anchored" data-anchor-id="prototype">Prototype</h2>
 <p>We’ll be using <code>palmerpenguins</code> for the dataset, and <code>plotnine</code> to visualize the palmer penguin’s <code>bill_length_mm</code> column as a histogram.</p>
-<div id="59a6117f" class="cell" data-execution_count="1">
+<div id="0c632739" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dat <span class="op">=</span> load_penguins()</span>
@@ -466,7 +464,7 @@ def plot():
 </div>
 </div>
 <p>Here’s the base code we’ll be starting with. It creates 2 histograms layerd on top of one another. The base layer is the distribution of all the penguin species. and the blue layer on top will the distribution of the selected penguin species.</p>
-<div id="8aa6e04c" class="cell" data-execution_count="2">
+<div id="9ce79052" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> aes, geom_histogram, ggplot, theme_minimal</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="st">"Adelie"</span> <span class="co"># selected species</span></span>
@@ -505,7 +503,7 @@ Learn more about plotting in plotnine
 <section id="shiny-express-1" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="shiny-express-1">Shiny Express</h2>
 <p>Shiny Express is designed to make it significantly easier to get started with Shiny, and to write simple apps with a minimum of boilerplate.</p>
-<p>Wherever you write your UI or output code, is where it will render in the application. In this sense Shiny Express is similar to <a href="https://streamlit.io/">Streamlit</a>. If you’re looking for syntax where the UI and outputs are separated, similar to <a href="https://dash.plotly.com/">Dash</a>, then take a look at the <a href="../../tutorials/shiny/shiny-core.html">Shiny Core Lab</a>.</p>
+<p>Wherever you write your UI or output code, is where it will render in the application. In this sense Shiny Express is similar to <a href="https://streamlit.io/">Streamlit</a>. If you’re looking for syntax where the UI and outputs are separated, similar to <a href="https://dash.plotly.com/">Dash</a>, then take a look at the Shiny Core Lab.</p>
 <section id="user-interface" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="user-interface">User interface</h3>
 <p>Before we get all components reacting to one another, let’s start with mapping out how our application will look.</p>

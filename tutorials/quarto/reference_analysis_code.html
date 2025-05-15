@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-cb85a931dc2d6ac0264d34ab5528f107.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-32011eba37f13ad466086b9038085dc3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-edd2aea1bc74eb0d189074bab77a46af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/line-highlight-1.0.0/line-highlight.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -139,6 +139,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
+    <a class="nav-link" href="../../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
@@ -187,20 +191,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/shiny/shiny-core.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Try Shiny Core</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../tutorials/shiny/shiny-ai.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Shiny + GenAI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/shiny/deploy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deploy your App</span></a>
+  <a href="../../tutorials/connect/deploy-shiny.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deploy Shiny App</span></a>
   </div>
 </li>
       </ul>
@@ -252,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/connect/deploy-shiny.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deploy Shiny</span></a>
+ <span class="menu-text">Deploy Shiny App</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -317,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Example script and output before putting it into a Quarto report.</p>
-<div id="9655421b" class="cell" data-execution_count="1">
+<div id="5178de91" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
@@ -329,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre data-code-line-numbers=""><code>(344, 8)</code></pre>
 </div>
 </div>
-<div id="1178d0e2" class="cell" data-execution_count="2">
+<div id="5de6de79" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows with missing values</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins.dropna()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>penguins.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -337,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre data-code-line-numbers=""><code>(333, 8)</code></pre>
 </div>
 </div>
-<div id="bcbf9495" class="cell" data-execution_count="3">
+<div id="4d25af3f" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gentoo is easier to separate</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># eda to find variables to separate Adelie</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># bill_depth_mm and body_mass_g are good separators</span></span>
@@ -353,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="c4455da0" class="cell" data-execution_count="4">
+<div id="85c90612" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit logistic regression model</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
@@ -373,8 +371,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Dep. Variable:              is_adelie   No. Observations:                  333
 Model:                          Logit   Df Residuals:                      329
 Method:                           MLE   Df Model:                            3
-Date:                Wed, 14 May 2025   Pseudo R-squ.:                  0.4864
-Time:                        15:05:25   Log-Likelihood:                -117.24
+Date:                Thu, 15 May 2025   Pseudo R-squ.:                  0.4864
+Time:                        04:01:21   Log-Likelihood:                -117.24
 converged:                       True   LL-Null:                       -228.29
 Covariance Type:            nonrobust   LLR p-value:                 7.076e-48
 =====================================================================================
@@ -387,7 +385,7 @@ flipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -
 =====================================================================================</code></pre>
 </div>
 </div>
-<div id="052653e0" class="cell" data-execution_count="5">
+<div id="2410b022" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model results</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>model.params.to_frame(<span class="st">"Estimate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -424,7 +422,7 @@ flipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -
 </div>
 </div>
 </div>
-<div id="c4be88ff" class="cell" data-execution_count="6">
+<div id="a260cb62" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predicted probabilities for first few rows</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">"predicted"</span>] <span class="op">=</span> model.predict()</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>penguins[[<span class="st">"species"</span>, <span class="st">"predicted"</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -472,10 +470,10 @@ flipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -
 </div>
 </div>
 </div>
-<div id="e6641832" class="cell" data-execution_count="7">
+<div id="7decce56" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'pred_prob'</span>] <span class="op">=</span> model.predict()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="de1e3221" class="cell" data-execution_count="8">
+<div id="da179fcb" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>(</span>
@@ -493,7 +491,7 @@ flipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -
 </div>
 </div>
 </div>
-<div id="a87b3083" class="cell" data-execution_count="9">
+<div id="64911005" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fpr, tpr, _ <span class="op">=</span> roc_curve(penguins[<span class="st">'is_adelie'</span>], penguins[<span class="st">'pred_prob'</span>])</span>
@@ -514,7 +512,7 @@ flipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -
 </div>
 </div>
 </div>
-<div id="c2fe29ef" class="cell" data-execution_count="10">
+<div id="ea13f135" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>coefs <span class="op">=</span> model.params.drop(<span class="st">"Intercept"</span>)</span>
@@ -543,7 +541,7 @@ flipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -
 </div>
 </div>
 </div>
-<div id="9bdf8bf3" class="cell" data-execution_count="11">
+<div id="a7cc2572" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    ggplot(penguins, aes(x<span class="op">=</span><span class="st">'pred_prob'</span>, fill<span class="op">=</span><span class="st">'factor(is_adelie)'</span>)) <span class="op">+</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    geom_density(alpha<span class="op">=</span><span class="fl">0.6</span>) <span class="op">+</span></span>

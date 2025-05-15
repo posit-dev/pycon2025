@@ -7,40 +7,213 @@
     "text": "Shiny makes it easy to create rich, interactive experiences in pure Python with a fully reactive framework. No JavaScript required!"
   },
   {
-    "objectID": "tutorials/shiny/shiny-core.html",
-    "href": "tutorials/shiny/shiny-core.html",
-    "title": "Try Shiny Core",
+    "objectID": "tutorials/quarto/reference_analysis_code.html",
+    "href": "tutorials/quarto/reference_analysis_code.html",
+    "title": "Reference analysis code",
     "section": "",
-    "text": "Shiny makes it easy to create rich, interactive experiences in pure Python with a fully reactive framework. No JavaScript required!",
+    "text": "Example script and output before putting it into a Quarto report.\n\nimport pandas as pd\nfrom plotnine import ggplot, aes, geom_point\nfrom palmerpenguins import load_penguins\nimport seaborn as sns\n\npenguins = load_penguins()\npenguins.shape\n\n(344, 8)\n\n\n\n# drop rows with missing values\npenguins = penguins.dropna()\npenguins.shape\n\n(333, 8)\n\n\n\n# gentoo is easier to separate\n# eda to find variables to separate Adelie\n# bill_depth_mm and body_mass_g are good separators\n# bill_depth_mm and flipper_length_mm are good separators\n# body_mass_g and flipper_length_mm are NOT good separators\n\nsns.pairplot(penguins, hue=\"species\")\n\n\n\n\n\n\n\n\n\n# fit logistic regression model\nimport statsmodels.api as sm\nimport statsmodels.formula.api as smf\n\n# recode variable\npenguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)\n\n# logistic regression\nmodel = smf.logit(\"is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm\", data=penguins).fit()\nprint(model.summary())\n\nOptimization terminated successfully.\n         Current function value: 0.352072\n         Iterations 8\n                           Logit Regression Results                           \n==============================================================================\nDep. Variable:              is_adelie   No. Observations:                  333\nModel:                          Logit   Df Residuals:                      329\nMethod:                           MLE   Df Model:                            3\nDate:                Thu, 15 May 2025   Pseudo R-squ.:                  0.4864\nTime:                        04:01:21   Log-Likelihood:                -117.24\nconverged:                       True   LL-Null:                       -228.29\nCovariance Type:            nonrobust   LLR p-value:                 7.076e-48\n=====================================================================================\n                        coef    std err          z      P&gt;|z|      [0.025      0.975]\n-------------------------------------------------------------------------------------\nIntercept            30.1600      5.603      5.383      0.000      19.178      41.142\nbill_depth_mm         0.3953      0.121      3.255      0.001       0.157       0.633\nbody_mass_g           0.0006      0.000      1.271      0.204      -0.000       0.001\nflipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -0.140\n=====================================================================================\n\n\n\n# model results\nmodel.params.to_frame(\"Estimate\")\n\n\n\n\n\n\n\n\nEstimate\n\n\n\n\nIntercept\n30.160015\n\n\nbill_depth_mm\n0.395328\n\n\nbody_mass_g\n0.000554\n\n\nflipper_length_mm\n-0.200743\n\n\n\n\n\n\n\n\n# predicted probabilities for first few rows\npenguins[\"predicted\"] = model.predict()\npenguins[[\"species\", \"predicted\"]].head()\n\n\n\n\n\n\n\n\nspecies\npredicted\n\n\n\n\n0\nAdelie\n0.964279\n\n\n1\nAdelie\n0.858842\n\n\n2\nAdelie\n0.482890\n\n\n4\nAdelie\n0.722669\n\n\n5\nAdelie\n0.898866\n\n\n\n\n\n\n\n\npenguins['pred_prob'] = model.predict()\n\n\nfrom plotnine import *\n\n(\n    ggplot(penguins, aes(x='species', y='pred_prob')) +\n    geom_boxplot(fill='#56B4E9') +\n    labs(title=\"Predicted Probability of Gentoo by Species\",\n         y=\"Predicted Probability\", x=\"Species\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\nfpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])\nroc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})\n\n(\n    ggplot(roc_df, aes(x='fpr', y='tpr')) +\n    geom_line(color='blue') +\n    geom_abline(slope=1, intercept=0, linetype='dashed') +\n    labs(title=\"ROC Curve\", x=\"False Positive Rate\", y=\"True Positive Rate\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nimport numpy as np\n\ncoefs = model.params.drop(\"Intercept\")\nerrors = model.bse.drop(\"Intercept\")\ncoef_df = pd.DataFrame({\n    'term': coefs.index,\n    'estimate': coefs.values,\n    'lower': coefs - 1.96 * errors,\n    'upper': coefs + 1.96 * errors\n})\n\n(\n    ggplot(coef_df, aes(x='term', y='estimate')) +\n    geom_point() +\n    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +\n    geom_hline(yintercept=0, linetype='dashed', color='gray') +\n    labs(title=\"Model Coefficients (95% CI)\", y=\"Estimate\", x=\"Term\") +\n    theme_minimal() +\n    theme(axis_text_x=element_text(rotation=45, hjust=1))\n)\n\n\n\n\n\n\n\n\n\n(\n    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +\n    geom_density(alpha=0.6) +\n    scale_fill_manual(values=['#E69F00', '#56B4E9'], name=\"Is Adelie\") +\n    labs(title=\"Predicted Probability Distribution\", x=\"Predicted Probability\") +\n    theme_minimal()\n)",
     "crumbs": [
       "Labs",
-      "Shiny Dashboards",
-      "Try Shiny Core"
+      "Quarto Documents",
+      "Reference analysis code"
     ]
   },
   {
-    "objectID": "tutorials/shiny/shiny-core.html#shiny-core",
-    "href": "tutorials/shiny/shiny-core.html#shiny-core",
-    "title": "Try Shiny Core",
-    "section": "Shiny Core",
-    "text": "Shiny Core",
+    "objectID": "tutorials/quarto/quarto-dashboard.html",
+    "href": "tutorials/quarto/quarto-dashboard.html",
+    "title": "Quarto dashboards",
+    "section": "",
+    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
     "crumbs": [
       "Labs",
-      "Shiny Dashboards",
-      "Try Shiny Core"
+      "Quarto Documents",
+      "Quarto dashboards"
     ]
   },
   {
-    "objectID": "tutorials/shiny/shiny-core.html#learn-more",
-    "href": "tutorials/shiny/shiny-core.html#learn-more",
-    "title": "Try Shiny Core",
-    "section": "Learn more",
-    "text": "Learn more\n\nExpress vs Core",
+    "objectID": "tutorials/quarto/quarto-dashboard.html#learn-more",
+    "href": "tutorials/quarto/quarto-dashboard.html#learn-more",
+    "title": "Quarto dashboards",
+    "section": "",
+    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
+    "crumbs": [
+      "Labs",
+      "Quarto Documents",
+      "Quarto dashboards"
+    ]
+  },
+  {
+    "objectID": "tutorials/positron/positron.html",
+    "href": "tutorials/positron/positron.html",
+    "title": "Try Positron IDE",
+    "section": "",
+    "text": "What is Positron?\n\nA next-generation data science IDE built by Posit PBC\nAn extensible, polyglot tool for writing code and exploring data\nA familiar environment for reproducible authoring and publishing",
+    "crumbs": [
+      "Labs",
+      "Positron IDE",
+      "Try Positron IDE"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-shiny.html",
+    "href": "tutorials/connect/deploy-shiny.html",
+    "title": "Deploy Shiny App",
+    "section": "",
+    "text": "Let’s get our application up on the internet. We’ll be using Connect Cloud.\nConnect Cloud provides a cloud environment to quickly publish, share, and showcase your work – it’s free for public GitHub repositories!\nHere’s the app we created in the Shiny Express Lab.",
     "crumbs": [
       "Labs",
       "Shiny Dashboards",
-      "Try Shiny Core"
+      "Deploy Shiny App"
     ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-shiny.html#step-0-github-account",
+    "href": "tutorials/connect/deploy-shiny.html#step-0-github-account",
+    "title": "Deploy Shiny App",
+    "section": "Step 0: GitHub account",
+    "text": "Step 0: GitHub account\nBefore starting make sure you have your github account ready. You will be creating a repository submitting code into the repo.\nYou can do this lab completely within the GitHub web interface by copying code into a new file.",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Deploy Shiny App"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-shiny.html#step-1-application-requirements.txt",
+    "href": "tutorials/connect/deploy-shiny.html#step-1-application-requirements.txt",
+    "title": "Deploy Shiny App",
+    "section": "Step 1: Application requirements.txt",
+    "text": "Step 1: Application requirements.txt\nWhen we deploy our application, we need to make sure the packages we use are installed. Save the below into a requirements.txt file.\nshiny\npalmerpenguins\nplotnine",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Deploy Shiny App"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-shiny.html#step-2-the-application-code",
+    "href": "tutorials/connect/deploy-shiny.html#step-2-the-application-code",
+    "title": "Deploy Shiny App",
+    "section": "Step 2: The application code",
+    "text": "Step 2: The application code\nCopy the code from our application into a file called app.py\n\n\n\n\n\n\napp.py\n\n\n\n\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nfrom shiny.express import input, render, ui\n\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\nui.input_radio_buttons(\"species\", \"Species\", species, inline=True)\n\n\n@render.plot\ndef plot():\n    sel = dat[dat[\"species\"] == input.species()]\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Deploy Shiny App"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-shiny.html#step-3-deploy-to-connect-cloud",
+    "href": "tutorials/connect/deploy-shiny.html#step-3-deploy-to-connect-cloud",
+    "title": "Deploy Shiny App",
+    "section": "Step 3: Deploy to Connect Cloud",
+    "text": "Step 3: Deploy to Connect Cloud\nWe’ll be deploying our shiny application to Connect Cloud. Here are the steps to publish your application.\n\nClick the Publish icon button on the top of your Portfolio page\nSelect Shiny\nSelect the public repository that you created in this tutorial\nConfirm the branch\nSelect app.py as the primary file\nClick Publish\n\nPublishing will display status updates during the deployment process. You will also find build logs streaming on the lower part of the screen.\nCongratulations! You successfully deployed to Connect Cloud and are now able to share the link with others.",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Deploy Shiny App"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-shiny.html#step-4-republish-application",
+    "href": "tutorials/connect/deploy-shiny.html#step-4-republish-application",
+    "title": "Deploy Shiny App",
+    "section": "Step 4: Republish application",
+    "text": "Step 4: Republish application\nIf you update the code to your application or the underlying data source, commit and push the changes to your GitHub repository.\nOnce the repository has the updated code, you can republish the application on Connect Cloud by going to your Content List and clicking the republish icon.",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Deploy Shiny App"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-shiny.html#learn-more",
+    "href": "tutorials/connect/deploy-shiny.html#learn-more",
+    "title": "Deploy Shiny App",
+    "section": "Learn More",
+    "text": "Learn More\n\nDeploy a Shiny for Python App to Connect Cloud\nDeploy a LLM-powered Shiny for Python App with Secrets",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Deploy Shiny App"
+    ]
+  },
+  {
+    "objectID": "setup.html",
+    "href": "setup.html",
+    "title": "Setup",
+    "section": "",
+    "text": "Want to try these labs on your own computer? Here are the software install instructions to get everything ready."
+  },
+  {
+    "objectID": "setup.html#python",
+    "href": "setup.html#python",
+    "title": "Setup",
+    "section": "Python",
+    "text": "Python\nHere’s the content for the requirements.txt to install all the python packages.\nshiny\nipykernel\npalmerpenguins\nplotnine\nshinylive\njupyter\nstatsmodels\nscikit-learn\npandas\nseaborn\nmatplotlib\nchatlas\nquerychat @ git+https://github.com/posit-dev/querychat#subdirectory=python-package\nYou can then install the packages using pip install\npip install -r requirements.text"
+  },
+  {
+    "objectID": "setup.html#quarto",
+    "href": "setup.html#quarto",
+    "title": "Setup",
+    "section": "Quarto",
+    "text": "Quarto\nDownload and install Quarto: https://quarto.org/docs/get-started/"
+  },
+  {
+    "objectID": "setup.html#positron-ide",
+    "href": "setup.html#positron-ide",
+    "title": "Setup",
+    "section": "Positron IDE",
+    "text": "Positron IDE\nDownload and install the Positron IDE: https://positron.posit.co/download.html"
+  },
+  {
+    "objectID": "setup.html#genai-llms",
+    "href": "setup.html#genai-llms",
+    "title": "Setup",
+    "section": "GenAI + LLMs",
+    "text": "GenAI + LLMs\n\nDownload Ollama: https://ollama.com/download\nDownload the llama3.2 model: https://ollama.com/library/llama3.2\n\nollama run llama3.2\n(optional): You can also create an Anthropic account and pay for a Claude API key: https://www.anthropic.com/"
+  },
+  {
+    "objectID": "setup.html#posit-connect-cloud",
+    "href": "setup.html#posit-connect-cloud",
+    "title": "Setup",
+    "section": "Posit Connect Cloud",
+    "text": "Posit Connect Cloud\nCreate a free Posit Connect Cloud account for our dashboard and document deployments: https://connect.posit.cloud/"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Who’s at the booth\n\n\n\n\n  \n    \n    Jason Milnes\n    \n       | \n    \n  \n  \n    \n    Carson Sievert\n    \n       | \n    \n  \n  \n    \n    Daniel Chen\n    \n       | \n    \n  \n  \n    \n    Alex Chisholm\n    \n       |"
+  },
+  {
+    "objectID": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
+    "href": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
+    "title": "Posit, PBC @ PyCon 2025",
+    "section": "We’re excited to be in Pittsburgh for PyCon 2025!",
+    "text": "We’re excited to be in Pittsburgh for PyCon 2025!\nYou can find the Posit team in the Community Booths at Booth #523, and we’d love for you to stop by, say hi, and catch up on the exciting things we’ve been building."
+  },
+  {
+    "objectID": "index.html#giveaway",
+    "href": "index.html#giveaway",
+    "title": "Posit, PBC @ PyCon 2025",
+    "section": "Giveaway!",
+    "text": "Giveaway!\nSpeaking of exciting: We’re giving away 10 signed copies of Python Polars: The Definitive Guide, co-authored by our very own Jeroen Janssens and Thijs Nieuwdorp — swing by our booth and enter for a chance to win!\nWhether you want to talk Python, check out a quick demo, or just grab some great swag, we hope you’ll come see us."
+  },
+  {
+    "objectID": "tutorials/foss/plotnine.html",
+    "href": "tutorials/foss/plotnine.html",
+    "title": "Plotnine",
+    "section": "",
+    "text": "We’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nWe’ll be creating a base histogram using plotnine as follows:\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\ng = ggplot(penguins, aes(x=\"bill_length_mm\")) + geom_histogram()\ng\n\n\n\n\n\n\n\n\n\n\nNow we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.\n\nspecies = \"Adelie\" # selected species\nselected = penguins.loc[penguins.species == species] # selected data\nselected\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n147\nAdelie\nDream\n36.6\n18.4\n184.0\n3475.0\nfemale\n2009\n\n\n148\nAdelie\nDream\n36.0\n17.8\n195.0\n3450.0\nfemale\n2009\n\n\n149\nAdelie\nDream\n37.8\n18.1\n193.0\n3750.0\nmale\n2009\n\n\n150\nAdelie\nDream\n36.0\n17.1\n187.0\n3700.0\nfemale\n2009\n\n\n151\nAdelie\nDream\n41.5\n18.5\n201.0\n4000.0\nmale\n2009\n\n\n\n\n152 rows × 8 columns\n\n\n\nNow that we have the new data, we can add the new selected dataframe to our original figure, g\n\ng + geom_histogram(data=selected, fill=\"#447099\")\n\n\n\n\n\n\n\n\n\n\n\nThe 2 different bill_length_mm are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting binwidth=1.\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(penguins, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(selected, fill=\"#447099\", binwidth=1)\n)"
+  },
+  {
+    "objectID": "tutorials/foss/plotnine.html#import-and-prototype",
+    "href": "tutorials/foss/plotnine.html#import-and-prototype",
+    "title": "Plotnine",
+    "section": "",
+    "text": "We’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nWe’ll be creating a base histogram using plotnine as follows:\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\ng = ggplot(penguins, aes(x=\"bill_length_mm\")) + geom_histogram()\ng\n\n\n\n\n\n\n\n\n\n\nNow we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.\n\nspecies = \"Adelie\" # selected species\nselected = penguins.loc[penguins.species == species] # selected data\nselected\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n147\nAdelie\nDream\n36.6\n18.4\n184.0\n3475.0\nfemale\n2009\n\n\n148\nAdelie\nDream\n36.0\n17.8\n195.0\n3450.0\nfemale\n2009\n\n\n149\nAdelie\nDream\n37.8\n18.1\n193.0\n3750.0\nmale\n2009\n\n\n150\nAdelie\nDream\n36.0\n17.1\n187.0\n3700.0\nfemale\n2009\n\n\n151\nAdelie\nDream\n41.5\n18.5\n201.0\n4000.0\nmale\n2009\n\n\n\n\n152 rows × 8 columns\n\n\n\nNow that we have the new data, we can add the new selected dataframe to our original figure, g\n\ng + geom_histogram(data=selected, fill=\"#447099\")\n\n\n\n\n\n\n\n\n\n\n\nThe 2 different bill_length_mm are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting binwidth=1.\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(penguins, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(selected, fill=\"#447099\", binwidth=1)\n)"
   },
   {
     "objectID": "tutorials/quarto/index.html",
@@ -100,89 +273,6 @@
       "Labs",
       "Quarto Documents",
       "Try Quarto"
-    ]
-  },
-  {
-    "objectID": "tutorials/foss/plotnine.html",
-    "href": "tutorials/foss/plotnine.html",
-    "title": "Plotnine",
-    "section": "",
-    "text": "We’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nWe’ll be creating a base histogram using plotnine as follows:\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\ng = ggplot(penguins, aes(x=\"bill_length_mm\")) + geom_histogram()\ng\n\n\n\n\n\n\n\n\n\n\nNow we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.\n\nspecies = \"Adelie\" # selected species\nselected = penguins.loc[penguins.species == species] # selected data\nselected\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n147\nAdelie\nDream\n36.6\n18.4\n184.0\n3475.0\nfemale\n2009\n\n\n148\nAdelie\nDream\n36.0\n17.8\n195.0\n3450.0\nfemale\n2009\n\n\n149\nAdelie\nDream\n37.8\n18.1\n193.0\n3750.0\nmale\n2009\n\n\n150\nAdelie\nDream\n36.0\n17.1\n187.0\n3700.0\nfemale\n2009\n\n\n151\nAdelie\nDream\n41.5\n18.5\n201.0\n4000.0\nmale\n2009\n\n\n\n\n152 rows × 8 columns\n\n\n\nNow that we have the new data, we can add the new selected dataframe to our original figure, g\n\ng + geom_histogram(data=selected, fill=\"#447099\")\n\n\n\n\n\n\n\n\n\n\n\nThe 2 different bill_length_mm are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting binwidth=1.\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(penguins, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(selected, fill=\"#447099\", binwidth=1)\n)"
-  },
-  {
-    "objectID": "tutorials/foss/plotnine.html#import-and-prototype",
-    "href": "tutorials/foss/plotnine.html#import-and-prototype",
-    "title": "Plotnine",
-    "section": "",
-    "text": "We’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nWe’ll be creating a base histogram using plotnine as follows:\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\ng = ggplot(penguins, aes(x=\"bill_length_mm\")) + geom_histogram()\ng\n\n\n\n\n\n\n\n\n\n\nNow we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.\n\nspecies = \"Adelie\" # selected species\nselected = penguins.loc[penguins.species == species] # selected data\nselected\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n147\nAdelie\nDream\n36.6\n18.4\n184.0\n3475.0\nfemale\n2009\n\n\n148\nAdelie\nDream\n36.0\n17.8\n195.0\n3450.0\nfemale\n2009\n\n\n149\nAdelie\nDream\n37.8\n18.1\n193.0\n3750.0\nmale\n2009\n\n\n150\nAdelie\nDream\n36.0\n17.1\n187.0\n3700.0\nfemale\n2009\n\n\n151\nAdelie\nDream\n41.5\n18.5\n201.0\n4000.0\nmale\n2009\n\n\n\n\n152 rows × 8 columns\n\n\n\nNow that we have the new data, we can add the new selected dataframe to our original figure, g\n\ng + geom_histogram(data=selected, fill=\"#447099\")\n\n\n\n\n\n\n\n\n\n\n\nThe 2 different bill_length_mm are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting binwidth=1.\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(penguins, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(selected, fill=\"#447099\", binwidth=1)\n)"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Who’s at the booth\n\n\n\n\n  \n    \n    Jason Milnes\n    \n       | \n    \n  \n  \n    \n    Carson Sievert\n    \n       | \n    \n  \n  \n    \n    Daniel Chen\n    \n       | \n    \n  \n  \n    \n    Alex Chisholm\n    \n       |"
-  },
-  {
-    "objectID": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
-    "href": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
-    "title": "Posit, PBC @ PyCon 2025",
-    "section": "We’re excited to be in Pittsburgh for PyCon 2025!",
-    "text": "We’re excited to be in Pittsburgh for PyCon 2025!\nYou can find the Posit team in the Community Booths at Booth #523, and we’d love for you to stop by, say hi, and catch up on the exciting things we’ve been building."
-  },
-  {
-    "objectID": "index.html#giveaway",
-    "href": "index.html#giveaway",
-    "title": "Posit, PBC @ PyCon 2025",
-    "section": "Giveaway!",
-    "text": "Giveaway!\nSpeaking of exciting: We’re giving away 10 signed copies of Python Polars: The Definitive Guide, co-authored by our very own Jeroen Janssens and Thijs Nieuwdorp — swing by our booth and enter for a chance to win!\nWhether you want to talk Python, check out a quick demo, or just grab some great swag, we hope you’ll come see us."
-  },
-  {
-    "objectID": "tutorials/positron/positron.html",
-    "href": "tutorials/positron/positron.html",
-    "title": "Try Positron IDE",
-    "section": "",
-    "text": "What is Positron?\n\nA next-generation data science IDE built by Posit PBC\nAn extensible, polyglot tool for writing code and exploring data\nA familiar environment for reproducible authoring and publishing",
-    "crumbs": [
-      "Labs",
-      "Positron IDE",
-      "Try Positron IDE"
-    ]
-  },
-  {
-    "objectID": "tutorials/quarto/quarto-dashboard.html",
-    "href": "tutorials/quarto/quarto-dashboard.html",
-    "title": "Quarto dashboards",
-    "section": "",
-    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
-    "crumbs": [
-      "Labs",
-      "Quarto Documents",
-      "Quarto dashboards"
-    ]
-  },
-  {
-    "objectID": "tutorials/quarto/quarto-dashboard.html#learn-more",
-    "href": "tutorials/quarto/quarto-dashboard.html#learn-more",
-    "title": "Quarto dashboards",
-    "section": "",
-    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
-    "crumbs": [
-      "Labs",
-      "Quarto Documents",
-      "Quarto dashboards"
-    ]
-  },
-  {
-    "objectID": "tutorials/quarto/reference_analysis_code.html",
-    "href": "tutorials/quarto/reference_analysis_code.html",
-    "title": "Reference analysis code",
-    "section": "",
-    "text": "Example script and output before putting it into a Quarto report.\n\nimport pandas as pd\nfrom plotnine import ggplot, aes, geom_point\nfrom palmerpenguins import load_penguins\nimport seaborn as sns\n\npenguins = load_penguins()\npenguins.shape\n\n(344, 8)\n\n\n\n# drop rows with missing values\npenguins = penguins.dropna()\npenguins.shape\n\n(333, 8)\n\n\n\n# gentoo is easier to separate\n# eda to find variables to separate Adelie\n# bill_depth_mm and body_mass_g are good separators\n# bill_depth_mm and flipper_length_mm are good separators\n# body_mass_g and flipper_length_mm are NOT good separators\n\nsns.pairplot(penguins, hue=\"species\")\n\n\n\n\n\n\n\n\n\n# fit logistic regression model\nimport statsmodels.api as sm\nimport statsmodels.formula.api as smf\n\n# recode variable\npenguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)\n\n# logistic regression\nmodel = smf.logit(\"is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm\", data=penguins).fit()\nprint(model.summary())\n\nOptimization terminated successfully.\n         Current function value: 0.352072\n         Iterations 8\n                           Logit Regression Results                           \n==============================================================================\nDep. Variable:              is_adelie   No. Observations:                  333\nModel:                          Logit   Df Residuals:                      329\nMethod:                           MLE   Df Model:                            3\nDate:                Wed, 14 May 2025   Pseudo R-squ.:                  0.4864\nTime:                        15:05:25   Log-Likelihood:                -117.24\nconverged:                       True   LL-Null:                       -228.29\nCovariance Type:            nonrobust   LLR p-value:                 7.076e-48\n=====================================================================================\n                        coef    std err          z      P&gt;|z|      [0.025      0.975]\n-------------------------------------------------------------------------------------\nIntercept            30.1600      5.603      5.383      0.000      19.178      41.142\nbill_depth_mm         0.3953      0.121      3.255      0.001       0.157       0.633\nbody_mass_g           0.0006      0.000      1.271      0.204      -0.000       0.001\nflipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -0.140\n=====================================================================================\n\n\n\n# model results\nmodel.params.to_frame(\"Estimate\")\n\n\n\n\n\n\n\n\nEstimate\n\n\n\n\nIntercept\n30.160015\n\n\nbill_depth_mm\n0.395328\n\n\nbody_mass_g\n0.000554\n\n\nflipper_length_mm\n-0.200743\n\n\n\n\n\n\n\n\n# predicted probabilities for first few rows\npenguins[\"predicted\"] = model.predict()\npenguins[[\"species\", \"predicted\"]].head()\n\n\n\n\n\n\n\n\nspecies\npredicted\n\n\n\n\n0\nAdelie\n0.964279\n\n\n1\nAdelie\n0.858842\n\n\n2\nAdelie\n0.482890\n\n\n4\nAdelie\n0.722669\n\n\n5\nAdelie\n0.898866\n\n\n\n\n\n\n\n\npenguins['pred_prob'] = model.predict()\n\n\nfrom plotnine import *\n\n(\n    ggplot(penguins, aes(x='species', y='pred_prob')) +\n    geom_boxplot(fill='#56B4E9') +\n    labs(title=\"Predicted Probability of Gentoo by Species\",\n         y=\"Predicted Probability\", x=\"Species\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\nfpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])\nroc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})\n\n(\n    ggplot(roc_df, aes(x='fpr', y='tpr')) +\n    geom_line(color='blue') +\n    geom_abline(slope=1, intercept=0, linetype='dashed') +\n    labs(title=\"ROC Curve\", x=\"False Positive Rate\", y=\"True Positive Rate\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nimport numpy as np\n\ncoefs = model.params.drop(\"Intercept\")\nerrors = model.bse.drop(\"Intercept\")\ncoef_df = pd.DataFrame({\n    'term': coefs.index,\n    'estimate': coefs.values,\n    'lower': coefs - 1.96 * errors,\n    'upper': coefs + 1.96 * errors\n})\n\n(\n    ggplot(coef_df, aes(x='term', y='estimate')) +\n    geom_point() +\n    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +\n    geom_hline(yintercept=0, linetype='dashed', color='gray') +\n    labs(title=\"Model Coefficients (95% CI)\", y=\"Estimate\", x=\"Term\") +\n    theme_minimal() +\n    theme(axis_text_x=element_text(rotation=45, hjust=1))\n)\n\n\n\n\n\n\n\n\n\n(\n    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +\n    geom_density(alpha=0.6) +\n    scale_fill_manual(values=['#E69F00', '#56B4E9'], name=\"Is Adelie\") +\n    labs(title=\"Predicted Probability Distribution\", x=\"Predicted Probability\") +\n    theme_minimal()\n)",
-    "crumbs": [
-      "Labs",
-      "Quarto Documents",
-      "Reference analysis code"
     ]
   },
   {
