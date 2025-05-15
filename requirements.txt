@@ -1,9 +1,8 @@
 shiny
 ipykernel
 palmerpenguins
-plotnine[all]
+plotnine
 shinylive
-PyYAML
 jupyter
 statsmodels
 pandas
