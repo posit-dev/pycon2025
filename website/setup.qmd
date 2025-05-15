@@ -23,6 +23,14 @@ pip install -r requirements.text
 
 Download and install Quarto: <https://quarto.org/docs/get-started/>
 
+We use a few Quarto extensions for the website,
+and may be useful if you want to replicate what you see.
+
+```bash
+quarto add quarto-ext/shinylive && \
+quarto add shafayetShafee/line-highlight
+```
+
 ## Positron IDE
 
 Download and install the Positron IDE: <https://positron.posit.co/download.html>
