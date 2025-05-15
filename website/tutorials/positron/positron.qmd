@@ -1,5 +1,6 @@
 ---
 title: "Try Positron IDE"
+order: 10
 ---
 
 What is Positron?
@@ -14,6 +15,16 @@ What is Positron?
 
 If you don't have Positron already, you can download the IDE here:
 <https://positron.posit.co/download.html>
+
+:::{.callout-caution}
+## Positron is still in beta testing
+
+Positron might be a good fit for you today if…
+- you use VS Code for data science (Python or R) but wish it included more affordances for data-specific work like a dedicated console, variables pane, data explorer, and ways to interact with your plots.
+- you use Jupyterlab for data science (Python or R) and are ready for a more powerful, fully-featured IDE.
+- you use RStudio and want more ability to customize or extend your IDE.
+- you use additional languages beyond only Python or R in your day-to-day data science or package development work, like Rust, C++, JavaScript, or Lua.
+:::
 
 
 ### Extensions
@@ -65,5 +76,17 @@ and the
 
 ## Reproducible documents
 
-Download one of our example Quarto or Jupyter Notebook files.
+Download one of our example
+[Quarto document](https://github.com/posit-dev/pycon2025/blob/main/website/tutorials/positron/assets/example-quarto.qmd)
+or
+[Jupyter notebook](https://github.com/posit-dev/pycon2025/blob/main/website/tutorials/positron/assets/example-jupyter.ipynb)
+files.
 and give them a try in positron!
+
+<!--
+## Our other OSS Tools
+
+Take a look at our
+[Open Source Page](oss.qmd)
+for more of our open source tools and give them a try yourself!
+-->
