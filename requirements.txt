@@ -11,3 +11,8 @@ seaborn
 matplotlib
 chatlas
 querychat @ git+https://github.com/posit-dev/querychat#subdirectory=python-package
+great_tables
+orbitalml
+pins
+pointblank
+vetiver
