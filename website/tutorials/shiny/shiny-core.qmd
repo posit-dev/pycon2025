@@ -1,6 +1,7 @@
 ---
 title: Try Shiny Core
 order: 20
+draft: true
 ---
 
 {{< include includes/shiny-include.qmd >}}
