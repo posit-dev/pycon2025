@@ -5,6 +5,7 @@ plotnine
 shinylive
 jupyter
 statsmodels
+scikit-learn
 pandas
 seaborn
 matplotlib
