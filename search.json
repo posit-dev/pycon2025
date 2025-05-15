@@ -7,52 +7,297 @@
     "text": "Shiny makes it easy to create rich, interactive experiences in pure Python with a fully reactive framework. No JavaScript required!"
   },
   {
-    "objectID": "tutorials/quarto/reference_analysis_code.html",
-    "href": "tutorials/quarto/reference_analysis_code.html",
-    "title": "Reference analysis code",
+    "objectID": "tutorials/shiny/shiny-express.html",
+    "href": "tutorials/shiny/shiny-express.html",
+    "title": "Try Shiny Express",
     "section": "",
-    "text": "Example script and output before putting it into a Quarto report.\n\nimport pandas as pd\nfrom plotnine import ggplot, aes, geom_point\nfrom palmerpenguins import load_penguins\nimport seaborn as sns\n\npenguins = load_penguins()\npenguins.shape\n\n(344, 8)\n\n\n\n# drop rows with missing values\npenguins = penguins.dropna()\npenguins.shape\n\n(333, 8)\n\n\n\n# gentoo is easier to separate\n# eda to find variables to separate Adelie\n# bill_depth_mm and body_mass_g are good separators\n# bill_depth_mm and flipper_length_mm are good separators\n# body_mass_g and flipper_length_mm are NOT good separators\n\nsns.pairplot(penguins, hue=\"species\")\n\n\n\n\n\n\n\n\n\n# fit logistic regression model\nimport statsmodels.api as sm\nimport statsmodels.formula.api as smf\n\n# recode variable\npenguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)\n\n# logistic regression\nmodel = smf.logit(\"is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm\", data=penguins).fit()\nprint(model.summary())\n\nOptimization terminated successfully.\n         Current function value: 0.352072\n         Iterations 8\n                           Logit Regression Results                           \n==============================================================================\nDep. Variable:              is_adelie   No. Observations:                  333\nModel:                          Logit   Df Residuals:                      329\nMethod:                           MLE   Df Model:                            3\nDate:                Thu, 15 May 2025   Pseudo R-squ.:                  0.4864\nTime:                        14:43:45   Log-Likelihood:                -117.24\nconverged:                       True   LL-Null:                       -228.29\nCovariance Type:            nonrobust   LLR p-value:                 7.076e-48\n=====================================================================================\n                        coef    std err          z      P&gt;|z|      [0.025      0.975]\n-------------------------------------------------------------------------------------\nIntercept            30.1600      5.603      5.383      0.000      19.178      41.142\nbill_depth_mm         0.3953      0.121      3.255      0.001       0.157       0.633\nbody_mass_g           0.0006      0.000      1.271      0.204      -0.000       0.001\nflipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -0.140\n=====================================================================================\n\n\n\n# model results\nmodel.params.to_frame(\"Estimate\")\n\n\n\n\n\n\n\n\nEstimate\n\n\n\n\nIntercept\n30.160015\n\n\nbill_depth_mm\n0.395328\n\n\nbody_mass_g\n0.000554\n\n\nflipper_length_mm\n-0.200743\n\n\n\n\n\n\n\n\n# predicted probabilities for first few rows\npenguins[\"predicted\"] = model.predict()\npenguins[[\"species\", \"predicted\"]].head()\n\n\n\n\n\n\n\n\nspecies\npredicted\n\n\n\n\n0\nAdelie\n0.964279\n\n\n1\nAdelie\n0.858842\n\n\n2\nAdelie\n0.482890\n\n\n4\nAdelie\n0.722669\n\n\n5\nAdelie\n0.898866\n\n\n\n\n\n\n\n\npenguins['pred_prob'] = model.predict()\n\n\nfrom plotnine import *\n\n(\n    ggplot(penguins, aes(x='species', y='pred_prob')) +\n    geom_boxplot(fill='#56B4E9') +\n    labs(title=\"Predicted Probability of Gentoo by Species\",\n         y=\"Predicted Probability\", x=\"Species\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\nfpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])\nroc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})\n\n(\n    ggplot(roc_df, aes(x='fpr', y='tpr')) +\n    geom_line(color='blue') +\n    geom_abline(slope=1, intercept=0, linetype='dashed') +\n    labs(title=\"ROC Curve\", x=\"False Positive Rate\", y=\"True Positive Rate\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nimport numpy as np\n\ncoefs = model.params.drop(\"Intercept\")\nerrors = model.bse.drop(\"Intercept\")\ncoef_df = pd.DataFrame({\n    'term': coefs.index,\n    'estimate': coefs.values,\n    'lower': coefs - 1.96 * errors,\n    'upper': coefs + 1.96 * errors\n})\n\n(\n    ggplot(coef_df, aes(x='term', y='estimate')) +\n    geom_point() +\n    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +\n    geom_hline(yintercept=0, linetype='dashed', color='gray') +\n    labs(title=\"Model Coefficients (95% CI)\", y=\"Estimate\", x=\"Term\") +\n    theme_minimal() +\n    theme(axis_text_x=element_text(rotation=45, hjust=1))\n)\n\n\n\n\n\n\n\n\n\n(\n    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +\n    geom_density(alpha=0.6) +\n    scale_fill_manual(values=['#E69F00', '#56B4E9'], name=\"Is Adelie\") +\n    labs(title=\"Predicted Probability Distribution\", x=\"Predicted Probability\") +\n    theme_minimal()\n)",
+    "text": "Shiny makes it easy to create rich, interactive experiences in pure Python with a fully reactive framework. No JavaScript required!",
     "crumbs": [
       "Labs",
-      "Quarto Documents",
-      "Reference analysis code"
+      "Shiny Dashboards",
+      "Try Shiny Express"
     ]
   },
   {
-    "objectID": "tutorials/quarto/quarto-dashboard.html",
-    "href": "tutorials/quarto/quarto-dashboard.html",
-    "title": "Quarto dashboards",
-    "section": "",
-    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
+    "objectID": "tutorials/shiny/shiny-express.html#shiny-express",
+    "href": "tutorials/shiny/shiny-express.html#shiny-express",
+    "title": "Try Shiny Express",
+    "section": "Shiny Express",
+    "text": "Shiny Express\nHere’s the Shiny application we’ll be creating. Give it a try! See how the different penguin distributions compare to one another.\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n#| standalone: true\n#| components: [viewer]\n#| viewerHeight: 500\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nfrom shiny.express import input, render, ui\n\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\nui.input_radio_buttons(\"species\", \"Species\", species, inline=True)\n\n\n@render.plot\ndef plot():\n    sel = dat[dat[\"species\"] == input.species()]\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )",
     "crumbs": [
       "Labs",
-      "Quarto Documents",
-      "Quarto dashboards"
+      "Shiny Dashboards",
+      "Try Shiny Express"
     ]
   },
   {
-    "objectID": "tutorials/quarto/quarto-dashboard.html#learn-more",
-    "href": "tutorials/quarto/quarto-dashboard.html#learn-more",
-    "title": "Quarto dashboards",
-    "section": "",
-    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
+    "objectID": "tutorials/shiny/shiny-express.html#goal",
+    "href": "tutorials/shiny/shiny-express.html#goal",
+    "title": "Try Shiny Express",
+    "section": "Goal",
+    "text": "Goal\nLet’s create a simple shiny application that uses the palmerpenguins dataset and visualizes it using plotnine.\nWe’ll use shiny to give us interactive radio buttons to change what species of the bill_length_mm variable we will want to highlight.",
     "crumbs": [
       "Labs",
-      "Quarto Documents",
-      "Quarto dashboards"
+      "Shiny Dashboards",
+      "Try Shiny Express"
     ]
   },
   {
-    "objectID": "tutorials/positron/positron.html",
-    "href": "tutorials/positron/positron.html",
-    "title": "Try Positron IDE",
-    "section": "",
-    "text": "What is Positron?\n\nA next-generation data science IDE built by Posit PBC\nAn extensible, polyglot tool for writing code and exploring data\nA familiar environment for reproducible authoring and publishing",
+    "objectID": "tutorials/shiny/shiny-express.html#prototype",
+    "href": "tutorials/shiny/shiny-express.html#prototype",
+    "title": "Try Shiny Express",
+    "section": "Prototype",
+    "text": "Prototype\nWe’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\ndat = load_penguins()\ndat.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nHere’s the base code we’ll be starting with. It creates 2 histograms layerd on top of one another. The base layer is the distribution of all the penguin species. and the blue layer on top will the distribution of the selected penguin species.\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nspecies = \"Adelie\" # selected species\nsel = dat.loc[dat.species == species] # selected data\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n    + theme_minimal()\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLearn more about plotting in plotnine\n\n\n\nTo learn more about how the plotting code works in plotnine, take a look at our plotnine lab.\n\n\nWouldn’t it be nice if we could have something to toggle between one of the 3 penguin species instead of having us manually change the species variable and re-run our code?\nNow we’re ready for a Shiny dashboard! All we need is some mechanism to list and provide the options for the user to pass into the species variable. Then pandas can filter the selected layer data, and plotnine can render the new data layer.",
     "crumbs": [
       "Labs",
-      "Positron IDE",
-      "Try Positron IDE"
+      "Shiny Dashboards",
+      "Try Shiny Express"
     ]
+  },
+  {
+    "objectID": "tutorials/shiny/shiny-express.html#shiny-express-1",
+    "href": "tutorials/shiny/shiny-express.html#shiny-express-1",
+    "title": "Try Shiny Express",
+    "section": "Shiny Express",
+    "text": "Shiny Express\nShiny Express is designed to make it significantly easier to get started with Shiny, and to write simple apps with a minimum of boilerplate.\nWherever you write your UI or output code, is where it will render in the application. In this sense Shiny Express is similar to Streamlit. If you’re looking for syntax where the UI and outputs are separated, similar to Dash, then take a look at the Shiny Core Lab.\n\nUser interface\nBefore we get all components reacting to one another, let’s start with mapping out how our application will look.\nShiny comes with all the input and output components you will need. For now we’ll focus on the input_radio_buttons component.\nWe will pass input_radio_buttons() 3 arguments:\n\nid: this is what shiny uses to reference the value selected by the input (more on this later).\nlabel: the text the user will see by the component.\nchoices: the options our radio button component will display to the user and value it will use in code.\n\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n)\n\n\n\n\nRun your shiny application\nIn Positron or VSCode, assuming you have the VSCode Shiny Extension installed, create a file named app.py, copy + paste the code above and hit the play button to run your application.\n\nOr you can go to https://shinylive.io/py and copy + paste the code there and run your application.\nSee our Shiny documentation to learn more about running shiny applications.\n\n\nImprove UI\nLet’s have the buttons run horizontally to take up less space. We can use the inline=True to change the orientation of the radio buttons.\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\n\n\n\nOutput component\nNow let’s add all that data and plotting code from earlier into our application.\nIf we just dump in our code, the application errors because it does not know what to do with the figure that’s trying to be printed.\nfrom shiny.express import ui\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\ndat = load_penguins()\nspecies = \"Adelie\"\nsel = dat.loc[dat.species == species]\n\n# this will cause a TypeError: Invalid tag item type\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n    + theme_minimal()\n)\nIn shiny, each output needs to be wrapped in it’s own function, and the corresponding output decorator applied to the function so Shiny knows how to render the output.\nWe now need to use one of the built-in Shiny output components, specifically, one that can render a plotnine figure (which is based on matplotlib), plot output component.\nFor example, we want to return a plot, so we will need to wrap our plotnine code, and decorate it with the @render.plot decorator.\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui, render\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\ndat = load_penguins()\nspecies = \"Adelie\"\nsel = dat.loc[dat.species == species]\n\n@render.plot \ndef plot(): \n    return ( \n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )\n\n\n\n\n\n\n\n\nReturn your values\n\n\n\nDon’t forget to return the object you want displayed in the function! Otherwise the output will not render.\n\n\n\n\nMake it reactive\nGreat! We have our input component, we have our output component, all we need to do now is connect the value selected by the input component and have the output react to the selected input.\nFirst, when we are working with linking input and output values, they must all exist in the same “reactive context”, i.e., be in a function that is decorated by shiny, in our case all our code that needs to react needs to be in the function that is decorated by @render.plot.\n\n\n\n\n\n\nReactivity\n\n\n\nReactivity is actually what makes Shiny powerful and unique. You can learn more about reactivity in our documentation.\n\n\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui, render\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\ndat = load_penguins()\n\n@render.plot\ndef plot():\n    species = \"Adelie\" \n    sel = dat.loc[dat.species == species] \n\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )\n\n\nNow we’re ready to link the input and output components together. We now need to import the input object from shiny. The input object keep track of all the input components in the application and allows you to access the input value by the id we used when we created the input component.\nIn our example, our input_radio_buttons() input component was given an id=\"species\", so we can access the value in the radio button by using input.species(). Here we have to add round parenthesis to the value, because we’re trying to get the actual value stored in the species input.\n\n\n\n\n\n\nDon’t forget the round parenthesis ()!\n\n\n\nDon’t forget to add a set of round parenthesis, () when you are trying to get the value of a component. You need to “call” it for Shiny to compute its value. This is how we work with reactivity in shiny, and this prevents us from writing callbacks in our application.\n\n\nInstead of hard-coding species = \"Adelie\", we can replace it with species = input.species(), and it will return the value from our radio button input component.\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui, render, input \n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\ndat = load_penguins()\n\n@render.plot\ndef plot():\n    species = input.species() \n    sel = dat.loc[dat.species == species]\n\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Try Shiny Express"
+    ]
+  },
+  {
+    "objectID": "tutorials/shiny/shiny-express.html#our-final-application",
+    "href": "tutorials/shiny/shiny-express.html#our-final-application",
+    "title": "Try Shiny Express",
+    "section": "Our final application",
+    "text": "Our final application\nAfter tidying up the code a bit, here’s our final Shiny application!\nIf you want you can tinker with the code and run the application right in the browser, or copy + paste the code and run it in your IDE.\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n#| standalone: true\n#| components: [editor, viewer]\n#| layout: horizontal\n#| viewerHeight: 500\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nfrom shiny.express import input, render, ui\n\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\nui.input_radio_buttons(\"species\", \"Species\", species, inline=True)\n\n\n@render.plot\ndef plot():\n    sel = dat[dat[\"species\"] == input.species()]\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Try Shiny Express"
+    ]
+  },
+  {
+    "objectID": "tutorials/shiny/shiny-express.html#learn-more",
+    "href": "tutorials/shiny/shiny-express.html#learn-more",
+    "title": "Try Shiny Express",
+    "section": "Learn more",
+    "text": "Learn more\n\nShiny get started guide\nShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nShinyConf 2025 Presentation by Daniel Chen: Creating and Sharing Scalable Applications with Shiny",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Try Shiny Express"
+    ]
+  },
+  {
+    "objectID": "tutorials/shiny/shiny-ai.html",
+    "href": "tutorials/shiny/shiny-ai.html",
+    "title": "Shiny + GenAI",
+    "section": "",
+    "text": "Shiny makes it easy to create rich, interactive experiences in pure Python with a fully reactive framework. No JavaScript required!\nHere we will use the Python chatlas package to interface with a large language model (LLM), and the Python querychat package to have the LLM work with filtering our dataframe via (tool calling)[https://shiny.posit.co/py/docs/genai-tools.html].\nBefore you get started, make sure you have a Python IDE open. You can give positron a try!\nHere’s the application we’ll be building. It uses the Anthropic (Claude) model, and in this lab, we’ll use an Ollama local model.",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Shiny + GenAI"
+    ]
+  },
+  {
+    "objectID": "tutorials/shiny/shiny-ai.html#chatlas",
+    "href": "tutorials/shiny/shiny-ai.html#chatlas",
+    "title": "Shiny + GenAI",
+    "section": "Chatlas",
+    "text": "Chatlas\nchatlas provides a simple and unified interface across large language model (llm) providers in Python\nIt helps you prototype faster by abstracting away complexity from common tasks like streaming chat interfaces, tool calling, structured output, and much more.\nSwitching providers is also as easy as changing one line of code. We’ll be using the ChatOllama() model in this tutorial.\n\n\nHere is the list of supported models you can use:\n\nAnthropic (Claude): ChatAnthropic()\nGitHub model marketplace: ChatGithub()\nGoogle (Gemini): ChatGoogle()\nGroq: ChatGroq()\nOllama local models: ChatOllama()\nOpenAI: ChatOpenAI()\nperplexity.ai: ChatPerplexity()\n\n\n\nModels from enterprise cloud providers:\n\nAWS Bedrock: ChatBedrockAnthropic()\nAzure OpenAI: ChatAzureOpenAI()\nDatabricks: ChatDatabricks()\nSnowflake Cortex: ChatSnowflake()\nVertex AI: ChatVertex()",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Shiny + GenAI"
+    ]
+  },
+  {
+    "objectID": "tutorials/shiny/shiny-ai.html#querychat",
+    "href": "tutorials/shiny/shiny-ai.html#querychat",
+    "title": "Shiny + GenAI",
+    "section": "querychat",
+    "text": "querychat\nquerychat is a Shiny module that allows us to chat with your Shiny Python apps using natural language.\nThis can give the user a lot of flexibility on how they want to view the data, without having to put in many user input components.",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Shiny + GenAI"
+    ]
+  },
+  {
+    "objectID": "tutorials/shiny/shiny-ai.html#shiny-genai",
+    "href": "tutorials/shiny/shiny-ai.html#shiny-genai",
+    "title": "Shiny + GenAI",
+    "section": "Shiny + GenAI",
+    "text": "Shiny + GenAI\nBelow is the code that provides the querychat UI and the filtered dataframe.\n\nStep 1: Create the application\nSave the following code to an app.py file.\nimport querychat\nfrom chatlas import ChatOllama\nfrom seaborn import load_dataset\nfrom shiny.express import render\n\n# data -----\ntitanic = load_dataset(\"titanic\")\n\n# chatbot setup -----\ndef create_chat_callback(system_prompt):\n    return ChatOllama(\n        model=\"llama3.2\",\n        system_prompt=system_prompt,\n    )\n\n\nquerychat_config = querychat.init(\n    titanic,\n    \"titanic\",\n    greeting=\"\"\"Hello! I'm here to help you explore the Titanic dataset.\"\"\",\n    create_chat_callback=create_chat_callback,\n)\n\nchat = querychat.server(\"chat\", querychat_config)\n\n# shiny application -----\n\n# querychat UI\nquerychat.sidebar(\"chat\")\n\n# querychat filtered dataframe\n@render.data_frame\ndef data_table():\n    return chat[\"df\"]()\nYou can expand on the welcome message by adding this text to the greetings parameter.\nBelow are some examples of tasks I can do.\n\nFilter and visualize the data:\n- Show passengers who survived, sorted by age.\n- Filter to show only first class female passengers.\n- Display passengers who paid above average fare.\n\nAnswer questions about the data:\n- What percentage of men survived versus women?\n- What was the average age of survivors by class?\n- Which embarkation point had the highest survival rate?\n\n\nStep 2: Run the application\nRun your application by either clicking the Play button from the VS Code Shiny Extension.\n\nOr in the terminal with shiny run.\nshiny run --reload --launch-browser app.py\nYou can learn more about running Shiny applications on the Shiny Get Started Page",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Shiny + GenAI"
+    ]
+  },
+  {
+    "objectID": "tutorials/shiny/shiny-ai.html#anthropic-claude",
+    "href": "tutorials/shiny/shiny-ai.html#anthropic-claude",
+    "title": "Shiny + GenAI",
+    "section": "Anthropic (Claude)",
+    "text": "Anthropic (Claude)\nIf you want to recreate the actual app shown at the top of this lab, by switching the model to using Antrhopic (Claude), chatlas makes this very easy to do by changing the call from ChatOllama() to ChatAnthropic().\ndef create_chat_callback(system_prompt):\n    return ChatAnthropic(system_prompt=system_prompt)\nYou will then need to create an .env file with the line containing your Anthropic API key.\nANTHROPIC_API_KEY=&lt;Your Anthropic API key&gt;",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Shiny + GenAI"
+    ]
+  },
+  {
+    "objectID": "tutorials/shiny/shiny-ai.html#learn-more",
+    "href": "tutorials/shiny/shiny-ai.html#learn-more",
+    "title": "Shiny + GenAI",
+    "section": "Learn more",
+    "text": "Learn more\n\nShiny for AI Docs",
+    "crumbs": [
+      "Labs",
+      "Shiny Dashboards",
+      "Shiny + GenAI"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html",
+    "href": "tutorials/quarto/index.html",
+    "title": "Try Quarto",
+    "section": "",
+    "text": "You’re looking at a Quarto project right now!",
+    "crumbs": [
+      "Labs",
+      "Quarto Documents",
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html#scenario",
+    "href": "tutorials/quarto/index.html#scenario",
+    "title": "Try Quarto",
+    "section": "Scenario",
+    "text": "Scenario\nYou are a data scientist working on code for an analysis identifying Gentoo Penguins. and now need to share the results as a report.\nThis is a high-level meeting with leadership, and you are going to present your findings.",
+    "crumbs": [
+      "Labs",
+      "Quarto Documents",
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html#the-analysis",
+    "href": "tutorials/quarto/index.html#the-analysis",
+    "title": "Try Quarto",
+    "section": "The analysis",
+    "text": "The analysis",
+    "crumbs": [
+      "Labs",
+      "Quarto Documents",
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html#quarto-report",
+    "href": "tutorials/quarto/index.html#quarto-report",
+    "title": "Try Quarto",
+    "section": "Quarto report",
+    "text": "Quarto report",
+    "crumbs": [
+      "Labs",
+      "Quarto Documents",
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/quarto/index.html#learn-more",
+    "href": "tutorials/quarto/index.html#learn-more",
+    "title": "Try Quarto",
+    "section": "Learn more",
+    "text": "Learn more\n\nQuarto get started\nQuarto guides",
+    "crumbs": [
+      "Labs",
+      "Quarto Documents",
+      "Try Quarto"
+    ]
+  },
+  {
+    "objectID": "tutorials/foss/plotnine.html",
+    "href": "tutorials/foss/plotnine.html",
+    "title": "Plotnine",
+    "section": "",
+    "text": "We’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nWe’ll be creating a base histogram using plotnine as follows:\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\ng = ggplot(penguins, aes(x=\"bill_length_mm\")) + geom_histogram()\ng\n\n\n\n\n\n\n\n\n\n\nNow we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.\n\nspecies = \"Adelie\" # selected species\nselected = penguins.loc[penguins.species == species] # selected data\nselected\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n147\nAdelie\nDream\n36.6\n18.4\n184.0\n3475.0\nfemale\n2009\n\n\n148\nAdelie\nDream\n36.0\n17.8\n195.0\n3450.0\nfemale\n2009\n\n\n149\nAdelie\nDream\n37.8\n18.1\n193.0\n3750.0\nmale\n2009\n\n\n150\nAdelie\nDream\n36.0\n17.1\n187.0\n3700.0\nfemale\n2009\n\n\n151\nAdelie\nDream\n41.5\n18.5\n201.0\n4000.0\nmale\n2009\n\n\n\n\n152 rows × 8 columns\n\n\n\nNow that we have the new data, we can add the new selected dataframe to our original figure, g\n\ng + geom_histogram(data=selected, fill=\"#447099\")\n\n\n\n\n\n\n\n\n\n\n\nThe 2 different bill_length_mm are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting binwidth=1.\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(penguins, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(selected, fill=\"#447099\", binwidth=1)\n)"
+  },
+  {
+    "objectID": "tutorials/foss/plotnine.html#import-and-prototype",
+    "href": "tutorials/foss/plotnine.html#import-and-prototype",
+    "title": "Plotnine",
+    "section": "",
+    "text": "We’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nWe’ll be creating a base histogram using plotnine as follows:\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\ng = ggplot(penguins, aes(x=\"bill_length_mm\")) + geom_histogram()\ng\n\n\n\n\n\n\n\n\n\n\nNow we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.\n\nspecies = \"Adelie\" # selected species\nselected = penguins.loc[penguins.species == species] # selected data\nselected\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n147\nAdelie\nDream\n36.6\n18.4\n184.0\n3475.0\nfemale\n2009\n\n\n148\nAdelie\nDream\n36.0\n17.8\n195.0\n3450.0\nfemale\n2009\n\n\n149\nAdelie\nDream\n37.8\n18.1\n193.0\n3750.0\nmale\n2009\n\n\n150\nAdelie\nDream\n36.0\n17.1\n187.0\n3700.0\nfemale\n2009\n\n\n151\nAdelie\nDream\n41.5\n18.5\n201.0\n4000.0\nmale\n2009\n\n\n\n\n152 rows × 8 columns\n\n\n\nNow that we have the new data, we can add the new selected dataframe to our original figure, g\n\ng + geom_histogram(data=selected, fill=\"#447099\")\n\n\n\n\n\n\n\n\n\n\n\nThe 2 different bill_length_mm are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting binwidth=1.\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(penguins, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(selected, fill=\"#447099\", binwidth=1)\n)"
+  },
+  {
+    "objectID": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
+    "href": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
+    "title": "Posit, PBC @ PyCon 2025",
+    "section": "We’re excited to be in Pittsburgh for PyCon 2025!",
+    "text": "We’re excited to be in Pittsburgh for PyCon 2025!\nYou can find the Posit team in the Community Booths at Booth #523, and we’d love for you to stop by, say hi, and catch up on the exciting things we’ve been building."
+  },
+  {
+    "objectID": "index.html#giveaway",
+    "href": "index.html#giveaway",
+    "title": "Posit, PBC @ PyCon 2025",
+    "section": "Giveaway!",
+    "text": "Giveaway!\nSpeaking of exciting: We’re giving away 10 signed copies of Python Polars: The Definitive Guide, co-authored by our very own Jeroen Janssens and Thijs Nieuwdorp — swing by our booth and enter for a chance to win!\nWhether you want to talk Python, check out a quick demo, or just grab some great swag, we hope you’ll come see us."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Who’s at the booth\n\n\n\n\n  \n    \n    Jason Milnes\n    \n       | \n    \n  \n  \n    \n    Carson Sievert\n    \n       | \n    \n  \n  \n    \n    Daniel Chen\n    \n       | \n    \n  \n  \n    \n    Alex Chisholm\n    \n       |"
+  },
+  {
+    "objectID": "setup.html",
+    "href": "setup.html",
+    "title": "Setup",
+    "section": "",
+    "text": "Want to try these labs on your own computer? Here are the software install instructions to get everything ready."
+  },
+  {
+    "objectID": "setup.html#python",
+    "href": "setup.html#python",
+    "title": "Setup",
+    "section": "Python",
+    "text": "Python\nHere’s the content for the requirements.txt to install all the python packages.\nshiny\nipykernel\npalmerpenguins\nplotnine\nshinylive\njupyter\nstatsmodels\nscikit-learn\npandas\nseaborn\nmatplotlib\nchatlas\nquerychat @ git+https://github.com/posit-dev/querychat#subdirectory=python-package\ngreat_tables\norbitalml\npins\npointblank\nvetiver\nYou can then install the packages using pip install\npip install -r requirements.text"
+  },
+  {
+    "objectID": "setup.html#quarto",
+    "href": "setup.html#quarto",
+    "title": "Setup",
+    "section": "Quarto",
+    "text": "Quarto\nDownload and install Quarto: https://quarto.org/docs/get-started/\nWe use a few Quarto extensions for the website, and may be useful if you want to replicate what you see.\nquarto add quarto-ext/shinylive && \\\nquarto add shafayetShafee/line-highlight"
+  },
+  {
+    "objectID": "setup.html#positron-ide",
+    "href": "setup.html#positron-ide",
+    "title": "Setup",
+    "section": "Positron IDE",
+    "text": "Positron IDE\nDownload and install the Positron IDE: https://positron.posit.co/download.html"
+  },
+  {
+    "objectID": "setup.html#genai-llms",
+    "href": "setup.html#genai-llms",
+    "title": "Setup",
+    "section": "GenAI + LLMs",
+    "text": "GenAI + LLMs\n\nDownload Ollama: https://ollama.com/download\nDownload the llama3.2 model: https://ollama.com/library/llama3.2\n\nollama run llama3.2\n(optional): You can also create an Anthropic account and pay for a Claude API key: https://www.anthropic.com/"
+  },
+  {
+    "objectID": "setup.html#posit-connect-cloud",
+    "href": "setup.html#posit-connect-cloud",
+    "title": "Setup",
+    "section": "Posit Connect Cloud",
+    "text": "Posit Connect Cloud\nCreate a free Posit Connect Cloud account for our dashboard and document deployments: https://connect.posit.cloud/"
   },
   {
     "objectID": "tutorials/connect/deploy-shiny.html",
@@ -139,296 +384,94 @@
     ]
   },
   {
-    "objectID": "setup.html",
-    "href": "setup.html",
-    "title": "Setup",
+    "objectID": "tutorials/positron/positron.html",
+    "href": "tutorials/positron/positron.html",
+    "title": "Try Positron IDE",
     "section": "",
-    "text": "Want to try these labs on your own computer? Here are the software install instructions to get everything ready."
+    "text": "What is Positron?",
+    "crumbs": [
+      "Labs",
+      "Positron IDE",
+      "Try Positron IDE"
+    ]
   },
   {
-    "objectID": "setup.html#python",
-    "href": "setup.html#python",
-    "title": "Setup",
-    "section": "Python",
-    "text": "Python\nHere’s the content for the requirements.txt to install all the python packages.\nshiny\nipykernel\npalmerpenguins\nplotnine\nshinylive\njupyter\nstatsmodels\nscikit-learn\npandas\nseaborn\nmatplotlib\nchatlas\nquerychat @ git+https://github.com/posit-dev/querychat#subdirectory=python-package\ngreat_tables\norbitalml\npins\npointblank\nvetiver\nYou can then install the packages using pip install\npip install -r requirements.text"
+    "objectID": "tutorials/positron/positron.html#install-and-try-positron",
+    "href": "tutorials/positron/positron.html#install-and-try-positron",
+    "title": "Try Positron IDE",
+    "section": "Install and try Positron",
+    "text": "Install and try Positron\nIf you don’t have Positron already, you can download the IDE here: https://positron.posit.co/download.html\n\nExtensions\nSince Positron is built on Code OSS, you can use VS Code extensions in Positron. Your extensions installed for Positron are separate from the extensions you have installed for VS Code, and they won’t interfere with each other. Positron bundles several extensions, including those for Quarto, Jupyter notebooks, and Pyright. These extensions are installed for you the first time you start Positron.\nYou can install the Shiny Extension from OpenVSX.",
+    "crumbs": [
+      "Labs",
+      "Positron IDE",
+      "Try Positron IDE"
+    ]
   },
   {
-    "objectID": "setup.html#quarto",
-    "href": "setup.html#quarto",
-    "title": "Setup",
-    "section": "Quarto",
-    "text": "Quarto\nDownload and install Quarto: https://quarto.org/docs/get-started/"
+    "objectID": "tutorials/positron/positron.html#dashboard",
+    "href": "tutorials/positron/positron.html#dashboard",
+    "title": "Try Positron IDE",
+    "section": "Dashboard",
+    "text": "Dashboard\nHere’s the Shiny Express Dashboard we’ve used in this lab\nCopy the code below into a file called app.py\n\n\n\n\n\n\napp.py\n\n\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nfrom shiny.express import input, render, ui\n\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\nui.input_radio_buttons(\"species\", \"Species\", species, inline=True)\n\n\n@render.plot\ndef plot():\n    sel = dat[dat[\"species\"] == input.species()]\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )\n\n\nIf you have the Shiny Extension installed, you can click the play button to run the Shiny application.\n\nOr you can use the Positron Terminal to run your Shiny application\nshiny run --reload app.py\nThis will start the app and open it in your default web browser.\n\nThe --reload flag enables automatic reloading. When you save changes to your source files, the app will automatically restart and update in the browser.\nThe --launch-browser flag opens the app in a browser as soon as it starts.\n\nLearn more about Shiny in our Shiny Express Lab, and the Shiny Get Started page",
+    "crumbs": [
+      "Labs",
+      "Positron IDE",
+      "Try Positron IDE"
+    ]
   },
   {
-    "objectID": "setup.html#positron-ide",
-    "href": "setup.html#positron-ide",
-    "title": "Setup",
-    "section": "Positron IDE",
-    "text": "Positron IDE\nDownload and install the Positron IDE: https://positron.posit.co/download.html"
+    "objectID": "tutorials/positron/positron.html#reproducible-documents",
+    "href": "tutorials/positron/positron.html#reproducible-documents",
+    "title": "Try Positron IDE",
+    "section": "Reproducible documents",
+    "text": "Reproducible documents\nDownload one of our example Quarto or Jupyter Notebook files. and give them a try in positron!",
+    "crumbs": [
+      "Labs",
+      "Positron IDE",
+      "Try Positron IDE"
+    ]
   },
   {
-    "objectID": "setup.html#genai-llms",
-    "href": "setup.html#genai-llms",
-    "title": "Setup",
-    "section": "GenAI + LLMs",
-    "text": "GenAI + LLMs\n\nDownload Ollama: https://ollama.com/download\nDownload the llama3.2 model: https://ollama.com/library/llama3.2\n\nollama run llama3.2\n(optional): You can also create an Anthropic account and pay for a Claude API key: https://www.anthropic.com/"
-  },
-  {
-    "objectID": "setup.html#posit-connect-cloud",
-    "href": "setup.html#posit-connect-cloud",
-    "title": "Setup",
-    "section": "Posit Connect Cloud",
-    "text": "Posit Connect Cloud\nCreate a free Posit Connect Cloud account for our dashboard and document deployments: https://connect.posit.cloud/"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "tutorials/quarto/quarto-dashboard.html",
+    "href": "tutorials/quarto/quarto-dashboard.html",
+    "title": "Quarto dashboards",
     "section": "",
-    "text": "Who’s at the booth\n\n\n\n\n  \n    \n    Jason Milnes\n    \n       | \n    \n  \n  \n    \n    Carson Sievert\n    \n       | \n    \n  \n  \n    \n    Daniel Chen\n    \n       | \n    \n  \n  \n    \n    Alex Chisholm\n    \n       |"
-  },
-  {
-    "objectID": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
-    "href": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
-    "title": "Posit, PBC @ PyCon 2025",
-    "section": "We’re excited to be in Pittsburgh for PyCon 2025!",
-    "text": "We’re excited to be in Pittsburgh for PyCon 2025!\nYou can find the Posit team in the Community Booths at Booth #523, and we’d love for you to stop by, say hi, and catch up on the exciting things we’ve been building."
-  },
-  {
-    "objectID": "index.html#giveaway",
-    "href": "index.html#giveaway",
-    "title": "Posit, PBC @ PyCon 2025",
-    "section": "Giveaway!",
-    "text": "Giveaway!\nSpeaking of exciting: We’re giving away 10 signed copies of Python Polars: The Definitive Guide, co-authored by our very own Jeroen Janssens and Thijs Nieuwdorp — swing by our booth and enter for a chance to win!\nWhether you want to talk Python, check out a quick demo, or just grab some great swag, we hope you’ll come see us."
-  },
-  {
-    "objectID": "tutorials/foss/plotnine.html",
-    "href": "tutorials/foss/plotnine.html",
-    "title": "Plotnine",
-    "section": "",
-    "text": "We’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nWe’ll be creating a base histogram using plotnine as follows:\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\ng = ggplot(penguins, aes(x=\"bill_length_mm\")) + geom_histogram()\ng\n\n\n\n\n\n\n\n\n\n\nNow we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.\n\nspecies = \"Adelie\" # selected species\nselected = penguins.loc[penguins.species == species] # selected data\nselected\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n147\nAdelie\nDream\n36.6\n18.4\n184.0\n3475.0\nfemale\n2009\n\n\n148\nAdelie\nDream\n36.0\n17.8\n195.0\n3450.0\nfemale\n2009\n\n\n149\nAdelie\nDream\n37.8\n18.1\n193.0\n3750.0\nmale\n2009\n\n\n150\nAdelie\nDream\n36.0\n17.1\n187.0\n3700.0\nfemale\n2009\n\n\n151\nAdelie\nDream\n41.5\n18.5\n201.0\n4000.0\nmale\n2009\n\n\n\n\n152 rows × 8 columns\n\n\n\nNow that we have the new data, we can add the new selected dataframe to our original figure, g\n\ng + geom_histogram(data=selected, fill=\"#447099\")\n\n\n\n\n\n\n\n\n\n\n\nThe 2 different bill_length_mm are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting binwidth=1.\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(penguins, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(selected, fill=\"#447099\", binwidth=1)\n)"
-  },
-  {
-    "objectID": "tutorials/foss/plotnine.html#import-and-prototype",
-    "href": "tutorials/foss/plotnine.html#import-and-prototype",
-    "title": "Plotnine",
-    "section": "",
-    "text": "We’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nWe’ll be creating a base histogram using plotnine as follows:\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\ng = ggplot(penguins, aes(x=\"bill_length_mm\")) + geom_histogram()\ng\n\n\n\n\n\n\n\n\n\n\nNow we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.\n\nspecies = \"Adelie\" # selected species\nselected = penguins.loc[penguins.species == species] # selected data\nselected\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n147\nAdelie\nDream\n36.6\n18.4\n184.0\n3475.0\nfemale\n2009\n\n\n148\nAdelie\nDream\n36.0\n17.8\n195.0\n3450.0\nfemale\n2009\n\n\n149\nAdelie\nDream\n37.8\n18.1\n193.0\n3750.0\nmale\n2009\n\n\n150\nAdelie\nDream\n36.0\n17.1\n187.0\n3700.0\nfemale\n2009\n\n\n151\nAdelie\nDream\n41.5\n18.5\n201.0\n4000.0\nmale\n2009\n\n\n\n\n152 rows × 8 columns\n\n\n\nNow that we have the new data, we can add the new selected dataframe to our original figure, g\n\ng + geom_histogram(data=selected, fill=\"#447099\")\n\n\n\n\n\n\n\n\n\n\n\nThe 2 different bill_length_mm are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting binwidth=1.\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(penguins, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(selected, fill=\"#447099\", binwidth=1)\n)"
-  },
-  {
-    "objectID": "tutorials/quarto/index.html",
-    "href": "tutorials/quarto/index.html",
-    "title": "Try Quarto",
-    "section": "",
-    "text": "You’re looking at a Quarto project right now!",
+    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
     "crumbs": [
       "Labs",
       "Quarto Documents",
-      "Try Quarto"
+      "Quarto dashboards"
     ]
   },
   {
-    "objectID": "tutorials/quarto/index.html#scenario",
-    "href": "tutorials/quarto/index.html#scenario",
-    "title": "Try Quarto",
-    "section": "Scenario",
-    "text": "Scenario\nYou are a data scientist working on code for an analysis identifying Gentoo Penguins. and now need to share the results as a report.\nThis is a high-level meeting with leadership, and you are going to present your findings.",
-    "crumbs": [
-      "Labs",
-      "Quarto Documents",
-      "Try Quarto"
-    ]
-  },
-  {
-    "objectID": "tutorials/quarto/index.html#the-analysis",
-    "href": "tutorials/quarto/index.html#the-analysis",
-    "title": "Try Quarto",
-    "section": "The analysis",
-    "text": "The analysis",
-    "crumbs": [
-      "Labs",
-      "Quarto Documents",
-      "Try Quarto"
-    ]
-  },
-  {
-    "objectID": "tutorials/quarto/index.html#quarto-report",
-    "href": "tutorials/quarto/index.html#quarto-report",
-    "title": "Try Quarto",
-    "section": "Quarto report",
-    "text": "Quarto report",
-    "crumbs": [
-      "Labs",
-      "Quarto Documents",
-      "Try Quarto"
-    ]
-  },
-  {
-    "objectID": "tutorials/quarto/index.html#learn-more",
-    "href": "tutorials/quarto/index.html#learn-more",
-    "title": "Try Quarto",
-    "section": "Learn more",
-    "text": "Learn more\n\nQuarto get started\nQuarto guides",
-    "crumbs": [
-      "Labs",
-      "Quarto Documents",
-      "Try Quarto"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-ai.html",
-    "href": "tutorials/shiny/shiny-ai.html",
-    "title": "Shiny + GenAI",
+    "objectID": "tutorials/quarto/quarto-dashboard.html#learn-more",
+    "href": "tutorials/quarto/quarto-dashboard.html#learn-more",
+    "title": "Quarto dashboards",
     "section": "",
-    "text": "Shiny makes it easy to create rich, interactive experiences in pure Python with a fully reactive framework. No JavaScript required!\nHere we will use the Python chatlas package to interface with a large language model (LLM), and the Python querychat package to have the LLM work with filtering our dataframe via (tool calling)[https://shiny.posit.co/py/docs/genai-tools.html].\nBefore you get started, make sure you have a Python IDE open. You can give positron a try!\nHere’s the application we’ll be building. It uses the Anthropic (Claude) model, and in this lab, we’ll use an Ollama local model.",
+    "text": "ShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nR-Ladies-Rome 2024 presentation by Isabella Velásquez: Quarto Dashboards",
     "crumbs": [
       "Labs",
-      "Shiny Dashboards",
-      "Shiny + GenAI"
+      "Quarto Documents",
+      "Quarto dashboards"
     ]
   },
   {
-    "objectID": "tutorials/shiny/shiny-ai.html#chatlas",
-    "href": "tutorials/shiny/shiny-ai.html#chatlas",
-    "title": "Shiny + GenAI",
-    "section": "Chatlas",
-    "text": "Chatlas\nchatlas provides a simple and unified interface across large language model (llm) providers in Python\nIt helps you prototype faster by abstracting away complexity from common tasks like streaming chat interfaces, tool calling, structured output, and much more.\nSwitching providers is also as easy as changing one line of code. We’ll be using the ChatOllama() model in this tutorial.\n\n\nHere is the list of supported models you can use:\n\nAnthropic (Claude): ChatAnthropic()\nGitHub model marketplace: ChatGithub()\nGoogle (Gemini): ChatGoogle()\nGroq: ChatGroq()\nOllama local models: ChatOllama()\nOpenAI: ChatOpenAI()\nperplexity.ai: ChatPerplexity()\n\n\n\nModels from enterprise cloud providers:\n\nAWS Bedrock: ChatBedrockAnthropic()\nAzure OpenAI: ChatAzureOpenAI()\nDatabricks: ChatDatabricks()\nSnowflake Cortex: ChatSnowflake()\nVertex AI: ChatVertex()",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Shiny + GenAI"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-ai.html#querychat",
-    "href": "tutorials/shiny/shiny-ai.html#querychat",
-    "title": "Shiny + GenAI",
-    "section": "querychat",
-    "text": "querychat\nquerychat is a Shiny module that allows us to chat with your Shiny Python apps using natural language.\nThis can give the user a lot of flexibility on how they want to view the data, without having to put in many user input components.",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Shiny + GenAI"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-ai.html#shiny-genai",
-    "href": "tutorials/shiny/shiny-ai.html#shiny-genai",
-    "title": "Shiny + GenAI",
-    "section": "Shiny + GenAI",
-    "text": "Shiny + GenAI\nBelow is the code that provides the querychat UI and the filtered dataframe.\n\nStep 1: Create the application\nSave the following code to an app.py file.\nimport querychat\nfrom chatlas import ChatOllama\nfrom seaborn import load_dataset\nfrom shiny.express import render\n\n# data -----\ntitanic = load_dataset(\"titanic\")\n\n# chatbot setup -----\ndef create_chat_callback(system_prompt):\n    return ChatOllama(\n        model=\"llama3.2\",\n        system_prompt=system_prompt,\n    )\n\n\nquerychat_config = querychat.init(\n    titanic,\n    \"titanic\",\n    greeting=\"\"\"Hello! I'm here to help you explore the Titanic dataset.\"\"\",\n    create_chat_callback=create_chat_callback,\n)\n\nchat = querychat.server(\"chat\", querychat_config)\n\n# shiny application -----\n\n# querychat UI\nquerychat.sidebar(\"chat\")\n\n# querychat filtered dataframe\n@render.data_frame\ndef data_table():\n    return chat[\"df\"]()\nYou can expand on the welcome message by adding this text to the greetings parameter.\nBelow are some examples of tasks I can do.\n\nFilter and visualize the data:\n- Show passengers who survived, sorted by age.\n- Filter to show only first class female passengers.\n- Display passengers who paid above average fare.\n\nAnswer questions about the data:\n- What percentage of men survived versus women?\n- What was the average age of survivors by class?\n- Which embarkation point had the highest survival rate?\n\n\nStep 2: Run the application\nRun your application by either clicking the Play button from the VS Code Shiny Extension.\n\nOr in the terminal with shiny run.\nshiny run --reload --launch-browser app.py\nYou can learn more about running Shiny applications on the Shiny Get Started Page",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Shiny + GenAI"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-ai.html#anthropic-claude",
-    "href": "tutorials/shiny/shiny-ai.html#anthropic-claude",
-    "title": "Shiny + GenAI",
-    "section": "Anthropic (Claude)",
-    "text": "Anthropic (Claude)\nIf you want to recreate the actual app shown at the top of this lab, by switching the model to using Antrhopic (Claude), chatlas makes this very easy to do by changing the call from ChatOllama() to ChatAnthropic().\ndef create_chat_callback(system_prompt):\n    return ChatAnthropic(system_prompt=system_prompt)\nYou will then need to create an .env file with the line containing your Anthropic API key.\nANTHROPIC_API_KEY=&lt;Your Anthropic API key&gt;",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Shiny + GenAI"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-ai.html#learn-more",
-    "href": "tutorials/shiny/shiny-ai.html#learn-more",
-    "title": "Shiny + GenAI",
-    "section": "Learn more",
-    "text": "Learn more\n\nShiny for AI Docs",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Shiny + GenAI"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-express.html",
-    "href": "tutorials/shiny/shiny-express.html",
-    "title": "Try Shiny Express",
+    "objectID": "tutorials/quarto/reference_analysis_code.html",
+    "href": "tutorials/quarto/reference_analysis_code.html",
+    "title": "Reference analysis code",
     "section": "",
-    "text": "Shiny makes it easy to create rich, interactive experiences in pure Python with a fully reactive framework. No JavaScript required!",
+    "text": "Example script and output before putting it into a Quarto report.\n\nimport pandas as pd\nfrom plotnine import ggplot, aes, geom_point\nfrom palmerpenguins import load_penguins\nimport seaborn as sns\n\npenguins = load_penguins()\npenguins.shape\n\n(344, 8)\n\n\n\n# drop rows with missing values\npenguins = penguins.dropna()\npenguins.shape\n\n(333, 8)\n\n\n\n# gentoo is easier to separate\n# eda to find variables to separate Adelie\n# bill_depth_mm and body_mass_g are good separators\n# bill_depth_mm and flipper_length_mm are good separators\n# body_mass_g and flipper_length_mm are NOT good separators\n\nsns.pairplot(penguins, hue=\"species\")\n\n\n\n\n\n\n\n\n\n# fit logistic regression model\nimport statsmodels.api as sm\nimport statsmodels.formula.api as smf\n\n# recode variable\npenguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)\n\n# logistic regression\nmodel = smf.logit(\"is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm\", data=penguins).fit()\nprint(model.summary())\n\nOptimization terminated successfully.\n         Current function value: 0.352072\n         Iterations 8\n                           Logit Regression Results                           \n==============================================================================\nDep. Variable:              is_adelie   No. Observations:                  333\nModel:                          Logit   Df Residuals:                      329\nMethod:                           MLE   Df Model:                            3\nDate:                Thu, 15 May 2025   Pseudo R-squ.:                  0.4864\nTime:                        15:31:48   Log-Likelihood:                -117.24\nconverged:                       True   LL-Null:                       -228.29\nCovariance Type:            nonrobust   LLR p-value:                 7.076e-48\n=====================================================================================\n                        coef    std err          z      P&gt;|z|      [0.025      0.975]\n-------------------------------------------------------------------------------------\nIntercept            30.1600      5.603      5.383      0.000      19.178      41.142\nbill_depth_mm         0.3953      0.121      3.255      0.001       0.157       0.633\nbody_mass_g           0.0006      0.000      1.271      0.204      -0.000       0.001\nflipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -0.140\n=====================================================================================\n\n\n\n# model results\nmodel.params.to_frame(\"Estimate\")\n\n\n\n\n\n\n\n\nEstimate\n\n\n\n\nIntercept\n30.160015\n\n\nbill_depth_mm\n0.395328\n\n\nbody_mass_g\n0.000554\n\n\nflipper_length_mm\n-0.200743\n\n\n\n\n\n\n\n\n# predicted probabilities for first few rows\npenguins[\"predicted\"] = model.predict()\npenguins[[\"species\", \"predicted\"]].head()\n\n\n\n\n\n\n\n\nspecies\npredicted\n\n\n\n\n0\nAdelie\n0.964279\n\n\n1\nAdelie\n0.858842\n\n\n2\nAdelie\n0.482890\n\n\n4\nAdelie\n0.722669\n\n\n5\nAdelie\n0.898866\n\n\n\n\n\n\n\n\npenguins['pred_prob'] = model.predict()\n\n\nfrom plotnine import *\n\n(\n    ggplot(penguins, aes(x='species', y='pred_prob')) +\n    geom_boxplot(fill='#56B4E9') +\n    labs(title=\"Predicted Probability of Gentoo by Species\",\n         y=\"Predicted Probability\", x=\"Species\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\nfpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])\nroc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})\n\n(\n    ggplot(roc_df, aes(x='fpr', y='tpr')) +\n    geom_line(color='blue') +\n    geom_abline(slope=1, intercept=0, linetype='dashed') +\n    labs(title=\"ROC Curve\", x=\"False Positive Rate\", y=\"True Positive Rate\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nimport numpy as np\n\ncoefs = model.params.drop(\"Intercept\")\nerrors = model.bse.drop(\"Intercept\")\ncoef_df = pd.DataFrame({\n    'term': coefs.index,\n    'estimate': coefs.values,\n    'lower': coefs - 1.96 * errors,\n    'upper': coefs + 1.96 * errors\n})\n\n(\n    ggplot(coef_df, aes(x='term', y='estimate')) +\n    geom_point() +\n    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +\n    geom_hline(yintercept=0, linetype='dashed', color='gray') +\n    labs(title=\"Model Coefficients (95% CI)\", y=\"Estimate\", x=\"Term\") +\n    theme_minimal() +\n    theme(axis_text_x=element_text(rotation=45, hjust=1))\n)\n\n\n\n\n\n\n\n\n\n(\n    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +\n    geom_density(alpha=0.6) +\n    scale_fill_manual(values=['#E69F00', '#56B4E9'], name=\"Is Adelie\") +\n    labs(title=\"Predicted Probability Distribution\", x=\"Predicted Probability\") +\n    theme_minimal()\n)",
     "crumbs": [
       "Labs",
-      "Shiny Dashboards",
-      "Try Shiny Express"
+      "Quarto Documents",
+      "Reference analysis code"
     ]
   },
   {
-    "objectID": "tutorials/shiny/shiny-express.html#shiny-express",
-    "href": "tutorials/shiny/shiny-express.html#shiny-express",
-    "title": "Try Shiny Express",
-    "section": "Shiny Express",
-    "text": "Shiny Express\nHere’s the Shiny application we’ll be creating. Give it a try! See how the different penguin distributions compare to one another.\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n#| standalone: true\n#| components: [viewer]\n#| viewerHeight: 500\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nfrom shiny.express import input, render, ui\n\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\nui.input_radio_buttons(\"species\", \"Species\", species, inline=True)\n\n\n@render.plot\ndef plot():\n    sel = dat[dat[\"species\"] == input.species()]\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Try Shiny Express"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-express.html#goal",
-    "href": "tutorials/shiny/shiny-express.html#goal",
-    "title": "Try Shiny Express",
-    "section": "Goal",
-    "text": "Goal\nLet’s create a simple shiny application that uses the palmerpenguins dataset and visualizes it using plotnine.\nWe’ll use shiny to give us interactive radio buttons to change what species of the bill_length_mm variable we will want to highlight.",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Try Shiny Express"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-express.html#prototype",
-    "href": "tutorials/shiny/shiny-express.html#prototype",
-    "title": "Try Shiny Express",
-    "section": "Prototype",
-    "text": "Prototype\nWe’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\ndat = load_penguins()\ndat.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nHere’s the base code we’ll be starting with. It creates 2 histograms layerd on top of one another. The base layer is the distribution of all the penguin species. and the blue layer on top will the distribution of the selected penguin species.\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nspecies = \"Adelie\" # selected species\nsel = dat.loc[dat.species == species] # selected data\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n    + theme_minimal()\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLearn more about plotting in plotnine\n\n\n\nTo learn more about how the plotting code works in plotnine, take a look at our plotnine lab.\n\n\nWouldn’t it be nice if we could have something to toggle between one of the 3 penguin species instead of having us manually change the species variable and re-run our code?\nNow we’re ready for a Shiny dashboard! All we need is some mechanism to list and provide the options for the user to pass into the species variable. Then pandas can filter the selected layer data, and plotnine can render the new data layer.",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Try Shiny Express"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-express.html#shiny-express-1",
-    "href": "tutorials/shiny/shiny-express.html#shiny-express-1",
-    "title": "Try Shiny Express",
-    "section": "Shiny Express",
-    "text": "Shiny Express\nShiny Express is designed to make it significantly easier to get started with Shiny, and to write simple apps with a minimum of boilerplate.\nWherever you write your UI or output code, is where it will render in the application. In this sense Shiny Express is similar to Streamlit. If you’re looking for syntax where the UI and outputs are separated, similar to Dash, then take a look at the Shiny Core Lab.\n\nUser interface\nBefore we get all components reacting to one another, let’s start with mapping out how our application will look.\nShiny comes with all the input and output components you will need. For now we’ll focus on the input_radio_buttons component.\nWe will pass input_radio_buttons() 3 arguments:\n\nid: this is what shiny uses to reference the value selected by the input (more on this later).\nlabel: the text the user will see by the component.\nchoices: the options our radio button component will display to the user and value it will use in code.\n\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n)\n\n\n\n\nRun your shiny application\nIn Positron or VSCode, assuming you have the VSCode Shiny Extension installed, create a file named app.py, copy + paste the code above and hit the play button to run your application.\n\nOr you can go to https://shinylive.io/py and copy + paste the code there and run your application.\nSee our Shiny documentation to learn more about running shiny applications.\n\n\nImprove UI\nLet’s have the buttons run horizontally to take up less space. We can use the inline=True to change the orientation of the radio buttons.\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\n\n\n\nOutput component\nNow let’s add all that data and plotting code from earlier into our application.\nIf we just dump in our code, the application errors because it does not know what to do with the figure that’s trying to be printed.\nfrom shiny.express import ui\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\ndat = load_penguins()\nspecies = \"Adelie\"\nsel = dat.loc[dat.species == species]\n\n# this will cause a TypeError: Invalid tag item type\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n    + theme_minimal()\n)\nIn shiny, each output needs to be wrapped in it’s own function, and the corresponding output decorator applied to the function so Shiny knows how to render the output.\nWe now need to use one of the built-in Shiny output components, specifically, one that can render a plotnine figure (which is based on matplotlib), plot output component.\nFor example, we want to return a plot, so we will need to wrap our plotnine code, and decorate it with the @render.plot decorator.\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui, render\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\ndat = load_penguins()\nspecies = \"Adelie\"\nsel = dat.loc[dat.species == species]\n\n@render.plot \ndef plot(): \n    return ( \n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )\n\n\n\n\n\n\n\n\nReturn your values\n\n\n\nDon’t forget to return the object you want displayed in the function! Otherwise the output will not render.\n\n\n\n\nMake it reactive\nGreat! We have our input component, we have our output component, all we need to do now is connect the value selected by the input component and have the output react to the selected input.\nFirst, when we are working with linking input and output values, they must all exist in the same “reactive context”, i.e., be in a function that is decorated by shiny, in our case all our code that needs to react needs to be in the function that is decorated by @render.plot.\n\n\n\n\n\n\nReactivity\n\n\n\nReactivity is actually what makes Shiny powerful and unique. You can learn more about reactivity in our documentation.\n\n\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui, render\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\ndat = load_penguins()\n\n@render.plot\ndef plot():\n    species = \"Adelie\" \n    sel = dat.loc[dat.species == species] \n\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )\n\n\nNow we’re ready to link the input and output components together. We now need to import the input object from shiny. The input object keep track of all the input components in the application and allows you to access the input value by the id we used when we created the input component.\nIn our example, our input_radio_buttons() input component was given an id=\"species\", so we can access the value in the radio button by using input.species(). Here we have to add round parenthesis to the value, because we’re trying to get the actual value stored in the species input.\n\n\n\n\n\n\nDon’t forget the round parenthesis ()!\n\n\n\nDon’t forget to add a set of round parenthesis, () when you are trying to get the value of a component. You need to “call” it for Shiny to compute its value. This is how we work with reactivity in shiny, and this prevents us from writing callbacks in our application.\n\n\nInstead of hard-coding species = \"Adelie\", we can replace it with species = input.species(), and it will return the value from our radio button input component.\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n# | standalone: true\n# | components: [editor, viewer]\n# | layout: horizontal\nfrom shiny.express import ui, render, input \n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\nui.input_radio_buttons(\n    id=\"species\",\n    label=\"Species\",\n    choices=[\"Adelie\", \"Gentoo\", \"Chinstrap\"],\n    inline=True,\n)\n\ndat = load_penguins()\n\n@render.plot\ndef plot():\n    species = input.species() \n    sel = dat.loc[dat.species == species]\n\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Try Shiny Express"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-express.html#our-final-application",
-    "href": "tutorials/shiny/shiny-express.html#our-final-application",
-    "title": "Try Shiny Express",
-    "section": "Our final application",
-    "text": "Our final application\nAfter tidying up the code a bit, here’s our final Shiny application!\nIf you want you can tinker with the code and run the application right in the browser, or copy + paste the code and run it in your IDE.\n\n#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n#| standalone: true\n#| components: [editor, viewer]\n#| layout: horizontal\n#| viewerHeight: 500\n\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nfrom shiny.express import input, render, ui\n\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\nui.input_radio_buttons(\"species\", \"Species\", species, inline=True)\n\n\n@render.plot\ndef plot():\n    sel = dat[dat[\"species\"] == input.species()]\n    return (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Try Shiny Express"
-    ]
-  },
-  {
-    "objectID": "tutorials/shiny/shiny-express.html#learn-more",
-    "href": "tutorials/shiny/shiny-express.html#learn-more",
-    "title": "Try Shiny Express",
-    "section": "Learn more",
-    "text": "Learn more\n\nShiny get started guide\nShinyConf 2025 Presentation by Isabella Velásquez: Choosing the right tool for interactive dashboards: flexdashboard, Quarto, and Shiny\nShinyConf 2025 Presentation by Daniel Chen: Creating and Sharing Scalable Applications with Shiny",
-    "crumbs": [
-      "Labs",
-      "Shiny Dashboards",
-      "Try Shiny Express"
-    ]
+    "objectID": "tutorials/positron/assets/example-quarto.html",
+    "href": "tutorials/positron/assets/example-quarto.html",
+    "title": "S&P 500 2010",
+    "section": "",
+    "text": "from great_tables import GT\nfrom great_tables.data import sp500\n\n# Define the start and end dates for the data range\nstart_date = \"2010-06-07\"\nend_date = \"2010-06-14\"\n\n# Filter sp500 using Pandas to dates between `start_date` and `end_date`\nsp500_mini = sp500[(sp500[\"date\"] &gt;= start_date) & (sp500[\"date\"] &lt;= end_date)]\n\nsp500_mini\n\n\n\n\n\n\n\n\ndate\nopen\nhigh\nlow\nclose\nvolume\nadj_close\n\n\n\n\n1398\n2010-06-14\n1095.0000\n1105.91\n1089.03\n1089.6300\n4.425830e+09\n1089.6300\n\n\n1399\n2010-06-11\n1082.6500\n1092.25\n1077.12\n1091.6000\n4.059280e+09\n1091.6000\n\n\n1400\n2010-06-10\n1058.7700\n1087.85\n1058.77\n1086.8400\n5.144780e+09\n1086.8400\n\n\n1401\n2010-06-09\n1062.7500\n1077.74\n1052.25\n1055.6899\n5.983200e+09\n1055.6899\n\n\n1402\n2010-06-08\n1050.8101\n1063.15\n1042.17\n1062.0000\n6.192750e+09\n1062.0000\n\n\n1403\n2010-06-07\n1065.8400\n1071.36\n1049.86\n1050.4700\n5.467560e+09\n1050.4700\n\n\n\n\n\n\n\n\n# Create a gt table based on the `sp500_mini` table data\n(\n    GT(sp500_mini)\n    .tab_header(title=\"S&P 500\", subtitle=f\"{start_date} to {end_date}\")\n    .fmt_currency(columns=[\"open\", \"high\", \"low\", \"close\"])\n    .fmt_date(columns=\"date\", date_style=\"wd_m_day_year\")\n    .fmt_number(columns=\"volume\", compact=True)\n    .cols_hide(columns=\"adj_close\")\n)\n\n\n\n\n\n\n\nS&P 500\n\n\n2010-06-07 to 2010-06-14\n\n\ndate\nopen\nhigh\nlow\nclose\nvolume\n\n\n\n\nMon, Jun 14, 2010\n$1,095.00\n$1,105.91\n$1,089.03\n$1,089.63\n4.43B\n\n\nFri, Jun 11, 2010\n$1,082.65\n$1,092.25\n$1,077.12\n$1,091.60\n4.06B\n\n\nThu, Jun 10, 2010\n$1,058.77\n$1,087.85\n$1,058.77\n$1,086.84\n5.14B\n\n\nWed, Jun 9, 2010\n$1,062.75\n$1,077.74\n$1,052.25\n$1,055.69\n5.98B\n\n\nTue, Jun 8, 2010\n$1,050.81\n$1,063.15\n$1,042.17\n$1,062.00\n6.19B\n\n\nMon, Jun 7, 2010\n$1,065.84\n$1,071.36\n$1,049.86\n$1,050.47\n5.47B"
   }
 ]

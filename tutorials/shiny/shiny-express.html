@@ -378,7 +378,7 @@ def plot():
 <section id="prototype" class="level2">
 <h2 class="anchored" data-anchor-id="prototype">Prototype</h2>
 <p>We’ll be using <code>palmerpenguins</code> for the dataset, and <code>plotnine</code> to visualize the palmer penguin’s <code>bill_length_mm</code> column as a histogram.</p>
-<div id="6d526386" class="cell" data-execution_count="1">
+<div id="67df119e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dat <span class="op">=</span> load_penguins()</span>
@@ -464,7 +464,7 @@ def plot():
 </div>
 </div>
 <p>Here’s the base code we’ll be starting with. It creates 2 histograms layerd on top of one another. The base layer is the distribution of all the penguin species. and the blue layer on top will the distribution of the selected penguin species.</p>
-<div id="ed0d1f3e" class="cell" data-execution_count="2">
+<div id="a7bd44fd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3" data-source-line-numbers="nil" data-code-line-numbers="nil"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> aes, geom_histogram, ggplot, theme_minimal</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="st">"Adelie"</span> <span class="co"># selected species</span></span>
