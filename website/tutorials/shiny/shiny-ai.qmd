@@ -73,7 +73,16 @@ without having to put in many user input components.
 
 ## Shiny + GenAI
 
-Below is the code that provides the `querychat` UI and the filtered dataframe.
+We will now build a small app that uses the `querychat` UI and displays the reactive filtered dataframe.
+
+### Step 0: LLM setup
+
+The code below uses the `llama3.2` model from Ollama.
+You will need to have this installed before running the code.
+Or make sure you change the code for the model you plan to use.
+
+For more about LLM setup see the
+[LLM Setup Page](/setup.qmd#genai-llms).
 
 ### Step 1: Create the application
 
