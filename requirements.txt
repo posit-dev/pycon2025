@@ -16,3 +16,7 @@ orbitalml
 pins
 pointblank
 vetiver
+streamlit
+dash
+dash-mantine-components
+plotly
