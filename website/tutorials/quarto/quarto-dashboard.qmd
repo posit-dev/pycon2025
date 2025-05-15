@@ -1,6 +1,7 @@
 ---
 title: Quarto dashboards
 order: 20
+draft: true
 ---
 
 ## Learn more

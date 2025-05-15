@@ -1,0 +1,101 @@
+---
+title: "Try more of our OSS tools"
+order: 20
+draft: true
+---
+
+- chatlas
+
+```bash
+pip install chatlas
+```
+
+- great tables
+
+```bash
+pip install great_tables
+```
+
+```{python}
+import great_tables as gt
+from palmerpenguins import load_penguins
+import pandas as pd
+
+# Load the Palmer Penguins dataset
+penguins = load_penguins()
+
+# Create a simple great_tables example
+# Let's create a summary table showing average measurements by species
+summary = (
+    penguins
+    .groupby('species')
+    .agg({
+        'bill_length_mm': 'mean',
+        'bill_depth_mm': 'mean',
+        'flipper_length_mm': 'mean',
+        'body_mass_g': 'mean',
+        'year': 'count'
+    })
+    .reset_index()
+    .rename(columns={'year': 'count'})
+)
+
+# Format the table with great_tables
+table = (
+    gt.GT(summary)
+    .tab_header(
+        title="Palmer Penguins Dataset",
+        subtitle="Average measurements by species"
+    )
+    .fmt_number(
+        columns=['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm'],
+        decimals=1
+    )
+    .fmt_number(
+        columns=['body_mass_g'],
+        decimals=0
+    )
+    .cols_label(
+        species="Species",
+        bill_length_mm="Bill Length (mm)",
+        bill_depth_mm="Bill Depth (mm)",
+        flipper_length_mm="Flipper Length (mm)",
+        body_mass_g="Body Mass (g)",
+        count="Count"
+    )
+)
+
+# Display the table
+table
+```
+
+- orbital
+
+```bash
+pip install orbitalml
+```
+
+- pins
+
+```bash
+pip install pins
+```
+
+
+- plotnine
+
+```bash
+pip install plotnine
+```
+
+- pointblank
+
+```bash
+pip install pointblank
+```
+
+- vetivir
+
+```bash
+pip install vetiver
+```

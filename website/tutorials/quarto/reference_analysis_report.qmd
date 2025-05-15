@@ -1,0 +1,117 @@
+---
+title: Reference analysis Report
+draft: true
+---
+
+```{python}
+import pandas as pd
+from plotnine import ggplot, aes, geom_point
+from palmerpenguins import load_penguins
+import seaborn as sns
+
+penguins = load_penguins()
+penguins.shape
+```
+
+```{python}
+# drop rows with missing values
+penguins = penguins.dropna()
+penguins.shape
+```
+```{python}
+# gentoo is easier to separate
+# eda to find variables to separate Adelie
+# bill_depth_mm and body_mass_g are good separators
+# bill_depth_mm and flipper_length_mm are good separators
+# body_mass_g and flipper_length_mm are NOT good separators
+
+sns.pairplot(penguins, hue="species")
+```
+
+```{python}
+# fit logistic regression model
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+# recode variable
+penguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)
+
+# logistic regression
+model = smf.logit("is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm", data=penguins).fit()
+print(model.summary())
+```
+
+```{python}
+# model results
+model.params.to_frame("Estimate")
+```
+
+```{python}
+# predicted probabilities for first few rows
+penguins["predicted"] = model.predict()
+penguins[["species", "predicted"]].head()
+```
+
+```{python}
+penguins['pred_prob'] = model.predict()
+```
+
+```{python}
+from plotnine import *
+
+(
+    ggplot(penguins, aes(x='species', y='pred_prob')) +
+    geom_boxplot(fill='#56B4E9') +
+    labs(title="Predicted Probability of Gentoo by Species",
+         y="Predicted Probability", x="Species") +
+    theme_minimal()
+)
+```
+
+```{python}
+from sklearn.metrics import roc_curve, auc
+
+fpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])
+roc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})
+
+(
+    ggplot(roc_df, aes(x='fpr', y='tpr')) +
+    geom_line(color='blue') +
+    geom_abline(slope=1, intercept=0, linetype='dashed') +
+    labs(title="ROC Curve", x="False Positive Rate", y="True Positive Rate") +
+    theme_minimal()
+)
+```
+
+```{python}
+import numpy as np
+
+coefs = model.params.drop("Intercept")
+errors = model.bse.drop("Intercept")
+coef_df = pd.DataFrame({
+    'term': coefs.index,
+    'estimate': coefs.values,
+    'lower': coefs - 1.96 * errors,
+    'upper': coefs + 1.96 * errors
+})
+
+(
+    ggplot(coef_df, aes(x='term', y='estimate')) +
+    geom_point() +
+    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +
+    geom_hline(yintercept=0, linetype='dashed', color='gray') +
+    labs(title="Model Coefficients (95% CI)", y="Estimate", x="Term") +
+    theme_minimal() +
+    theme(axis_text_x=element_text(rotation=45, hjust=1))
+)
+```
+
+```{python}
+(
+    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +
+    geom_density(alpha=0.6) +
+    scale_fill_manual(values=['#E69F00', '#56B4E9'], name="Is Adelie") +
+    labs(title="Predicted Probability Distribution", x="Predicted Probability") +
+    theme_minimal()
+)
+```
