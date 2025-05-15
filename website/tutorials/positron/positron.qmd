@@ -9,3 +9,61 @@ What is Positron?
 - A familiar environment for reproducible authoring and publishing
 
 ![](img/positron.png)
+
+## Install and try Positron
+
+If you don't have Positron already, you can download the IDE here:
+<https://positron.posit.co/download.html>
+
+
+### Extensions
+
+Since Positron is built on Code OSS, you can use VS Code extensions in Positron.
+Your extensions installed for Positron are separate from the extensions you have installed for VS Code, and they won’t interfere with each other.
+Positron bundles several extensions, including those for Quarto, Jupyter notebooks, and Pyright.
+These extensions are installed for you the first time you start Positron.
+
+You can install the
+[Shiny Extension from OpenVSX](https://open-vsx.org/extension/posit/shiny).
+
+## Dashboard
+
+Here's the [Shiny Express Dashboard we've used in this lab](/tutorials/shiny/shiny-express.qmd)
+
+Copy the code below into a file called `app.py`
+
+::: {.callout-caution}
+## `app.py`
+
+```{.python}
+{{< include /tutorials/shiny/includes/app-express.py >}}
+```
+:::
+
+If you have the
+[Shiny Extension](https://open-vsx.org/extension/posit/shiny)
+installed,
+you can click the play button to run the Shiny application.
+
+![](/tutorials/shiny/img/positron-run.png)
+
+Or you can use the Positron Terminal to run your Shiny application
+
+```bash
+shiny run --reload app.py
+```
+
+This will start the app and open it in your default web browser.
+
+- The `--reload` flag enables automatic reloading. When you save changes to your source files, the app will automatically restart and update in the browser.
+- The `--launch-browser` flag opens the app in a browser as soon as it starts.
+
+Learn more about Shiny in our
+[Shiny Express Lab](/tutorials/shiny/shiny-express.qmd),
+and the
+[Shiny Get Started page](https://shiny.posit.co/py/get-started/){target="_blank"}
+
+## Reproducible documents
+
+Download one of our example Quarto or Jupyter Notebook files.
+and give them a try in positron!
