@@ -49,6 +49,14 @@ palmerpenguins
 plotnine
 ```
 
+and then install them with
+
+```bash
+pip install -r requirements.txt
+```
+
+You will need to have the `requirements.txt` file in the repository so Connect Cloud can create the Python environment.
+
 ## Step 2: The application code
 
 Copy the code from our application into a file called `app.py`
