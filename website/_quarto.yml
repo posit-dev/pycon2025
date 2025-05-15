@@ -39,6 +39,7 @@ website:
         - section: "Shiny Dashboards"
           contents:
             - auto: tutorials/shiny/*.qmd
+            - href: tutorials/connect/deploy-shiny.qmd
 
         - section: "Quarto Documents"
           contents:
