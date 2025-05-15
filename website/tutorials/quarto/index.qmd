@@ -17,8 +17,68 @@ and you are going to present your findings.
 
 ## The analysis
 
+Head over to the
+[reference analysis code](reference_analysis_code.qmd)
+To see the base report.
 
 ## Quarto report
+
+We'll convert our
+[reference analysis code](reference_analysis_code.qmd)
+to make it a reproducible report.
+
+### Code chunks
+
+A code chunk begins with 3 backticks and a set of `{ }` with the language you want to use.
+
+For example here's an example piece of python code inside a code chunk
+
+```{{python}}
+# some python code
+3 + 3
+```
+
+### Chunk options
+
+Chunk options can help control how the final rendered output.
+You add them with a `#|` comment on the first line of a code chunk.
+
+For example, you can use `include: false` to hide all the code and output,
+but still have the code render in the background.
+This is great when you need to load and process data but do not want it displayed in the final document.
+
+```{{python}}
+#| include: false
+a = 3 + 3
+```
+
+```{{python}}
+print(a)
+```
+
+[See more chunk options on the Quarto Documentation](https://quarto.org/docs/computations/execution-options.html){target="_blank"}
+
+### Rendering the document
+
+You can render the document with:
+
+```bash
+quarto render my_document.qmd
+```
+
+If you want the results to update every time you save,
+you can use
+
+```bash
+quarto preview my_document.qmd
+```
+
+## Now you try
+
+Take the
+[reference analysis code](reference_analysis_code.qmd)
+code, turn the code into separate code chunks,
+and add some prose text to explain what is happening.
 
 
 ## Learn more
