@@ -5,6 +5,7 @@ on:
     paths:
       - "website/**"
       - ".github/workflows/publish.yml"
+      - "requirements.txt"
 
 name: Render and Publish
 
