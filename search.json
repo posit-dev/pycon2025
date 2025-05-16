@@ -7,6 +7,13 @@
     "text": "Shiny makes it easy to create rich, interactive experiences in pure Python with a fully reactive framework. No JavaScript required!"
   },
   {
+    "objectID": "tutorials/connect/includes/republish.html",
+    "href": "tutorials/connect/includes/republish.html",
+    "title": "PyCon 2025",
+    "section": "",
+    "text": "If you update the code to your application or the underlying data source, commit and push the changes to your GitHub repository.\nOnce the repository has the updated code, you can republish the application on Connect Cloud by going to your Content List and clicking the republish icon."
+  },
+  {
     "objectID": "tutorials/shiny/shiny-express.html",
     "href": "tutorials/shiny/shiny-express.html",
     "title": "Try Shiny Express",
@@ -167,7 +174,7 @@
     "href": "tutorials/quarto/reference_analysis_code.html",
     "title": "Reference analysis code",
     "section": "",
-    "text": "Example script and output before putting it into a Quarto report.\n\nimport pandas as pd\nfrom plotnine import ggplot, aes, geom_point\nfrom palmerpenguins import load_penguins\nimport seaborn as sns\n\npenguins = load_penguins()\npenguins.shape\n\n(344, 8)\n\n\n\n# drop rows with missing values\npenguins = penguins.dropna()\npenguins.shape\n\n(333, 8)\n\n\n\n# gentoo is easier to separate\n# eda to find variables to separate Adelie\n# bill_depth_mm and body_mass_g are good separators\n# bill_depth_mm and flipper_length_mm are good separators\n# body_mass_g and flipper_length_mm are NOT good separators\n\nsns.pairplot(penguins, hue=\"species\")\n\n\n\n\n\n\n\n\n\n# fit logistic regression model\nimport statsmodels.api as sm\nimport statsmodels.formula.api as smf\n\n# recode variable\npenguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)\n\n# logistic regression\nmodel = smf.logit(\"is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm\", data=penguins).fit()\nprint(model.summary())\n\nOptimization terminated successfully.\n         Current function value: 0.352072\n         Iterations 8\n                           Logit Regression Results                           \n==============================================================================\nDep. Variable:              is_adelie   No. Observations:                  333\nModel:                          Logit   Df Residuals:                      329\nMethod:                           MLE   Df Model:                            3\nDate:                Thu, 15 May 2025   Pseudo R-squ.:                  0.4864\nTime:                        18:45:50   Log-Likelihood:                -117.24\nconverged:                       True   LL-Null:                       -228.29\nCovariance Type:            nonrobust   LLR p-value:                 7.076e-48\n=====================================================================================\n                        coef    std err          z      P&gt;|z|      [0.025      0.975]\n-------------------------------------------------------------------------------------\nIntercept            30.1600      5.603      5.383      0.000      19.178      41.142\nbill_depth_mm         0.3953      0.121      3.255      0.001       0.157       0.633\nbody_mass_g           0.0006      0.000      1.271      0.204      -0.000       0.001\nflipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -0.140\n=====================================================================================\n\n\n\n# model results\nmodel.params.to_frame(\"Estimate\")\n\n\n\n\n\n\n\n\nEstimate\n\n\n\n\nIntercept\n30.160015\n\n\nbill_depth_mm\n0.395328\n\n\nbody_mass_g\n0.000554\n\n\nflipper_length_mm\n-0.200743\n\n\n\n\n\n\n\n\n# predicted probabilities for first few rows\npenguins[\"predicted\"] = model.predict()\npenguins[[\"species\", \"predicted\"]].head()\n\n\n\n\n\n\n\n\nspecies\npredicted\n\n\n\n\n0\nAdelie\n0.964279\n\n\n1\nAdelie\n0.858842\n\n\n2\nAdelie\n0.482890\n\n\n4\nAdelie\n0.722669\n\n\n5\nAdelie\n0.898866\n\n\n\n\n\n\n\n\npenguins['pred_prob'] = model.predict()\n\n\nfrom plotnine import *\n\n(\n    ggplot(penguins, aes(x='species', y='pred_prob')) +\n    geom_boxplot(fill='#56B4E9') +\n    labs(title=\"Predicted Probability of Gentoo by Species\",\n         y=\"Predicted Probability\", x=\"Species\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\nfpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])\nroc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})\n\n(\n    ggplot(roc_df, aes(x='fpr', y='tpr')) +\n    geom_line(color='blue') +\n    geom_abline(slope=1, intercept=0, linetype='dashed') +\n    labs(title=\"ROC Curve\", x=\"False Positive Rate\", y=\"True Positive Rate\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nimport numpy as np\n\ncoefs = model.params.drop(\"Intercept\")\nerrors = model.bse.drop(\"Intercept\")\ncoef_df = pd.DataFrame({\n    'term': coefs.index,\n    'estimate': coefs.values,\n    'lower': coefs - 1.96 * errors,\n    'upper': coefs + 1.96 * errors\n})\n\n(\n    ggplot(coef_df, aes(x='term', y='estimate')) +\n    geom_point() +\n    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +\n    geom_hline(yintercept=0, linetype='dashed', color='gray') +\n    labs(title=\"Model Coefficients (95% CI)\", y=\"Estimate\", x=\"Term\") +\n    theme_minimal() +\n    theme(axis_text_x=element_text(rotation=45, hjust=1))\n)\n\n\n\n\n\n\n\n\n\n(\n    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +\n    geom_density(alpha=0.6) +\n    scale_fill_manual(values=['#E69F00', '#56B4E9'], name=\"Is Adelie\") +\n    labs(title=\"Predicted Probability Distribution\", x=\"Predicted Probability\") +\n    theme_minimal()\n)",
+    "text": "Example script and output before putting it into a Quarto report.\n\nimport pandas as pd\nfrom plotnine import ggplot, aes, geom_point\nfrom palmerpenguins import load_penguins\nimport seaborn as sns\n\npenguins = load_penguins()\npenguins.shape\n\n(344, 8)\n\n\n\n# drop rows with missing values\npenguins = penguins.dropna()\npenguins.shape\n\n(333, 8)\n\n\n\n# gentoo is easier to separate\n# eda to find variables to separate Adelie\n# bill_depth_mm and body_mass_g are good separators\n# bill_depth_mm and flipper_length_mm are good separators\n# body_mass_g and flipper_length_mm are NOT good separators\n\nsns.pairplot(penguins, hue=\"species\")\n\n\n\n\n\n\n\n\n\n# fit logistic regression model\nimport statsmodels.api as sm\nimport statsmodels.formula.api as smf\n\n# recode variable\npenguins['is_adelie'] = (penguins['species'] == 'Adelie').astype(int)\n\n# logistic regression\nmodel = smf.logit(\"is_adelie ~  bill_depth_mm + body_mass_g + flipper_length_mm\", data=penguins).fit()\nprint(model.summary())\n\nOptimization terminated successfully.\n         Current function value: 0.352072\n         Iterations 8\n                           Logit Regression Results                           \n==============================================================================\nDep. Variable:              is_adelie   No. Observations:                  333\nModel:                          Logit   Df Residuals:                      329\nMethod:                           MLE   Df Model:                            3\nDate:                Fri, 16 May 2025   Pseudo R-squ.:                  0.4864\nTime:                        04:46:11   Log-Likelihood:                -117.24\nconverged:                       True   LL-Null:                       -228.29\nCovariance Type:            nonrobust   LLR p-value:                 7.076e-48\n=====================================================================================\n                        coef    std err          z      P&gt;|z|      [0.025      0.975]\n-------------------------------------------------------------------------------------\nIntercept            30.1600      5.603      5.383      0.000      19.178      41.142\nbill_depth_mm         0.3953      0.121      3.255      0.001       0.157       0.633\nbody_mass_g           0.0006      0.000      1.271      0.204      -0.000       0.001\nflipper_length_mm    -0.2007      0.031     -6.445      0.000      -0.262      -0.140\n=====================================================================================\n\n\n\n# model results\nmodel.params.to_frame(\"Estimate\")\n\n\n\n\n\n\n\n\nEstimate\n\n\n\n\nIntercept\n30.160015\n\n\nbill_depth_mm\n0.395328\n\n\nbody_mass_g\n0.000554\n\n\nflipper_length_mm\n-0.200743\n\n\n\n\n\n\n\n\n# predicted probabilities for first few rows\npenguins[\"predicted\"] = model.predict()\npenguins[[\"species\", \"predicted\"]].head()\n\n\n\n\n\n\n\n\nspecies\npredicted\n\n\n\n\n0\nAdelie\n0.964279\n\n\n1\nAdelie\n0.858842\n\n\n2\nAdelie\n0.482890\n\n\n4\nAdelie\n0.722669\n\n\n5\nAdelie\n0.898866\n\n\n\n\n\n\n\n\npenguins['pred_prob'] = model.predict()\n\n\nfrom plotnine import *\n\n(\n    ggplot(penguins, aes(x='species', y='pred_prob')) +\n    geom_boxplot(fill='#56B4E9') +\n    labs(title=\"Predicted Probability of Gentoo by Species\",\n         y=\"Predicted Probability\", x=\"Species\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\nfpr, tpr, _ = roc_curve(penguins['is_adelie'], penguins['pred_prob'])\nroc_df = pd.DataFrame({'fpr': fpr, 'tpr': tpr})\n\n(\n    ggplot(roc_df, aes(x='fpr', y='tpr')) +\n    geom_line(color='blue') +\n    geom_abline(slope=1, intercept=0, linetype='dashed') +\n    labs(title=\"ROC Curve\", x=\"False Positive Rate\", y=\"True Positive Rate\") +\n    theme_minimal()\n)\n\n\n\n\n\n\n\n\n\nimport numpy as np\n\ncoefs = model.params.drop(\"Intercept\")\nerrors = model.bse.drop(\"Intercept\")\ncoef_df = pd.DataFrame({\n    'term': coefs.index,\n    'estimate': coefs.values,\n    'lower': coefs - 1.96 * errors,\n    'upper': coefs + 1.96 * errors\n})\n\n(\n    ggplot(coef_df, aes(x='term', y='estimate')) +\n    geom_point() +\n    geom_errorbar(aes(ymin='lower', ymax='upper'), width=0.2) +\n    geom_hline(yintercept=0, linetype='dashed', color='gray') +\n    labs(title=\"Model Coefficients (95% CI)\", y=\"Estimate\", x=\"Term\") +\n    theme_minimal() +\n    theme(axis_text_x=element_text(rotation=45, hjust=1))\n)\n\n\n\n\n\n\n\n\n\n(\n    ggplot(penguins, aes(x='pred_prob', fill='factor(is_adelie)')) +\n    geom_density(alpha=0.6) +\n    scale_fill_manual(values=['#E69F00', '#56B4E9'], name=\"Is Adelie\") +\n    labs(title=\"Predicted Probability Distribution\", x=\"Predicted Probability\") +\n    theme_minimal()\n)",
     "crumbs": [
       "Labs",
       "Quarto Documents",
@@ -235,6 +242,78 @@
     "title": "Plotnine",
     "section": "",
     "text": "We’ll be using palmerpenguins for the dataset, and plotnine to visualize the palmer penguin’s bill_length_mm column as a histogram.\n\nfrom palmerpenguins import load_penguins\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n\nWe’ll be creating a base histogram using plotnine as follows:\n\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\n\ng = ggplot(penguins, aes(x=\"bill_length_mm\")) + geom_histogram()\ng\n\n\n\n\n\n\n\n\n\n\nNow we want to highlight part of the histogram. We do this by adding another data and aesthetic layer to our plotnine figure.\n\nspecies = \"Adelie\" # selected species\nselected = penguins.loc[penguins.species == species] # selected data\nselected\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n147\nAdelie\nDream\n36.6\n18.4\n184.0\n3475.0\nfemale\n2009\n\n\n148\nAdelie\nDream\n36.0\n17.8\n195.0\n3450.0\nfemale\n2009\n\n\n149\nAdelie\nDream\n37.8\n18.1\n193.0\n3750.0\nmale\n2009\n\n\n150\nAdelie\nDream\n36.0\n17.1\n187.0\n3700.0\nfemale\n2009\n\n\n151\nAdelie\nDream\n41.5\n18.5\n201.0\n4000.0\nmale\n2009\n\n\n\n\n152 rows × 8 columns\n\n\n\nNow that we have the new data, we can add the new selected dataframe to our original figure, g\n\ng + geom_histogram(data=selected, fill=\"#447099\")\n\n\n\n\n\n\n\n\n\n\n\nThe 2 different bill_length_mm are plotted as independent histograms, so the auto binning is causing the bars to not line up. Let’s re-create our plot and also set a uniform bin width by setting binwidth=1.\n\n(\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(penguins, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(selected, fill=\"#447099\", binwidth=1)\n)"
+  },
+  {
+    "objectID": "tutorials/connect/deploy-streamlit-dash.html",
+    "href": "tutorials/connect/deploy-streamlit-dash.html",
+    "title": "Deploy Streamlit or Dash",
+    "section": "",
+    "text": "Posit Connect Cloud supports many kinds of frameworks. All you need is a requirements.txt so Connect Cloud can build the environment.\nWe will build and deploy the same application as we did in the Shiny Express Lab",
+    "crumbs": [
+      "Labs",
+      "Connect Cloud",
+      "Deploy Streamlit or Dash"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-streamlit-dash.html#before-you-begin",
+    "href": "tutorials/connect/deploy-streamlit-dash.html#before-you-begin",
+    "title": "Deploy Streamlit or Dash",
+    "section": "Before you begin",
+    "text": "Before you begin\nPosit Connect Cloud deploys applications in a GitHub repository, make sure you have a GitHub repository set up to put the code we will use for this lab. You can do this lab completely within the web interface.\nThen create the requirements.txt file.\n\n\n\n\n\n\nrequirements.txt\n\n\n\ndash\nplotly\npandas\npalmerpenguins\nplotnine\nstreamlit",
+    "crumbs": [
+      "Labs",
+      "Connect Cloud",
+      "Deploy Streamlit or Dash"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-streamlit-dash.html#streamlit",
+    "href": "tutorials/connect/deploy-streamlit-dash.html#streamlit",
+    "title": "Deploy Streamlit or Dash",
+    "section": "Streamlit",
+    "text": "Streamlit\nHere’s an example Streamlit application. Save it to an app.py file. You can check out the Connect Cloud documentation to learn more about deploying Streamlit applicaitons to Connect Cloud\n\n\n\n\n\n\napp.py\n\n\n\nimport streamlit as st\nfrom palmerpenguins import load_penguins\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nimport matplotlib.pyplot as plt\n\n# Load the data\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\n# Add radio button widget\nselected_species = st.radio(\"Species\", species, horizontal=True)\n\n# Filter data based on selection\nsel = dat[dat[\"species\"] == selected_species]\n\n# Create plot\nplot = (\n    ggplot(aes(x=\"bill_length_mm\"))\n    + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n    + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n    + theme_minimal()\n)\n\n# Display the plot\nst.pyplot(ggplot.draw(plot))",
+    "crumbs": [
+      "Labs",
+      "Connect Cloud",
+      "Deploy Streamlit or Dash"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-streamlit-dash.html#dash",
+    "href": "tutorials/connect/deploy-streamlit-dash.html#dash",
+    "title": "Deploy Streamlit or Dash",
+    "section": "Dash",
+    "text": "Dash\nHere’s an example Dash application. Save this to an app.py file. You can check out the Connect Cloud documentation to learn more about deploying Dash applications to Connect Cloud\n\n\n\n\n\n\napp.py\n\n\n\nimport dash\nfrom dash import dcc, html\nfrom dash.dependencies import Input, Output\nimport plotly.express as px\nimport plotly.graph_objects as go\nfrom palmerpenguins import load_penguins\n\n# Initialize the Dash app\napp = dash.Dash(__name__)\n\n# Load the data\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\n# Define the layout\napp.layout = html.Div([\n    html.H1(\"Palmer Penguins Bill Length\"),\n\n    # Radio buttons for species selection\n    html.Div([\n        html.Label(\"Species:\"),\n        dcc.RadioItems(\n            id='species-radio',\n            options=[{'label': s, 'value': s} for s in species],\n            value=species[0],\n            inline=True\n        )\n    ]),\n\n    # Graph container\n    dcc.Graph(id='histogram-plot')\n])\n\n# Callback to update the plot based on species selection\n@app.callback(\n    Output('histogram-plot', 'figure'),\n    Input('species-radio', 'value')\n)\ndef update_plot(selected_species):\n    # Create two histogram traces\n    # 1. All penguins (light gray)\n    all_penguins = go.Histogram(\n        x=dat[\"bill_length_mm\"].dropna(),\n        xbins=dict(size=1),\n        marker_color='#C2C2C4',\n        name='All Penguins'\n    )\n\n    # 2. Selected species (blue)\n    sel = dat[dat[\"species\"] == selected_species]\n    selected_penguins = go.Histogram(\n        x=sel[\"bill_length_mm\"].dropna(),\n        xbins=dict(size=1),\n        marker_color='#447099',\n        name=f'{selected_species}'\n    )\n\n    # Create the figure\n    fig = go.Figure(data=[all_penguins, selected_penguins])\n\n    # Update layout\n    fig.update_layout(\n        title=f'Bill Length Distribution',\n        xaxis_title='Bill Length (mm)',\n        yaxis_title='Count',\n        barmode='overlay',\n        template='plotly_white',\n        showlegend=False\n    )\n\n    return fig\n\n# Run the app\nif __name__ == '__main__':\n    app.run()\n\n\nHere’s a version that uses plotnine\n\n\n\n\n\n\napp.py\n\n\n\n\n\nfrom palmerpenguins import load_penguins\n# Set matplotlib backend to non-GUI 'Agg' before importing plotnine\n# Matplotlib is trying to create GUI elements outside the main thread, which is not allowed on macOS.\n# common issue when using plotting libraries that rely on Matplotlib in threaded web applications\nimport matplotlib\nmatplotlib.use('Agg')\nfrom plotnine import aes, geom_histogram, ggplot, theme_minimal\nimport dash\nfrom dash import dcc, html, Input, Output\nimport plotly.graph_objects as go\nfrom io import BytesIO\nimport base64\n\n# Load the data\ndat = load_penguins()\nspecies = dat[\"species\"].unique().tolist()\n\n# Initialize the Dash app\napp = dash.Dash(__name__)\n\n# Define the layout\napp.layout = html.Div([\n    html.H1(\"Palmer Penguins\"),\n\n    # Radio buttons for species selection\n    html.Div([\n        html.Label(\"Species\"),\n        dcc.RadioItems(\n            id=\"species\",\n            options=[{\"label\": s, \"value\": s} for s in species],\n            value=species[0],  # Default to first species\n            inline=True\n        )\n    ]),\n\n    # Image component to display the plotnine plot\n    html.Img(id='plot-image')\n])\n\n# Define callback to update the plot based on species selection\n@app.callback(\n    Output('plot-image', 'src'),\n    Input('species', 'value')\n)\ndef update_plot(selected_species):\n    # Filter data for selected species\n    sel = dat[dat[\"species\"] == selected_species]\n\n    # Create the plotnine plot\n    plot = (\n        ggplot(aes(x=\"bill_length_mm\"))\n        + geom_histogram(dat, fill=\"#C2C2C4\", binwidth=1)\n        + geom_histogram(sel, fill=\"#447099\", binwidth=1)\n        + theme_minimal()\n    )\n\n    # Save the plot to a BytesIO object\n    img_buffer = BytesIO()\n    plot.save(img_buffer, format=\"png\", dpi=100, width=8, height=6, units=\"in\")\n    img_buffer.seek(0)\n\n    # Convert to base64 for displaying in the Dash app\n    img_str = base64.b64encode(img_buffer.read()).decode()\n\n    return f'data:image/png;base64,{img_str}'\n\n# Run the app\nif __name__ == '__main__':\n    app.run()",
+    "crumbs": [
+      "Labs",
+      "Connect Cloud",
+      "Deploy Streamlit or Dash"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-streamlit-dash.html#deploy",
+    "href": "tutorials/connect/deploy-streamlit-dash.html#deploy",
+    "title": "Deploy Streamlit or Dash",
+    "section": "Deploy",
+    "text": "Deploy\nWe’ll be deploying our shiny application to Connect Cloud. Here are the steps to publish your application.\n\nClick the Publish icon button on the top of your Portfolio page\nSelect Shiny\nSelect the public repository that you created in this tutorial\nConfirm the branch\nSelect app.py as the primary file\nClick Publish\n\nPublishing will display status updates during the deployment process. You will also find build logs streaming on the lower part of the screen.\nCongratulations! You successfully deployed to Connect Cloud and are now able to share the link with others.",
+    "crumbs": [
+      "Labs",
+      "Connect Cloud",
+      "Deploy Streamlit or Dash"
+    ]
+  },
+  {
+    "objectID": "tutorials/connect/deploy-streamlit-dash.html#redeploy",
+    "href": "tutorials/connect/deploy-streamlit-dash.html#redeploy",
+    "title": "Deploy Streamlit or Dash",
+    "section": "Redeploy",
+    "text": "Redeploy\nIf you update the code to your application or the underlying data source, commit and push the changes to your GitHub repository.\nOnce the repository has the updated code, you can republish the application on Connect Cloud by going to your Content List and clicking the republish icon.",
+    "crumbs": [
+      "Labs",
+      "Connect Cloud",
+      "Deploy Streamlit or Dash"
+    ]
   },
   {
     "objectID": "index.html#were-excited-to-be-in-pittsburgh-for-pycon-2025",
@@ -454,6 +533,13 @@
       "Quarto Documents",
       "Try Quarto"
     ]
+  },
+  {
+    "objectID": "tutorials/connect/includes/deploy.html",
+    "href": "tutorials/connect/includes/deploy.html",
+    "title": "PyCon 2025",
+    "section": "",
+    "text": "We’ll be deploying our shiny application to Connect Cloud. Here are the steps to publish your application.\n\nClick the Publish icon button on the top of your Portfolio page\nSelect Shiny\nSelect the public repository that you created in this tutorial\nConfirm the branch\nSelect app.py as the primary file\nClick Publish\n\nPublishing will display status updates during the deployment process. You will also find build logs streaming on the lower part of the screen.\nCongratulations! You successfully deployed to Connect Cloud and are now able to share the link with others."
   },
   {
     "objectID": "tutorials/positron/assets/example-quarto.html",
