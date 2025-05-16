@@ -1,5 +1,84 @@
 ---
 title: "Deploy Streamlit or Dash"
 order: 20
-draft: true
 ---
+
+[Posit Connect Cloud](https://connect.posit.cloud/)
+supports many kinds of frameworks.
+All you need is a
+[`requirements.txt`](https://docs.posit.co/connect-cloud/how-to/python/dependencies.html)
+so Connect Cloud can build the environment.
+
+We will build and deploy the same application as we did in the
+[Shiny Express Lab](/tutorials/shiny/shiny-express.qmd)
+
+```{shinylive-python}
+#| standalone: true
+#| components: [editor, viewer]
+#| layout: horizontal
+#| viewerHeight: 500
+
+{{< include /tutorials/shiny/includes/app-express.py >}}
+```
+
+## Before you begin
+
+[Posit Connect Cloud](https://connect.posit.cloud/)
+deploys applications in a GitHub repository,
+make sure you have a GitHub repository set up to put the code we will use for this
+lab.
+You can do this lab completely within the web interface.
+
+Then create the `requirements.txt` file.
+
+::: {.callout-caution}
+## `requirements.txt`
+```bash
+{{< include includes/requirements.txt >}}
+```
+:::
+
+## Streamlit
+
+Here's an example Streamlit application.
+Save it to an `app.py` file.
+You can check out the Connect Cloud documentation to
+[learn more about deploying Streamlit applicaitons to Connect Cloud](https://docs.posit.co/connect-cloud/how-to/python/streamlit.html){target="_blank"}
+
+::: {.callout-caution}
+## `app.py`
+```python
+{{< include includes/app-streamlit.py >}}
+```
+:::
+
+## Dash
+
+Here's an example Dash application.
+Save this to an `app.py` file.
+You can check out the Connect Cloud documentation to
+[learn more about deploying Dash applications to Connect Cloud](https://docs.posit.co/connect-cloud/how-to/python/dash.html){target="_blank"}
+
+::: {.callout-caution}
+## `app.py`
+```python
+{{< include includes/app-dash-plotly.py >}}
+```
+:::
+
+Here's a version that uses `plotnine`
+
+::: {.callout-caution collapse='true'}
+## `app.py`
+```python
+{{< include includes/app-dash-plotnine.py >}}
+```
+:::
+
+## Deploy
+
+{{< include includes/deploy.qmd >}}
+
+## Redeploy
+
+{{< include includes/republish.qmd >}}
