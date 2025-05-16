@@ -31,12 +31,12 @@ website:
       - about.qmd
 
   sidebar:
-    - id: labs
-      style: docked
+    - style: docked
       type: light
       background: light
       foreground: dark
       contents:
+        - text: "Try One of our Labs!"
 
         - section: "Shiny Dashboards"
           contents:
