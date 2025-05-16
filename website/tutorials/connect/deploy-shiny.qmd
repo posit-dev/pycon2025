@@ -71,26 +71,11 @@ Copy the code from our application into a file called `app.py`
 
 ## Step 3: Deploy to Connect Cloud
 
-We'll be deploying our shiny application to [Connect Cloud](http://connect.posit.cloud/).
-Here are the steps to publish your application.
-
-1. Click the Publish icon button on the top of your Portfolio page
-2. Select Shiny
-3. Select the public repository that you created in this tutorial
-4. Confirm the branch
-5. Select `app.py` as the primary file
-6. Click Publish
-
-Publishing will display status updates during the deployment process.
-You will also find build logs streaming on the lower part of the screen.
-
-Congratulations! You successfully deployed to Connect Cloud and are now able to share the link with others.
+{{< include includes/deploy.qmd >}}
 
 ## Step 4: Republish application
 
-If you update the code to your application or the underlying data source, commit and push the changes to your GitHub repository.
-
-Once the repository has the updated code, you can republish the application on Connect Cloud by going to your Content List and clicking the republish icon.
+{{< include includes/republish.qmd >}}
 
 ## Learn More
 

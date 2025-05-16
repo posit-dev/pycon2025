@@ -1,0 +1,3 @@
+If you update the code to your application or the underlying data source, commit and push the changes to your GitHub repository.
+
+Once the repository has the updated code, you can republish the application on Connect Cloud by going to your Content List and clicking the republish icon.
