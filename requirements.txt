@@ -10,7 +10,7 @@ pandas
 seaborn
 matplotlib
 chatlas
-querychat @ git+https://github.com/posit-dev/querychat#subdirectory=python-package
+querychat @ git+https://github.com/posit-dev/querychat
 great_tables
 orbitalml
 pins
